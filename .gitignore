@@ -2,7 +2,6 @@
 .cache
 .bukit
 .DS_Store
-node_modules
 persist
 mod
 package-lock.json
