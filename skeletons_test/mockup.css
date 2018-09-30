@@ -54,6 +54,9 @@ body{
   justify-content: center;
   align-items: center;
 }
+.pHolder{
+  width:100%;
+}
 .wrapper2{
   margin: 0;
   height: auto;
@@ -73,6 +76,12 @@ body{
   align-items: center;
   justify-content: center;
 }
+.cHolder{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
 .dropDown{
   width: 100%;
   display: flex;
@@ -84,12 +93,15 @@ body{
 .available{
   background-color: rgba(0,0,0,0);
   font-size: 1.4em;
-  padding: 1% 2.1% 1% 2.2%;
+  padding: 1% 2.1% 1% 50%;
+  width: inherit;
+  margin: .5%;
   border-style: solid;
   border-width: 3px;
   border-radius: 5px;
   border-color: var(--border-colour);
   color: var(--text-colour);
+  text-align: center;
 }
 .options{
   background-color: rgba(0.0.0.0);
