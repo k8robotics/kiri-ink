@@ -20,7 +20,6 @@ body{
   padding: 2%;
 }
 .border{
-  background-color: #;
   height: 97%;
   border: 10px solid;
   border-width: thick;
@@ -55,7 +54,9 @@ body{
   align-items: center;
 }
 .pHolder{
-  width:100%;
+  width:70%;
+  display: flex;
+  flex-direction: column;
 }
 .wrapper2{
   margin: 0;
@@ -70,38 +71,43 @@ body{
   align-items: center;
 }
 .buttonHolder{
-  width: 100vw;
+  width: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  align-self: center;
 }
 .cHolder{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: flex-end;
+  width: 50%;
+  align-self: center;
+  margin-top: 30px;
 }
 .dropDown{
-  width: 100%;
+  width: 45%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 2%;
   background-color:rgba(0,0,0,0);
+  align-self: center;
 }
 .available{
   background-color: rgba(0,0,0,0);
   font-size: 1.4em;
-  padding: 1% 2.1% 1% 50%;
-  width: inherit;
+  padding: 1% 2.1% 1% 1%;
+  width: 100%;
   margin: .5%;
   border-style: solid;
   border-width: 3px;
   border-radius: 5px;
   border-color: var(--border-colour);
   color: var(--text-colour);
-  text-align: center;
+  text-align: left;
 }
 .options{
   background-color: rgba(0.0.0.0);
