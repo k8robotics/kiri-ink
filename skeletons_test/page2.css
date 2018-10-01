@@ -1,0 +1,16 @@
+
+:root{
+    --primary-colour: #569fb3;
+    --highlight-colour: #f7e089;
+    --tertiary-colour: #86d7b7;
+    --border-colour: #FFFFFF;
+    --text-colour: #FFFFFF;
+}
+
+html{
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+    background: linear-gradient(to bottom left,var(--tertiary-colour) 0%, var(--highlight-colour) 100%);
+  }
