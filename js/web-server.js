@@ -490,12 +490,19 @@ function handleData(req, res, next) {
 
 function minify(path) {
     let code = fs.readFileSync(path);
+    return code.toString();
+    /*
     let mini = uglify.minify(code.toString());
     if (mini.error) {
         console.trace(mini.error);
-        throw mini.error;
+        try{
+            throw mini.error;
+        } catch(error) {
+            console.error(error);
+        }
     }
     return mini.code;
+    */
 }
 
 /**
