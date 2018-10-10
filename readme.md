@@ -1,9 +1,4 @@
-[Grid.Space](https://grid.space) hosts live versions of the latest tagged code
-
-### About
-
-* [Kiri:Moto](https://grid.space/kiri) - A Unique, Multi-Modal, Cloud-based Slicer for FDM, CNC and Laser
-* [Meta:Moto](https://grid.space/meta) - Recursive Block-based Modeling
+[Kiri.Ink](https://kiri-ink-217817.appspot.com/kiri) hosts live versions of the latest tagged code
 
 ### Getting Started
 
@@ -27,8 +22,7 @@ then access the apps from http://debug:8080/
 
 ## More Information
 
-* [Facebook Group](https://www.facebook.com/groups/660020084206828/)
+Powered by Kiri:Moto by on [Grid.Space](https://grid.space)
 * [Forums](https://forum.grid.space)
 * [Wiki](https://github.com/GridSpace/KiriMoto/wiki)
-* [Twitter](https://twitter.com/grid_space_3d)
 * [YouTube Tutorials](https://www.youtube.com/c/gridspace)
