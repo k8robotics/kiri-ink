@@ -22,7 +22,8 @@ function DrawWelcome(){
     contents.classList.add("popup-contents");
     contents.id = "contents";
     title.innerHTML = "Welcome to Kiri:Moto!";
-    description.innerHTML = "To get started, drag and drop a file into the box below or browse from your computer";
+    description.innerHTML = "You seem to be using an outdated browser we don't support. Please use Firefox, Chrome or Edge.";
+    /*
     dropbox.classList.add("drop-box");
     button.classList.add("add-file");
     button.id = "addfile";
@@ -30,7 +31,7 @@ function DrawWelcome(){
     indicator.src = "indicators.png";
     indicator.id = "indicator";
     indicator.classList.add("indicate");
-
+    */
     document.body.appendChild(cover);
     document.body.appendChild(popup);
     popup.appendChild(header);
@@ -38,9 +39,9 @@ function DrawWelcome(){
     popup.appendChild(contents);
     contents.appendChild(title);
     contents.appendChild(description);
-    contents.appendChild(dropbox);
-    dropbox.appendChild(button);
-    popup.appendChild(indicator);
+    //contents.appendChild(dropbox);
+    //dropbox.appendChild(button);
+    //popup.appendChild(indicator);
 
 }
 
@@ -168,9 +169,24 @@ function showBasic(){
     $("#advanced").css("opacity", "1");
     $("#sidebarR").css("right", "1%");
 
+} 
+
+// Function curtosy of SpiderCode on Stack overflow
+
+function msieversion() {
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
+    {
+        DrawWelcome();
+    }
 }
 
 $(document).ready(function(){
+    
+    msieversion()
     
     console.log("begin");
     $("#advanced").css("right", "-14%");
