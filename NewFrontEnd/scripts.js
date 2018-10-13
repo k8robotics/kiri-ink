@@ -55,12 +55,16 @@ function fileTransition(){
 }
 
 function showToolS(){
+    $("#rotate").css("left", "7%");
     $("#rotate").css("opacity", "0");
     $("#rotate").css("pointer-events", "none");
+    $("#view").css("left", "7%");
     $("#view").css("opacity", "0");
     $("#view").css("pointer-events", "none");
+    $("#devices").css("left", "7%");
     $("#devices").css("opacity", "0");
     $("#devices").css("pointer-events", "none");
+    
 
     if($("#scale").css("opacity") === "0"){
         $("#scale").css("opacity", "1");
@@ -77,12 +81,16 @@ function showToolS(){
 }
 
 function showToolR(){
+    $("#scale").css("left", "7%");
     $("#scale").css("opacity", "0");
     $("#scale").css("pointer-events", "none");
+    $("#view").css("left", "7%");
     $("#view").css("opacity", "0");
     $("#view").css("pointer-events", "none");
+    $("#devices").css("left", "7%");
     $("#devices").css("opacity", "0");
     $("#devices").css("pointer-events", "none");
+    
 
     if($("#rotate").css("opacity") === "0"){
         $("#rotate").css("opacity", "1");
@@ -99,12 +107,16 @@ function showToolR(){
 
 
 function showView(){
+    $("#scale").css("left", "7%");
     $("#scale").css("opacity", "0");
     $("#scale").css("pointer-events", "none");
+    $("#rotate").css("left", "7%");
     $("#rotate").css("opacity", "0");
     $("#rotate").css("pointer-events", "none");
+    $("#devices").css("left", "7%");
     $("#devices").css("opacity", "0");
     $("#devices").css("pointer-events", "none");
+    
 
     if($("#view").css("opacity") === "0"){
         $("#view").css("opacity", "1");
@@ -123,10 +135,13 @@ function showView(){
 function showDevices(){
     $("#scale").css("opacity", "0");
     $("#scale").css("pointer-events", "none");
+    $("#scale").css("left", "7%");
     $("#rotate").css("opacity", "0");
     $("#rotate").css("pointer-events", "none");
+    $("#rotate").css("left", "7%");
     $("#view").css("opacity", "0");
     $("#view").css("pointer-events", "none");
+    $("#view").css("left", "7%");
 
     if($("#devices").css("opacity") === "0"){
         $("#devices").css("opacity", "1");
