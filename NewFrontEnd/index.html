@@ -1,0 +1,416 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        
+        
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet"> 
+        <script src="scripts.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        
+        
+    </head>
+    <body>
+        <div class="topbar">
+            <img src="logo2.png" class="logotop">
+            <div class="buttonpanel">
+                
+                <button class="topbutton">Save</button>
+                <button class="topbutton callbutton green">Add File</button>
+                <button class="topbutton callbutton green">Print</button>
+            </div>
+        </div>
+
+
+        <div class="sidebarL" id="sbl">
+            <div class="tooltitle">
+                <h2>Tools</h2>
+            </div>
+            <div class="tool" id="devicesB"> 
+                <img class="toolimg" src = "printer.png" > 
+                <p class="tooltip">Devices</p>
+            </div>
+            <div class="tool"> 
+                <img class="toolimg" src = "duplicate.png"> 
+                <p class="tooltip">Duplicate</p>
+            </div>
+            <div class="tool"> 
+                <img class="toolimg" src = "arrange.png"> 
+                <p class="tooltip">Arrange</p>
+            </div>
+            <div class="tool"> 
+                <img class="toolimg" src = "delete.png"> 
+                <p class="tooltip">Delete</p>
+            </div>
+            <div class="tool" id = "scaleB"> 
+                <img class="toolimg" src = "scale.png"> 
+                <p class="tooltip">Scale</p>
+            </div>
+            <div class="tool" id = "rotateB"> 
+                <img class="toolimg"  src = "rotate.png"> 
+                <p class="tooltip">Rotate</p>
+            </div>
+            <div class="tool" id="viewB"> 
+                <img class="toolimg"  src = "camera.png"> 
+                <p class="tooltip">View</p>
+            </div>
+            <div class="end tool"> 
+            <img class="toolimg" src = "help.png"> 
+            <p class="tooltip">Help</p>
+        </div>
+
+
+        </div>
+
+        <div class="scale" id = "scale">
+            <div class="tooltitle">
+                 <h2> Scale </h2>
+                 <img class="menuExit" id="scaleB2" src="delete.png">
+            </div>
+            <div class="scaleContent">
+                <p> X: </p>
+                <input class="inputbox">
+                <p> Y: </p>
+                <input class="inputbox">
+                <p> Z: </p>
+                <input class="inputbox">
+                <input type="radio" class="radio"> <p>Maintain Ratio</p>
+            </div>
+        </div>
+
+        <div class="scale" id = "view">
+            <div class="tooltitle">
+                 <h2> View </h2>
+                 <img class="menuExit" id="viewB2" src="delete.png">
+            </div>
+            <div class="scaleContent view">
+                <button>home</button>
+                <button>reset</button>
+                <button>top</button>
+                <button>front</button>
+                <button>left</button>
+                <button>right</button>
+            </div>
+        </div>
+
+        <div class="scale dwind" id = "devices">
+            <div class="tooltitle">
+                    <h2> Devices </h2>
+                    <img class="menuExit" id="devicesB2" src="delete.png">
+            </div>
+            <div class="scaleContent device">
+                <img src="printer1.bmp"/>
+                <img src="printer2.bmp"/>
+                <img src="printer3.bmp"/>
+            </div>
+        </div>
+
+        <div class="scale" id = "rotate">
+            <div class="tooltitle">
+                <h2> Rotate </h2>
+                <img class="menuExit" id="rotateB2" src="delete.png">
+            </div>
+            <div class="scaleContent">
+                <p> X: </p>
+                <input class="inputbox">
+                <p> Y: </p>
+                <input class="inputbox">
+                <p> Z: </p>
+                <input class="inputbox">
+            </div>
+        </div>
+
+
+        <div class="sidebarR" id="sidebarR">
+            <div class="tooltitle"><h2>Settings</h2></div>
+
+            <p class="keyline startS">Supports</p>
+
+            <div class="supports_rafts">
+                <p class="sr_title">density</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">pillar size</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">gap layer</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">max bridge</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">min area</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">expand</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">enable</p>
+                <input type="checkbox" class="sr_check"/>
+            </div>
+
+            <p class="keyline">Raft</p>
+
+            <div class="supports_rafts">
+                <p class="sr_title">spacing</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">enable</p>
+                <input type="checkbox" class="sr_check"/>
+            </div>
+
+            <div class="end tool setcat" id="advancedB">
+                <p class="tooltip setting" >Advanced</p>
+                <p class="setting tooltip indicate"> ▶ </p>
+            </div>
+        </div>
+
+        <div class="advanced" id="advanced">
+            <div class="keyline startK">
+                <p class="inline big">Settings</p>
+                <img class="inline image" src="delete.png" id="backB">
+            </div>
+            <div class="supports_rafts b">
+                <button>load</button>
+                <button>save</button>
+            </div>
+            <p class="keyline">Process</p>
+            <div class="supports_rafts">
+                <p class="sr_title">layer height</p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">shell count</p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">shell spacing</p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">fill overlap </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">fill spacing </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">fill angle </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">fill ratio</p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">solid area </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">solid layers</p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">base layers </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">top layers </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">vase mode</p>
+                <input type="checkbox" class="sr_check"/>
+            </div>
+
+            <p class="keyline">Output</p>
+
+            <div class="supports_rafts">
+                <p class="sr_title">bed temp </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">nozzle temp </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">print speed </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">finish speed </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">move speed </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">shell factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">solid factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">infill factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">cooling</p>
+                <input type="checkbox" class="sr_check"/>
+            </div>
+
+            <p class="keyline">First Layer</p>
+            <div class="supports_rafts">
+                <p class="sr_title">layer height </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">shell speed </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">fill speed </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">print factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">skirt count </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">skirt offset </p>
+                <input class="sr_input"/>
+            </div>
+            <p class="keyline">Supports</p>
+            <div class="supports_rafts">
+                <p class="sr_title">density</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">pillar size</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">gap layer</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">max bridge</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">min area</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">expand</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">enable</p>
+                <input type="checkbox" class="sr_check"/>
+            </div>
+
+            <p class="keyline">Raft</p>
+
+            <div class="supports_rafts">
+                <p class="sr_title">spacing</p>
+                <input class="sr_input"/>
+            </div>
+
+            <div class="supports_rafts">
+                <p class="sr_title">enable</p>
+                <input type="checkbox" class="sr_check"/>
+            </div>
+
+            <p class="keyline">Advanced</p>
+            <div class="supports_rafts">
+                <p class="sr_title">retract density </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">retract rate </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">engage dwell </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">short outline </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">short seg </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">short factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">finish factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">min layer </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">z-hop density </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">anti-backlash </p>
+                <input class="sr_input"/>
+            </div>
+            <p class="keyline">GCode</p>
+            <div class="supports_rafts">
+                <p class="sr_title">k-factor </p>
+                <input class="sr_input"/>
+            </div>
+            <div class="supports_rafts">
+                <p class="sr_title">pause layers </p>
+                <input class="sr_input"/>
+            </div>
+
+
+
+        </div>
+
+        <p class="credit">Powered by Kiri:Moto</p>
+    </body>
+    <script>
+        //DrawWelcome();
+    </script>
+</html>

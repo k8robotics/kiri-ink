@@ -1,0 +1,66 @@
+
+settings
+load save
+
+process
+layer height
+shell count
+shell spacing
+fill overlap
+fill spacing
+fill angle
+fill ratio
+solid area
+solid layers
+base layers
+top layers
+vase mode (check)
+
+output
+bed temp
+nozzle temp
+print speed
+finish speed
+move speed
+shell factor
+solid factor
+infill factor
+cooling (check)
+
+firstlayer
+layer height
+shell speed
+fill speed
+print factor
+skirt count
+skirt offset
+
+support
+density
+pillar size
+part offset
+gap layer
+max bridge
+min area
+expand
+enable (check)
+
+Raft
+spacing
+enable (check)
+
+advanced
+retract density
+retract rate
+engage dwell
+shourt outline
+short segment
+short factor
+finish factor
+min layer
+z hop density
+anti-backlash
+
+gcode
+k-factor
+pause layers 
