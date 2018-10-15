@@ -1042,8 +1042,8 @@ handler.use(fullpath({
         "/kiri)"           : redir("/kiri/"),
         "/meta"            : remap("/meta/index.html"),
         "/meta/"           : remap("/meta/index.html"),
-        "/kiri"            : remap("/kiri/index.html"),
-        "/kiri/"           : remap("/kiri/index.html")
+        "/kiri"            : remap("/ink/index.html"),
+        "/kiri/"           : remap("/ink/index.html")
     }))
     .use(prepath([
         [ "/space", redir("/meta/")],

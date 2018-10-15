@@ -1,21 +1,32 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="copyright" content="stewart allen [stewart@neuron.com]">
+        <meta name="description" content="3d slice modeler, gcode and CNC toolpath generator">
+        <meta name="keywords" content="3d slicer,slicer,3d slicing,cnc,cam,toolpaths,toolpath generation,kiri,kirimoto,kiri:moto,gcode" />
+        <meta name="author" content="Stewart Allen">
+        <meta name="robots" content="noindex, nofollow">
+        <meta property="og:description" content="Kiri:Ink is a reskin of the multi-modal 3D slicer Kiri:Moto designed to be used by educators and students for 3D printing.">
+        <meta property="og:title" content="Kiri:Ink">
+        <meta property="og:type" content="website">
+        <title>Kiri:Ink</title>
+        <link rel="stylesheet" type="text/css" href="/ink/style.css">
+        <script src="/js/ext-three.js"></script>
+    
         <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-        
+            
         
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet"> 
         <script src="scripts.js"></script>
-        <link rel="stylesheet" type="text/css" href="styles.css">
         
         
     </head>
     <body>
         <div class="topbar">
-            <img src="logo2.png" class="logotop">
+            <img src="/ink/logo2.png" class="logotop">
             <div class="buttonpanel">
                 
                 <button class="topbutton">Save</button>
@@ -30,45 +41,46 @@
                 <h2>Tools</h2>
             </div>
             <div class="tool" id="devicesB"> 
-                <img class="toolimg" src = "printer.png" > 
+                <img class="toolimg" src = "/ink/printer.png" > 
                 <p class="tooltip">Devices</p>
             </div>
             <div class="tool"> 
-                <img class="toolimg" src = "duplicate.png"> 
+                <img class="toolimg" src = "/ink/duplicate.png"> 
                 <p class="tooltip">Duplicate</p>
             </div>
             <div class="tool"> 
-                <img class="toolimg" src = "arrange.png"> 
+                <img class="toolimg" src = "/ink/arrange.png"> 
                 <p class="tooltip">Arrange</p>
             </div>
             <div class="tool"> 
-                <img class="toolimg" src = "delete.png"> 
+                <img class="toolimg" src = "/ink/delete.png"> 
                 <p class="tooltip">Delete</p>
             </div>
             <div class="tool" id = "scaleB"> 
-                <img class="toolimg" src = "scale.png"> 
+                <img class="toolimg" src = "/ink/scale.png"> 
                 <p class="tooltip">Scale</p>
             </div>
             <div class="tool" id = "rotateB"> 
-                <img class="toolimg"  src = "rotate.png"> 
+                <img class="toolimg"  src = "/ink/rotate.png"> 
                 <p class="tooltip">Rotate</p>
             </div>
             <div class="tool" id="viewB"> 
-                <img class="toolimg"  src = "camera.png"> 
+                <img class="toolimg"  src = "/ink/camera.png"> 
                 <p class="tooltip">View</p>
             </div>
             <div class="end tool"> 
-            <img class="toolimg" src = "help.png"> 
+            <img class="toolimg" src = "/ink/help.png"> 
             <p class="tooltip">Help</p>
         </div>
 
+        <div id="container"></div>
 
         </div>
 
         <div class="scale" id = "scale">
             <div class="tooltitle">
                  <h2> Scale </h2>
-                 <img class="menuExit" id="scaleB2" src="delete.png">
+                 <img class="menuExit" id="scaleB2" src="/ink/delete.png">
             </div>
             <div class="scaleContent">
                 <p> X: </p>
@@ -84,7 +96,7 @@
         <div class="scale" id = "view">
             <div class="tooltitle">
                  <h2> View </h2>
-                 <img class="menuExit" id="viewB2" src="delete.png">
+                 <img class="menuExit" id="viewB2" src="/ink/delete.png">
             </div>
             <div class="scaleContent view">
                 <button>home</button>
@@ -99,19 +111,19 @@
         <div class="scale dwind" id = "devices">
             <div class="tooltitle">
                     <h2> Devices </h2>
-                    <img class="menuExit" id="devicesB2" src="delete.png">
+                    <img class="menuExit" id="devicesB2" src="/ink/delete.png">
             </div>
             <div class="scaleContent device">
-                <img src="printer1.bmp"/>
-                <img src="printer2.bmp"/>
-                <img src="printer3.bmp"/>
+                <img src="/ink/printer1.bmp"/>
+                <img src="/ink/printer2.bmp"/>
+                <img src="/ink/printer3.bmp"/>
             </div>
         </div>
 
         <div class="scale" id = "rotate">
             <div class="tooltitle">
                 <h2> Rotate </h2>
-                <img class="menuExit" id="rotateB2" src="delete.png">
+                <img class="menuExit" id="rotateB2" src="/ink/delete.png">
             </div>
             <div class="scaleContent">
                 <p> X: </p>
@@ -185,7 +197,7 @@
         <div class="advanced" id="advanced">
             <div class="keyline startK">
                 <p class="inline big">Settings</p>
-                <img class="inline image" src="delete.png" id="backB">
+                <img class="inline image" src="/ink/delete.png" id="backB">
             </div>
             <div class="supports_rafts b">
                 <button>load</button>
