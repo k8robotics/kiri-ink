@@ -17,14 +17,19 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+        <script src="/ink/scripts.js"></script>
             
         
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet"> 
-        <script src="scripts.js"></script>
         
         
     </head>
-    <body>
+    <body background="/ink/background.jpg">
+        <script>
+            /* because TWEEN complains */
+            module = {};
+        </script>
+
         <div class="topbar">
             <img src="/ink/logo2.png" class="logotop">
             <div class="buttonpanel">
@@ -71,10 +76,7 @@
             <div class="end tool"> 
             <img class="toolimg" src = "/ink/help.png"> 
             <p class="tooltip">Help</p>
-        </div>
-
-        <div id="container"></div>
-
+            </div>
         </div>
 
         <div class="scale" id = "scale">
@@ -135,6 +137,7 @@
             </div>
         </div>
 
+        <div id="container"></div>
 
         <div class="sidebarR" id="sidebarR">
             <div class="tooltitle"><h2>Settings</h2></div>
