@@ -530,7 +530,7 @@ var gs_moto_space = exports;
             SCENE.add(WORLD);
 
             domelement.style.width = width();
-            domelement.style.height = height();
+            domelement.style.height = height() * 0.95;
 
             renderer = new THREE.WebGLRenderer({
                 antialias: true,
