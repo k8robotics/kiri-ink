@@ -216,7 +216,7 @@ button{
 
 /* Side Bar L */
 
-.sideBarL{
+.control-left{
     background-color:white;
     z-index:0;
     position:absolute;
@@ -386,7 +386,7 @@ button{
 
 /* Side Bar R */
 
-.sidebarR{
+.control-right{
     background-color:white;
     z-index:0;
     position:absolute;
