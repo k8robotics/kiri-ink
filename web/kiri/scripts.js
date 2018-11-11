@@ -1,3 +1,5 @@
+jQuery.noConflict()
+
 mouseX = 0;
 mouseY = 0;
 
@@ -47,127 +49,127 @@ function DrawWelcome(){
 
 function fileTransition(){
     console.log("clicked");
-    $("#contents").children().animate({
+    jQuery("#contents").children().animate({
         opacity:0,
         "margin-left": "-50",
         }, 100, function(){}
     );
-    $("#indicator").attr('src','indicators2.png');
+    jQuery("#indicator").attr('src','indicators2.png');
 }
 
 function showToolS(){
-    $("#rotate").css("left", "7%");
-    $("#rotate").css("opacity", "0");
-    $("#rotate").css("pointer-events", "none");
-    $("#view").css("left", "7%");
-    $("#view").css("opacity", "0");
-    $("#view").css("pointer-events", "none");
-    $("#devices").css("left", "7%");
-    $("#devices").css("opacity", "0");
-    $("#devices").css("pointer-events", "none");
+    jQuery("#rotate").css("left", "7%");
+    jQuery("#rotate").css("opacity", "0");
+    jQuery("#rotate").css("pointer-events", "none");
+    jQuery("#view").css("left", "7%");
+    jQuery("#view").css("opacity", "0");
+    jQuery("#view").css("pointer-events", "none");
+    jQuery("#devices").css("left", "7%");
+    jQuery("#devices").css("opacity", "0");
+    jQuery("#devices").css("pointer-events", "none");
     
 
-    if($("#scale").css("opacity") === "0"){
-        $("#scale").css("opacity", "1");
-        $("#scale").css("pointer-events", "initial");
-        $("#scale").css("left", "8%");
-        $("#scale").css("top", (mouseY - ($("#scale").height() / 2)) + "px");
+    if(jQuery("#scale").css("opacity") === "0"){
+        jQuery("#scale").css("opacity", "1");
+        jQuery("#scale").css("pointer-events", "initial");
+        jQuery("#scale").css("left", "8%");
+        jQuery("#scale").css("top", (mouseY - (jQuery("#scale").height() / 2)) + "px");
     } 
     else{
-        $("#scale").css("opacity", "0");
-        $("#scale").css("pointer-events", "none");
-        $("#scale").css("left", "7%");
+        jQuery("#scale").css("opacity", "0");
+        jQuery("#scale").css("pointer-events", "none");
+        jQuery("#scale").css("left", "7%");
         
     }  
 }
 
 function showToolR(){
-    $("#scale").css("left", "7%");
-    $("#scale").css("opacity", "0");
-    $("#scale").css("pointer-events", "none");
-    $("#view").css("left", "7%");
-    $("#view").css("opacity", "0");
-    $("#view").css("pointer-events", "none");
-    $("#devices").css("left", "7%");
-    $("#devices").css("opacity", "0");
-    $("#devices").css("pointer-events", "none");
+    jQuery("#scale").css("left", "7%");
+    jQuery("#scale").css("opacity", "0");
+    jQuery("#scale").css("pointer-events", "none");
+    jQuery("#view").css("left", "7%");
+    jQuery("#view").css("opacity", "0");
+    jQuery("#view").css("pointer-events", "none");
+    jQuery("#devices").css("left", "7%");
+    jQuery("#devices").css("opacity", "0");
+    jQuery("#devices").css("pointer-events", "none");
     
 
-    if($("#rotate").css("opacity") === "0"){
-        $("#rotate").css("opacity", "1");
-        $("#rotate").css("pointer-events", "initial");
-        $("#rotate").css("left", "8%");
-        $("#rotate").css("top", (mouseY - ($("#rotate").height() / 2)) + "px");
+    if(jQuery("#rotate").css("opacity") === "0"){
+        jQuery("#rotate").css("opacity", "1");
+        jQuery("#rotate").css("pointer-events", "initial");
+        jQuery("#rotate").css("left", "8%");
+        jQuery("#rotate").css("top", (mouseY - (jQuery("#rotate").height() / 2)) + "px");
     } 
     else{
-        $("#rotate").css("opacity", "0");
-        $("#rotate").css("pointer-events", "none");
-        $("#rotate").css("left", "7%");
+        jQuery("#rotate").css("opacity", "0");
+        jQuery("#rotate").css("pointer-events", "none");
+        jQuery("#rotate").css("left", "7%");
     }   
 }
 
 
 function showView(){
-    $("#scale").css("left", "7%");
-    $("#scale").css("opacity", "0");
-    $("#scale").css("pointer-events", "none");
-    $("#rotate").css("left", "7%");
-    $("#rotate").css("opacity", "0");
-    $("#rotate").css("pointer-events", "none");
-    $("#devices").css("left", "7%");
-    $("#devices").css("opacity", "0");
-    $("#devices").css("pointer-events", "none");
+    jQuery("#scale").css("left", "7%");
+    jQuery("#scale").css("opacity", "0");
+    jQuery("#scale").css("pointer-events", "none");
+    jQuery("#rotate").css("left", "7%");
+    jQuery("#rotate").css("opacity", "0");
+    jQuery("#rotate").css("pointer-events", "none");
+    jQuery("#devices").css("left", "7%");
+    jQuery("#devices").css("opacity", "0");
+    jQuery("#devices").css("pointer-events", "none");
     
 
-    if($("#view").css("opacity") === "0"){
-        $("#view").css("opacity", "1");
-        $("#view").css("pointer-events", "initial");
-        $("#view").css("left", "8%");
-        $("#view").css("top", (mouseY - ($("#view").height() / 2)) + "px");
+    if(jQuery("#view").css("opacity") === "0"){
+        jQuery("#view").css("opacity", "1");
+        jQuery("#view").css("pointer-events", "initial");
+        jQuery("#view").css("left", "8%");
+        jQuery("#view").css("top", (mouseY - (jQuery("#view").height() / 2)) + "px");
     } 
     else{
-        $("#view").css("opacity", "0");
-        $("#view").css("pointer-events", "none");
-        $("#view").css("left", "7%");
+        jQuery("#view").css("opacity", "0");
+        jQuery("#view").css("pointer-events", "none");
+        jQuery("#view").css("left", "7%");
         
     }   
 }
 
 function showDevices(){
-    $("#scale").css("opacity", "0");
-    $("#scale").css("pointer-events", "none");
-    $("#scale").css("left", "7%");
-    $("#rotate").css("opacity", "0");
-    $("#rotate").css("pointer-events", "none");
-    $("#rotate").css("left", "7%");
-    $("#view").css("opacity", "0");
-    $("#view").css("pointer-events", "none");
-    $("#view").css("left", "7%");
+    jQuery("#scale").css("opacity", "0");
+    jQuery("#scale").css("pointer-events", "none");
+    jQuery("#scale").css("left", "7%");
+    jQuery("#rotate").css("opacity", "0");
+    jQuery("#rotate").css("pointer-events", "none");
+    jQuery("#rotate").css("left", "7%");
+    jQuery("#view").css("opacity", "0");
+    jQuery("#view").css("pointer-events", "none");
+    jQuery("#view").css("left", "7%");
 
-    if($("#devices").css("opacity") === "0"){
-        $("#devices").css("opacity", "1");
-        $("#devices").css("pointer-events", "initial");
-        $("#devices").css("left", "8%");
-        $("#devices").css("top", (mouseY - ($("#devices").height() / 2)) + "px");
+    if(jQuery("#devices").css("opacity") === "0"){
+        jQuery("#devices").css("opacity", "1");
+        jQuery("#devices").css("pointer-events", "initial");
+        jQuery("#devices").css("left", "8%");
+        jQuery("#devices").css("top", (mouseY - (jQuery("#devices").height() / 2)) + "px");
     } 
     else{
-        $("#devices").css("opacity", "0");
-        $("#devices").css("pointer-events", "none");
-        $("#devices").css("left", "7%");
+        jQuery("#devices").css("opacity", "0");
+        jQuery("#devices").css("pointer-events", "none");
+        jQuery("#devices").css("left", "7%");
     }   
 }
 
 function showAdvanced(){
-    $("#advanced").css("right", "0px");
-    $("#advanced").css("opacity", "1");
-    $("#sidebarR").css("right", "-14%");
+    jQuery("#advanced").css("right", "0px");
+    jQuery("#advanced").css("opacity", "1");
+    jQuery("#sidebarR").css("right", "-14%");
 
 }
 
 function showBasic(){
-    $("#advanced").css("right", "-14%");
-    $("#advanced").css("opacity", "1");
-    $("#sidebarR").css("right", "1%");
+    jQuery("#advanced").css("right", "-14%");
+    jQuery("#advanced").css("opacity", "1");
+    jQuery("#sidebarR").css("right", "1%");
 
 } 
 
@@ -184,36 +186,36 @@ function msieversion() {
     }
 }
 
-$(document).ready(function(){
+jQuery(document).ready(function(){
     
     msieversion()
     
     console.log("begin");
-    $("#advanced").css("right", "-14%");
-    $("#advanced").css("opacity", "0");
+    jQuery("#advanced").css("right", "-14%");
+    jQuery("#advanced").css("opacity", "0");
 
-    $("#addfile").click(fileTransition);
-    $("#scaleB").click(showToolS);
-    $("#rotateB").click(showToolR);
-    $("#scaleB2").click(showToolS);
-    $("#rotateB2").click(showToolR);
-    $("#advancedB").click(showAdvanced);
-    $("#basicS").click(showBasic);
-    $("#viewB").click(showView);
-    $("#viewB2").click(showView);
-    $("#devicesB").click(showDevices);
-    $("#devicesB2").click(showDevices);
-    $("#backB").click(showBasic);
+    jQuery("#addfile").click(fileTransition);
+    jQuery("#scaleB").click(showToolS);
+    jQuery("#rotateB").click(showToolR);
+    jQuery("#scaleB2").click(showToolS);
+    jQuery("#rotateB2").click(showToolR);
+    jQuery("#advancedB").click(showAdvanced);
+    jQuery("#basicS").click(showBasic);
+    jQuery("#viewB").click(showView);
+    jQuery("#viewB2").click(showView);
+    jQuery("#devicesB").click(showDevices);
+    jQuery("#devicesB2").click(showDevices);
+    jQuery("#backB").click(showBasic);
 
-    $(window).resize(function(){
-        $("#sbl").css("top", (($(document).height() - $("#sbl").height()) / 2).toString());
-        $("#sidebarR").css("top", (($(document).height() - $("#sidebarR").height()) / 2).toString());
+    jQuery(window).resize(function(){
+        jQuery("#sbl").css("top", ((jQuery(document).height() - jQuery("#sbl").height()) / 2).toString());
+        jQuery("#sidebarR").css("top", ((jQuery(document).height() - jQuery("#sidebarR").height()) / 2).toString());
     });
 
-    $("#sbl").css("top", (($(document).height() - $("#sbl").height()) / 2).toString());
-    $("#sidebarR").css("top", (($(document).height() - $("#sidebarR").height()) / 2).toString());
+    jQuery("#sbl").css("top", ((jQuery(document).height() - jQuery("#sbl").height()) / 2).toString());
+    jQuery("#sidebarR").css("top", ((jQuery(document).height() - jQuery("#sidebarR").height()) / 2).toString());
 
-    $( document ).on( "mousemove", function( event ) {
+    jQuery( document ).on( "mousemove", function( event ) {
         mouseX = event.pageX 
         mouseY = event.pageY
     });
