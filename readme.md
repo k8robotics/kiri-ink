@@ -12,13 +12,11 @@ UNIX
 ```
 ln -s js/ext-tween.js ../node_modules/tween.js/index.js
 ln -s js/ext-three.js ../node_modules/three/build/three.min.js
-ln -s js/ext-n3d.js ../node_modules/n3d-threejs/index.js
 ```
 Windows (in CMD not Powershell)
 ```
-mklink js\ext-three.js ..\node_modules\three\build\three.min.js
 mklink js\ext-tween.js ..\node_modules\tween.js\index.js
-mklink js\ext-n3d.js ..\node_modules\n3d-threejs\index.js
+mklink js\ext-three.js ..\node_modules\three\build\three.min.js
 ```
 
 3. Start local server

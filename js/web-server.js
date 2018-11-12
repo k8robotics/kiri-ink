@@ -123,19 +123,9 @@ function getCachedFile(filePath, cachePath, fn) {
  */
 function prepareScripts() {
     code.kiri = concatCode(script.kiri);
-    code.meta = concatCode(script.meta);
-    code.work = concatCode(script.work);
     code.worker = concatCode(script.worker);
     inject.kiri_local = htmlScript(codePrefix, script.kiri);
-    inject.meta_local = htmlScript(codePrefix, script.meta);
     inject.kiri = htmlScript("code/", ["kiri"]);
-    inject.meta = htmlScript("code/", ["meta"]);
-    fs.readdir("./web/kiri/filter/FDM", function(err, files) {
-        filters_fdm = files || filters_fdm;
-    });
-    fs.readdir("./web/kiri/filter/CAM", function(err, files) {
-        filters_cam = files || filters_cam;
-    });
 }
 
 /**
@@ -765,46 +755,6 @@ var ver = require('../js/license.js'),
             "kiri",
             "kiri-serial"
         ],
-        meta : [
-            "license",
-            "ext-tween",
-            "ext-fsave",
-            "add-array",
-            "add-three",
-            "moto-kv",
-            "moto-ajax",
-            "moto-ctrl",
-            "moto-space",
-            "moto-load-stl",
-            "moto-db",
-            "moto-ui",
-            "kiri-db",
-            "meta"
-        ],
-        work : [
-            "license",
-            "ext-n3d",
-            "ext-clip",
-            "add-array",
-            "add-three",
-            "geo",
-            "geo-debug",
-            "geo-point",
-            "geo-slope",
-            "geo-line",
-            "geo-bounds",
-            "geo-polygon",
-            "geo-polygons",
-            "kiri-slice",
-            "kiri-slicer",
-            "kiri-driver-fdm",
-            "kiri-driver-cam",
-            "kiri-driver-laser",
-            "kiri-pack",
-            "kiri-widget",
-            "kiri-print",
-            "kiri-codec"
-        ],
         worker : [
             "license",
             "kiri-work"
@@ -812,7 +762,7 @@ var ver = require('../js/license.js'),
     },
     code = {},
     inject = {},
-    injectKeys = ["kiri", "meta"];
+    injectKeys = ["kiri"];
 
 /* *********************************************
  * Promises-based leveldb interface
