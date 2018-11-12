@@ -2,14 +2,33 @@
 
 ### Getting Started
 
+1. Load extensions
 ```
 npm update
+```
+
+2. Create symlinks to client side extensions
+UNIX
+```
+ln -s js/ext-tween.js ../node_modules/tween.js/index.js
+ln -s js/ext-three.js ../node_modules/three/build/three.min.js
+ln -s js/ext-n3d.js ../node_modules/n3d-threejs/index.js
+```
+Windows (in CMD not Powershell)
+```
+mklink js\ext-three.js ..\node_modules\three\build\three.min.js
+mklink js\ext-tween.js ..\node_modules\tween.js\index.js
+mklink js\ext-n3d.js ..\node_modules\n3d-threejs\index.js
+```
+
+3. Start local server
+```
 npm start
 ```
 
-to start a local instance of the apps. then open
-[Kiri:Moto](http://localhost:8080/kiri) or
-[Meta:Moto](http://localhost:8080/meta) on http://localhost:8080/
+to start a local instance of the apps.
+4. Open 
+[Kiri:Ink](http://localhost:8080/kiri)
 
 ### Other Start Options
 
@@ -22,7 +41,7 @@ then access the apps from http://debug:8080/
 
 ## More Information
 
-Powered by Kiri:Moto by on [Grid.Space](https://grid.space)
+Powered by Kiri:Moto on [Grid.Space](https://grid.space)
 * [Forums](https://forum.grid.space)
 * [Wiki](https://github.com/GridSpace/KiriMoto/wiki)
 * [YouTube Tutorials](https://www.youtube.com/c/gridspace)
