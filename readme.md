@@ -9,12 +9,14 @@ npm update
 
 2. Create symlinks to client side extensions
 UNIX
+Call these commands from the /js/ directory
 ```
-ln -s js/ext-tween.js ../node_modules/tween.js/index.js
-ln -s js/ext-three.js ../node_modules/three/build/three.min.js
-ln -s js/ext-n3d.js ../node_modules/n3d-threejs/index.js
+ln -s ../node_modules/tween.js/index.js ext-tween.js
+ln -s ../node_modules/three/build/three.min.js js/ext-three.js
+ln -s ../node_modules/n3d-threejs/index.js js/ext-n3d.js
 ```
 Windows (in CMD not Powershell)
+Call these commands from the parent directory
 ```
 mklink js\ext-three.js ..\node_modules\three\build\three.min.js
 mklink js\ext-tween.js ..\node_modules\tween.js\index.js
