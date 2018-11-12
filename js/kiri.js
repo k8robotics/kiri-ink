@@ -2216,7 +2216,7 @@ self.kiri.license = exports.LICENSE;
         WIN.addEventListener("resize", onWindowResize);
 
         SPACE.showSkyGrid(false);
-        SPACE.setSkyColor(0xffffff);
+        SPACE.setSkyColor(0xf8f8f8);
         SPACE.init(container, function (delta) {
             if (showLayerMax === 0) return;
             if (settings.controller.reverseZoom) delta = -delta;
