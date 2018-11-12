@@ -987,16 +987,12 @@ modPaths.forEach(fn => {
 
 // add the rest of the handler chain
 handler.use(fullpath({
-        "/meta/index.html" : redir("/meta/"),
         "/kiri/index.html" : redir("/kiri/"),
         "/kiri)"           : redir("/kiri/"),
-        "/meta"            : remap("/meta/index.html"),
-        "/meta/"           : remap("/meta/index.html"),
         "/kiri"            : remap("/kiri/index.html"),
         "/kiri/"           : remap("/kiri/index.html")
     }))
     .use(prepath([
-        [ "/space", redir("/meta/")],
         [ "/api/",  api.rateLimit ],
         [ "/data/", handleData ],
         [ "/code/", handleCode ],
