@@ -13,58 +13,6 @@
 * cloned objects should share same slice data unless rotated
 * remember object's original position/orientation for reset/multi-object import alignment
 
-# FDM todo
-
-* use fill spacing for top raft fill spacing
-* add lay-flat auto-rotation or from selected face
-* refactor thin fill to use outline and inside poly normal dist to self
-* check for support / brim intersections on first layer
-* determine start point from gcode preamble
-* fix wrong first point in general (all modes)
-* trim support offset from layer below
-* feather sharp tips by reducing extrusion in area of overlap
-* dual extruder support
-* add manual supports
-* fan / layer control * update forum
-* option to support interior bridges when 0% infill
-* fix multiple part layout export offset (resend position @ print time)
-
-# CAM todo
-
-* add imperial / metric units switch in (future) global config options
-* add option to spiral in vs out (optimal tool life) vs mixed (optimal path)
-* pocket order should consider distance as well as size
-* ease-in and ease-out especially on tab cut-out start/stop
-* import options: unify bodies.
-* milling order option: by operation or by part
-* store tab and camshell polys in widget.topo to minimize z on edge moves
-* trimming linear finishing to tabs
-* improve 'clockwise' setting to take into account spindle direction, etc
-* linear finishing cutting out tabs
-* linear finishing going back to z top too often
-* fix ease down and re-enable
-* warn when part > stock or cuts go outside bed
-* option to skip milling holes that would be drilled
-* sender speed control slider (0%-200%) ?
-* add M03 tool feedrate support (https://forum.grid.space/index.php?p=/discussion/14/s-parameter#latest)
-* fails in pancaking (clone) when there are no sliced layers (like z bottom too high)
-* crossing open space check point is outside camshell before returning max z
-* compensate for leave-stock in outside roughing (w/ tabs)
-* fix zooming, workspace thickness for larger workspaces
-* only show toolchange alert/pause after the first M6
-* raise z by leave-stock in roughing? if so, see next
-* if (raise z) above, add clear-flats to finishing
-* revisit tabs - just cut polys instead
-* try chunking topo until smaller blocks for processing (fit in cacheline)
-* linear x/y scan overflow (y) w/ topo model
-* linear x/y not obeying inset from pocket only
-* check normals for downward facing facets. mark top for slice skirt/pancake
-
-# Laser todo
-
-* overcuts, radii for drag knives
-* sla :: svg modified from http://garyhodgson.github.io/slic3rsvgviewer/?file=examples/belt_pulley3.svg
-
 # References
 
 * other
