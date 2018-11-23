@@ -513,10 +513,6 @@ self.kiri.license = exports.LICENSE;
 
     if (SETUP.rm) renderMode = parseInt(SETUP.rm[0]);
 
-    KIRI.inkapi = {
-
-    }
-
     KIRI.api = {
         ui : UI,
         on : addOnEvent,
@@ -2129,184 +2125,187 @@ self.kiri.license = exports.LICENSE;
             layerView: $('layer-view'),
             layerSlider: $('layer-slider'),
 
-            control: control,
-            modal: $('modal'),
-            print: $('print'),
-            help: $('help'),
+            // INKSMITH ELEMENTS
+            singlePlus: $('single-plus'),
 
-            devices: $('devices'),
-            deviceAdd: $('device-add'),
-            deviceDelete: $('device-del'),
-            deviceSave: $('device-save'),
-            deviceClose: $('device-close'),
-            deviceSelect: $('device-select'),
+            // control: control
+            // modal: $('modal'),
+            // print: $('print'),
+            // help: $('help'),
 
-            catalog: $('catalog'),
-            catalogBody: $('catalogBody'),
-            catalogList: $('catalogList'),
+            // devices: $('devices'),
+            // deviceAdd: $('device-add'),
+            // deviceDelete: $('device-del'),
+            // deviceSave: $('device-save'),
+            // deviceClose: $('device-close'),
+            // deviceSelect: $('device-select'),
 
-            settings: $('settings'),
-            settingsBody: $('settingsBody'),
-            settingsList: $('settingsList'),
+            // catalog: $('catalog'),
+            // catalogBody: $('catalogBody'),
+            // catalogList: $('catalogList'),
 
-            layerID: $('layer-id'),
-            layerSpan: $('layer-span'),
-            layerRange: $('layer-range'),
+            // settings: $('settings'),
+            // settingsBody: $('settingsBody'),
+            // settingsList: $('settingsList'),
 
-            loading: $('loading').style,
-            progress: $('progress').style,
-            prostatus: $('prostatus'),
+            // layerID: $('layer-id'),
+            // layerSpan: $('layer-span'),
+            // layerRange: $('layer-range'),
 
-            selection: $('selection'),
-            selWidth: $('sel_width'),
-            selHeight: $('sel_height'),
-            selDepth: $('sel_depth'),
-            scaleX: $('scale_x'),
-            scaleY: $('scale_y'),
-            scaleZ: $('scale_z'),
-            scaleUniform: $('scale_uni'),
+            // loading: $('loading').style,
+            // progress: $('progress').style,
+            // prostatus: $('prostatus'),
 
-            system: UC.newGroup('setup'),
-            sysTable: UC.newTableRow([
-                [
-                    UI.setupDevices =
-                    UC.newButton("Devices", showDevices, {modes:FDM})
-                ],[
-                    UI.helpButton =
-                    UC.newButton("Help",    showHelp)
-                ]
-            ]),
-            wsFunc: UC.newGroup('function'),
-            wsFuncTable: UC.newTableRow([
-                [
-                    UC.newButton("Import",  function() { KIRI.api.import() }),
-                    UI.import =
-                    UC.newButton("+")
-                ],[
-                    UI.modeArrange =
-                    UC.newButton("Arrange", layoutPlatform),
-                ],[
-                    UI.modeSlice =
-                    UC.newButton("Slice",   prepareSlices)
-                ],[
-                    UI.modePreview =
-                    UC.newButton("Preview", preparePrint),
-                ],[
-                    UI.modeExport =
-                    UC.newButton("Export",  exportPrint)
-                ]
-            ]),
-            workspace: UC.newGroup('platform'),
-            wsTable: UC.newTableRow([
-                [
-                    UI.saveButton =
-                    UC.newButton("Save",    saveWorkspace),
-                ],[
-                    UC.newButton("Clear",   clearWorkspace)
-                ]
-            ]),
-            camera: UC.newGroup('view'),
-            camTable: UC.newTableRow([
-                [
-                    UC.newButton("home",  SPACE.view.home),
-                    UC.newButton("reset", SPACE.view.reset)
-                ],[
-                    UC.newButton("top",   SPACE.view.top),
-                    UC.newButton("front", SPACE.view.front),
-                ],[
-                    UC.newButton("left",  SPACE.view.left),
-                    UC.newButton("right", SPACE.view.right)
-                ]
-            ]),
-            viewOpt: UC.newTableRow([[
-                UI.reverseZoom = UC.newBoolean(null, invertMouse, {title:"invert mouse\nscroll zoom"}),
-                UI.viewModelOpacity = UC.newRange(null, {title:"change model opacity"})
-            ]]),
+            // selection: $('selection'),
+            // selWidth: $('sel_width'),
+            // selHeight: $('sel_height'),
+            // selDepth: $('sel_depth'),
+            // scaleX: $('scale_x'),
+            // scaleY: $('scale_y'),
+            // scaleZ: $('scale_z'),
+            // scaleUniform: $('scale_uni'),
 
-            layers: UC.setGroup($("layers")),
-            layerOutline: UC.newBoolean("outline", onBooleanClick, {modes:FDM}),
-            layerTrace: UC.newBoolean("trace", onBooleanClick, {modes:FDM}),
-            layerDelta: UC.newBoolean("delta", onBooleanClick, {modes:FDM}),
-            layerSolid: UC.newBoolean("solids", onBooleanClick, {modes:FDM}),
-            layerFill: UC.newBoolean("solid fill", onBooleanClick, {modes:FDM}),
-            layerSparse: UC.newBoolean("sparse fill", onBooleanClick, {modes:FDM}),
-            layerSupport: UC.newBoolean("support", onBooleanClick, {modes:FDM}),
-            layerPrint: UC.newBoolean("print", onBooleanClick),
+            // system: UC.newGroup('setup'),
+            // sysTable: UC.newTableRow([
+            //     [
+            //         UI.setupDevices =
+            //         UC.newButton("Devices", showDevices, {modes:FDM})
+            //     ],[
+            //         UI.helpButton =
+            //         UC.newButton("Help",    showHelp)
+            //     ]
+            // ]),
+            // wsFunc: UC.newGroup('function'),
+            // wsFuncTable: UC.newTableRow([
+            //     [
+            //         UC.newButton("Import",  function() { KIRI.api.import() }),
+            //         UI.import =
+            //         UC.newButton("+")
+            //     ],[
+            //         UI.modeArrange =
+            //         UC.newButton("Arrange", layoutPlatform),
+            //     ],[
+            //         UI.modeSlice =
+            //         UC.newButton("Slice",   prepareSlices)
+            //     ],[
+            //         UI.modePreview =
+            //         UC.newButton("Preview", preparePrint),
+            //     ],[
+            //         UI.modeExport =
+            //         UC.newButton("Export",  exportPrint)
+            //     ]
+            // ]),
+            // workspace: UC.newGroup('platform'),
+            // wsTable: UC.newTableRow([
+            //     [
+            //         UI.saveButton =
+            //         UC.newButton("Save",    saveWorkspace),
+            //     ],[
+            //         UC.newButton("Clear",   clearWorkspace)
+            //     ]
+            // ]),
+            // camera: UC.newGroup('view'),
+            // camTable: UC.newTableRow([
+            //     [
+            //         UC.newButton("home",  SPACE.view.home),
+            //         UC.newButton("reset", SPACE.view.reset)
+            //     ],[
+            //         UC.newButton("top",   SPACE.view.top),
+            //         UC.newButton("front", SPACE.view.front),
+            //     ],[
+            //         UC.newButton("left",  SPACE.view.left),
+            //         UC.newButton("right", SPACE.view.right)
+            //     ]
+            // ]),
+            // viewOpt: UC.newTableRow([[
+            //     UI.reverseZoom = UC.newBoolean(null, invertMouse, {title:"invert mouse\nscroll zoom"}),
+            //     UI.viewModelOpacity = UC.newRange(null, {title:"change model opacity"})
+            // ]]),
 
-            settingsGroup: UC.newGroup("settings", control),
-            settingsTable: UC.newTableRow([
-                [
-                    UI.settingsLoad =
-                    UC.newButton("load", settingsLoad),
-                    UI.settingsSave =
-                    UC.newButton("save", settingsSave)
-                ]
-            ]),
+            // layers: UC.setGroup($("layers")),
+            // layerOutline: UC.newBoolean("outline", onBooleanClick, {modes:FDM}),
+            // layerTrace: UC.newBoolean("trace", onBooleanClick, {modes:FDM}),
+            // layerDelta: UC.newBoolean("delta", onBooleanClick, {modes:FDM}),
+            // layerSolid: UC.newBoolean("solids", onBooleanClick, {modes:FDM}),
+            // layerFill: UC.newBoolean("solid fill", onBooleanClick, {modes:FDM}),
+            // layerSparse: UC.newBoolean("sparse fill", onBooleanClick, {modes:FDM}),
+            // layerSupport: UC.newBoolean("support", onBooleanClick, {modes:FDM}),
+            // layerPrint: UC.newBoolean("print", onBooleanClick),
 
-            process: UC.newGroup("process", control, {modes:FDM}),
+            // settingsGroup: UC.newGroup("settings", control),
+            // settingsTable: UC.newTableRow([
+            //     [
+            //         UI.settingsLoad =
+            //         UC.newButton("load", settingsLoad),
+            //         UI.settingsSave =
+            //         UC.newButton("save", settingsSave)
+            //     ]
+            // ]),
 
-            // 3d print
-            sliceHeight: UC.newInput("layer height", {title:"millimeters", convert:UC.toFloat, modes:FDM}),
-            sliceShells: UC.newInput("shell count", {convert:UC.toInt, modes:FDM}),
-            sliceShellSpacing: UC.newInput("shell spacing", {title:"as a percentage of nozzle width\n< 1.0 causes shell overlap\nrecommended 0.85 - 1.0", convert:UC.toFloat, bound:UC.bound(0.5,1.0), modes:FDM}),
-            sliceFillOverlap: UC.newInput("fill overlap", {title:"overlap with shell\nas % of nozzle width\nhigher bonds better\n0.0 - 1.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
-            sliceFillSpacing: UC.newInput("fill spacing", {title:"for solid fill areas\nas a percentage of nozzle width\n< 1.0 causes fill overlap\nrecommended 0.85 - 1.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
-            sliceFillAngle: UC.newInput("fill angle", {title:"base angle in degrees", convert:UC.toFloat, modes:FDM}),
-            sliceFillSparse: UC.newInput("fill ratio", {title:"for infill areas\n0.0 - 1.0", convert:UC.toFloat, bound:UC.bound(0.0,1.0), modes:FDM}),
-            sliceSolidMinArea: UC.newInput("solid area", {title:"minimum area (cm^2)\nrequired to keep solid\nmust be > 0.1", convert:UC.toFloat, modes:FDM}),
-            sliceSolidLayers: UC.newInput("solid layers", {title:"flat area fill projections\nbased on layer deltas", convert:UC.toInt, modes:FDM}),
-            sliceBottomLayers: UC.newInput("base layers", {title:"bottom solid layer count", convert:UC.toInt, modes:FDM}),
-            sliceTopLayers: UC.newInput("top layers", {title:"top solid layer count", convert:UC.toInt, modes:FDM}),
-            sliceVase: UC.newBoolean("vase mode", onBooleanClick, {modes:FDM}),
+            // process: UC.newGroup("process", control, {modes:FDM}),
 
-            outputBedTemp: UC.newInput("bed temp", {title:"degrees celsius", convert:UC.toInt, modes:FDM}),
-            outputTemp: UC.newInput("nozzle temp", {title:"degrees celsius", convert:UC.toInt, modes:FDM}),
-            outputFeedrate: UC.newInput("print speed", {title:"print move max speed\nmillimeters / minute", convert:UC.toInt, modes:FDM}),
-            outputFinishrate: UC.newInput("finish speed", {title:"outermost shell speed\nmillimeters / minute", convert:UC.toInt, modes:FDM}),
-            outputSeekrate: UC.newInput("move speed", {title:"non-print move speed\nmillimeters / minute\n0 = enable G0 moves", convert:UC.toInt, modes:FDM}),
-            outputShellMult: UC.newInput("shell factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
-            outputFillMult: UC.newInput("solid factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
-            outputSparseMult:  UC.newInput("infill factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
-            outputCooling: UC.newBoolean("cooling", onBooleanClick, {title: "enable cooling fan\nafter first layer", modes:FDM}),
+            // // 3d print
+            // sliceHeight: UC.newInput("layer height", {title:"millimeters", convert:UC.toFloat, modes:FDM}),
+            // sliceShells: UC.newInput("shell count", {convert:UC.toInt, modes:FDM}),
+            // sliceShellSpacing: UC.newInput("shell spacing", {title:"as a percentage of nozzle width\n< 1.0 causes shell overlap\nrecommended 0.85 - 1.0", convert:UC.toFloat, bound:UC.bound(0.5,1.0), modes:FDM}),
+            // sliceFillOverlap: UC.newInput("fill overlap", {title:"overlap with shell\nas % of nozzle width\nhigher bonds better\n0.0 - 1.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
+            // sliceFillSpacing: UC.newInput("fill spacing", {title:"for solid fill areas\nas a percentage of nozzle width\n< 1.0 causes fill overlap\nrecommended 0.85 - 1.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
+            // sliceFillAngle: UC.newInput("fill angle", {title:"base angle in degrees", convert:UC.toFloat, modes:FDM}),
+            // sliceFillSparse: UC.newInput("fill ratio", {title:"for infill areas\n0.0 - 1.0", convert:UC.toFloat, bound:UC.bound(0.0,1.0), modes:FDM}),
+            // sliceSolidMinArea: UC.newInput("solid area", {title:"minimum area (cm^2)\nrequired to keep solid\nmust be > 0.1", convert:UC.toFloat, modes:FDM}),
+            // sliceSolidLayers: UC.newInput("solid layers", {title:"flat area fill projections\nbased on layer deltas", convert:UC.toInt, modes:FDM}),
+            // sliceBottomLayers: UC.newInput("base layers", {title:"bottom solid layer count", convert:UC.toInt, modes:FDM}),
+            // sliceTopLayers: UC.newInput("top layers", {title:"top solid layer count", convert:UC.toInt, modes:FDM}),
+            // sliceVase: UC.newBoolean("vase mode", onBooleanClick, {modes:FDM}),
 
-            firstLayer: UC.newGroup("first layer", null, {modes:FDM}),
-            firstSliceHeight: UC.newInput("layer height", {title:"in millimeters\nshould be >= slice height", convert:UC.toFloat, modes:FDM}),
-            firstLayerRate: UC.newInput("shell speed", {title:"print move max speed\nmillimeters / minute", convert:UC.toFloat, modes:FDM}),
-            firstLayerFillRate: UC.newInput("fill speed", {title:"fill move max speed\nmillimeters / minute", convert:UC.toFloat, modes:FDM}),
-            firstLayerPrintMult: UC.newInput("print factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, modes:FDM}),
-            outputBrimCount: UC.newInput("skirt count", {title:"number of skirts", convert:UC.toInt, modes:FDM}),
-            outputBrimOffset: UC.newInput("skirt offset", {title:"millimeters", convert:UC.toFloat, modes:FDM}),
+            // outputBedTemp: UC.newInput("bed temp", {title:"degrees celsius", convert:UC.toInt, modes:FDM}),
+            // outputTemp: UC.newInput("nozzle temp", {title:"degrees celsius", convert:UC.toInt, modes:FDM}),
+            // outputFeedrate: UC.newInput("print speed", {title:"print move max speed\nmillimeters / minute", convert:UC.toInt, modes:FDM}),
+            // outputFinishrate: UC.newInput("finish speed", {title:"outermost shell speed\nmillimeters / minute", convert:UC.toInt, modes:FDM}),
+            // outputSeekrate: UC.newInput("move speed", {title:"non-print move speed\nmillimeters / minute\n0 = enable G0 moves", convert:UC.toInt, modes:FDM}),
+            // outputShellMult: UC.newInput("shell factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
+            // outputFillMult: UC.newInput("solid factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
+            // outputSparseMult:  UC.newInput("infill factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, bound:UC.bound(0.0,2.0), modes:FDM}),
+            // outputCooling: UC.newBoolean("cooling", onBooleanClick, {title: "enable cooling fan\nafter first layer", modes:FDM}),
 
-            support: UC.newGroup("supports", null, {modes:FDM}),
-            sliceSupportDensity: UC.newInput("density", {title:"0.0 - 1.0\nrecommended 0.15\n0 to disable", convert:UC.toFloat, bound:UC.bound(0.05,1.0), modes:FDM}),
-            sliceSupportSize: UC.newInput("pillar size", {title:"width in millimeters", bound:UC.bound(1.0,200.0), convert:UC.toFloat, modes:FDM}),
-            sliceSupportOffset: UC.newInput("part offset", {title:"millimeters\noffset from part", bound:UC.bound(0.0,200.0), convert:UC.toFloat, modes:FDM}),
-            sliceSupportGap: UC.newInput("gap layers", {title:"number of layers\noffset from part", bound:UC.bound(0,5), convert:UC.toInt, modes:FDM}),
-            sliceSupportSpan: UC.newInput("max bridge", {title:"span length that\ntriggers support\nin millimeters", bound:UC.bound(0.0,200.0), convert:UC.toFloat, modes:FDM}),
-            sliceSupportArea: UC.newInput("min area", {title:"min area for a\nsupport column\nin millimeters", bound:UC.bound(0.1,200.0), convert:UC.toFloat, modes:FDM}),
-            sliceSupportExtra: UC.newInput("expand", {title:"expand support area\nbeyond part boundary\nin millimeters", bound:UC.bound(0.0,200.0), convert:UC.toFloat, modes:FDM}),
-            sliceSupportEnable: UC.newBoolean("enable", onBooleanClick, {modes:FDM}),
+            // firstLayer: UC.newGroup("first layer", null, {modes:FDM}),
+            // firstSliceHeight: UC.newInput("layer height", {title:"in millimeters\nshould be >= slice height", convert:UC.toFloat, modes:FDM}),
+            // firstLayerRate: UC.newInput("shell speed", {title:"print move max speed\nmillimeters / minute", convert:UC.toFloat, modes:FDM}),
+            // firstLayerFillRate: UC.newInput("fill speed", {title:"fill move max speed\nmillimeters / minute", convert:UC.toFloat, modes:FDM}),
+            // firstLayerPrintMult: UC.newInput("print factor", {title:"extrusion multiplier\n0.0 - 2.0", convert:UC.toFloat, modes:FDM}),
+            // outputBrimCount: UC.newInput("skirt count", {title:"number of skirts", convert:UC.toInt, modes:FDM}),
+            // outputBrimOffset: UC.newInput("skirt offset", {title:"millimeters", convert:UC.toFloat, modes:FDM}),
 
-            output: UC.newGroup("raft", null, {modes:FDM}),
-            outputRaftSpacing:  UC.newInput("spacing", {title:"additional layer spacing\nbetween 1st layer and raft\nin millimeters", convert:UC.toFloat, bound:UC.bound(0.0,3.0), modes:FDM}),
-            outputRaft: UC.newBoolean("enable", onBooleanClick, {title:"create a raft under the\nmodel for better adhesion\nuses skirt offset and\ndisables skirt output", modes:FDM}),
+            // support: UC.newGroup("supports", null, {modes:FDM}),
+            // sliceSupportDensity: UC.newInput("density", {title:"0.0 - 1.0\nrecommended 0.15\n0 to disable", convert:UC.toFloat, bound:UC.bound(0.05,1.0), modes:FDM}),
+            // sliceSupportSize: UC.newInput("pillar size", {title:"width in millimeters", bound:UC.bound(1.0,200.0), convert:UC.toFloat, modes:FDM}),
+            // sliceSupportOffset: UC.newInput("part offset", {title:"millimeters\noffset from part", bound:UC.bound(0.0,200.0), convert:UC.toFloat, modes:FDM}),
+            // sliceSupportGap: UC.newInput("gap layers", {title:"number of layers\noffset from part", bound:UC.bound(0,5), convert:UC.toInt, modes:FDM}),
+            // sliceSupportSpan: UC.newInput("max bridge", {title:"span length that\ntriggers support\nin millimeters", bound:UC.bound(0.0,200.0), convert:UC.toFloat, modes:FDM}),
+            // sliceSupportArea: UC.newInput("min area", {title:"min area for a\nsupport column\nin millimeters", bound:UC.bound(0.1,200.0), convert:UC.toFloat, modes:FDM}),
+            // sliceSupportExtra: UC.newInput("expand", {title:"expand support area\nbeyond part boundary\nin millimeters", bound:UC.bound(0.0,200.0), convert:UC.toFloat, modes:FDM}),
+            // sliceSupportEnable: UC.newBoolean("enable", onBooleanClick, {modes:FDM}),
 
-            advanced: UC.newGroup("advanced", null, {modes:FDM}),
-            outputRetractDist: UC.newInput("retract dist", {title:"amount to retract filament", convert:UC.toFloat, modes:FDM}),
-            outputRetractSpeed: UC.newInput("retract rate", {title:"speed of filament\nretraction in mm/s", convert:UC.toInt, modes:FDM}),
-            outputRetractDwell: UC.newInput("engage dwell", {title:"time between re-engaging\nfilament and movement\nin milliseconds", convert:UC.toInt, modes:FDM}),
-            outputShortPoly: UC.newInput("short outline", {title:"poly perimeter length\ntriggers short slowdown\nin millimeters", bound:UC.bound(0,200), convert:UC.toFloat, modes:FDM}),
-            outputShortDistance: UC.newInput("short segment", {title:"segment length cutoff\nfor short segments\nin millimeters", bound:UC.bound(0,200), convert:UC.toFloat, modes:FDM}),
-            outputShortFactor: UC.newInput("short factor", {title:"max speed reduction factor\nfor short segments\nas % of print speed", bound:UC.bound(0.05,1), convert:UC.toFloat, modes:FDM}),
-            outputFinishFactor: UC.newInput("finish factor", {title:"% of nozzle diameter to\nshorten finish path by\nvalues of 0-1", bound:UC.bound(0.0,1), convert:UC.toFloat, modes:FDM}),
-            sliceMinHeight: UC.newInput("min layer", {title: "enables adaptive slicing with\nthis as the min layer height\nin millimeters\n0 to disable", bound:UC.bound(0,3.0), convert:UC.toFloat, modes:FDM}),
-            zHopDistance: UC.newInput("z hop dist", {title: "amount to raise z\non retraction moves\nin millimeters\n0 to disable", bound:UC.bound(0,3.0), convert:UC.toFloat, modes:FDM}),
-            antiBacklash: UC.newInput("anti-backlash", {title: "use micro-movements to cancel\nbacklash during fills\nin millimeters", bound:UC.bound(0,3), convert:UC.toInt, modes:FDM}),
-            //detectThinWalls: UC.newBoolean("thin wall fill", onBooleanClick, {title: "detect and fill thin openings\nbetween shells walls", modes:FDM})
+            // output: UC.newGroup("raft", null, {modes:FDM}),
+            // outputRaftSpacing:  UC.newInput("spacing", {title:"additional layer spacing\nbetween 1st layer and raft\nin millimeters", convert:UC.toFloat, bound:UC.bound(0.0,3.0), modes:FDM}),
+            // outputRaft: UC.newBoolean("enable", onBooleanClick, {title:"create a raft under the\nmodel for better adhesion\nuses skirt offset and\ndisables skirt output", modes:FDM}),
 
-            gcodeVars: UC.newGroup("gcode", null, {modes:FDM}),
-            gcodeKFactor: UC.newInput("k-factor", {title: "aka linear advance\nuse {kfactor} in gcode", convert:UC.toInt, modes:FDM}),
-            gcodePauseLayers: UC.newInput("pause layers", {title: "comma-separated list of layers\nto inject pause commands before", modes:FDM})
+            // advanced: UC.newGroup("advanced", null, {modes:FDM}),
+            // outputRetractDist: UC.newInput("retract dist", {title:"amount to retract filament", convert:UC.toFloat, modes:FDM}),
+            // outputRetractSpeed: UC.newInput("retract rate", {title:"speed of filament\nretraction in mm/s", convert:UC.toInt, modes:FDM}),
+            // outputRetractDwell: UC.newInput("engage dwell", {title:"time between re-engaging\nfilament and movement\nin milliseconds", convert:UC.toInt, modes:FDM}),
+            // outputShortPoly: UC.newInput("short outline", {title:"poly perimeter length\ntriggers short slowdown\nin millimeters", bound:UC.bound(0,200), convert:UC.toFloat, modes:FDM}),
+            // outputShortDistance: UC.newInput("short segment", {title:"segment length cutoff\nfor short segments\nin millimeters", bound:UC.bound(0,200), convert:UC.toFloat, modes:FDM}),
+            // outputShortFactor: UC.newInput("short factor", {title:"max speed reduction factor\nfor short segments\nas % of print speed", bound:UC.bound(0.05,1), convert:UC.toFloat, modes:FDM}),
+            // outputFinishFactor: UC.newInput("finish factor", {title:"% of nozzle diameter to\nshorten finish path by\nvalues of 0-1", bound:UC.bound(0.0,1), convert:UC.toFloat, modes:FDM}),
+            // sliceMinHeight: UC.newInput("min layer", {title: "enables adaptive slicing with\nthis as the min layer height\nin millimeters\n0 to disable", bound:UC.bound(0,3.0), convert:UC.toFloat, modes:FDM}),
+            // zHopDistance: UC.newInput("z hop dist", {title: "amount to raise z\non retraction moves\nin millimeters\n0 to disable", bound:UC.bound(0,3.0), convert:UC.toFloat, modes:FDM}),
+            // antiBacklash: UC.newInput("anti-backlash", {title: "use micro-movements to cancel\nbacklash during fills\nin millimeters", bound:UC.bound(0,3), convert:UC.toInt, modes:FDM}),
+            // //detectThinWalls: UC.newBoolean("thin wall fill", onBooleanClick, {title: "detect and fill thin openings\nbetween shells walls", modes:FDM})
+
+            // gcodeVars: UC.newGroup("gcode", null, {modes:FDM}),
+            // gcodeKFactor: UC.newInput("k-factor", {title: "aka linear advance\nuse {kfactor} in gcode", convert:UC.toInt, modes:FDM}),
+            // gcodePauseLayers: UC.newInput("pause layers", {title: "comma-separated list of layers\nto inject pause commands before", modes:FDM})
         });
 
         function toolUpdate(a,b,c) {
@@ -2938,6 +2937,7 @@ self.kiri.license = exports.LICENSE;
 
             UI.deviceSelect.focus();
         }
+
         function renderTools() {
             UI.toolSelect.innerHTML = '';
             editTools.forEach(function(tool, index) {
@@ -3075,121 +3075,125 @@ self.kiri.license = exports.LICENSE;
             'drop', dropHandler
         ]);
 
-        SPACE.onEnterKey([
-            UI.layerSpan,    function() { showSlices() },
-            UI.layerID,      function() { setVisibleLayer(UI.layerID.value) },
+        // SPACE.onEnterKey([
+        //     UI.layerSpan,    function() { showSlices() },
+        //     UI.layerID,      function() { setVisibleLayer(UI.layerID.value) },
 
-            UI.scaleX,           scaleSelection,
-            UI.scaleY,           scaleSelection,
-            UI.scaleZ,           scaleSelection,
+        //     UI.scaleX,           scaleSelection,
+        //     UI.scaleY,           scaleSelection,
+        //     UI.scaleZ,           scaleSelection,
 
-            UI.toolName,         updateTool,
-            UI.toolNum,          updateTool,
-            UI.toolFluteDiam,    updateTool,
-            UI.toolFluteLen,     updateTool,
-            UI.toolShaftDiam,    updateTool,
-            UI.toolShaftLen,     updateTool,
+        //     UI.toolName,         updateTool,
+        //     UI.toolNum,          updateTool,
+        //     UI.toolFluteDiam,    updateTool,
+        //     UI.toolFluteLen,     updateTool,
+        //     UI.toolShaftDiam,    updateTool,
+        //     UI.toolShaftLen,     updateTool,
 
-            UI.bedWidth,         updatePlatformSize,
-            UI.bedDepth,         updatePlatformSize
-        ]);
+        //     UI.bedWidth,         updatePlatformSize,
+        //     UI.bedDepth,         updatePlatformSize
+        // ]);
 
-        UI.setupDevices.innerHTML = "D<u>e</u>vices";
-        UI.setupTools.innerHTML = "T<u>o</u>ols";
+        // INKSMITH Click Behaviour
+        UI.singlePlus.onclick = selectDevice("Cubicon.Single+");
+        console.log(UI.singlePlus);
 
-        UI.modeArrange.innerHTML = "<u>A</u>rrange";
-        UI.modeSlice.innerHTML = "<u>S</u>lice";
-        UI.modePreview.innerHTML = "<u>P</u>review";
-        UI.modeExport.innerHTML = "E<u>x</u>port";
+        // UI.setupDevices.innerHTML = "D<u>e</u>vices";
+        // UI.setupTools.innerHTML = "T<u>o</u>ols";
 
-        UI.layerID.convert = UC.toFloat.bind(UI.layerID);
-        UI.layerSpan.convert = UC.toFloat.bind(UI.layerSpan);
-        UI.layerRange.onclick = function() {
-            UI.layerRange.checked = !(UI.layerRange.checked || false);
-            showSlices();
-        };
+        // UI.modeArrange.innerHTML = "<u>A</u>rrange";
+        // UI.modeSlice.innerHTML = "<u>S</u>lice";
+        // UI.modePreview.innerHTML = "<u>P</u>review";
+        // UI.modeExport.innerHTML = "E<u>x</u>port";
 
-        $('layer-toggle').onclick = function(ev) {
-            var ls = UI.layers.style;
-            ls.display = ls.display !== 'block' ? 'block' : 'none';
-            UI.layers.style.left = ev.target.getBoundingClientRect().left + 'px';
-        };
+        // UI.layerID.convert = UC.toFloat.bind(UI.layerID);
+        // UI.layerSpan.convert = UC.toFloat.bind(UI.layerSpan);
+        // UI.layerRange.onclick = function() {
+        //     UI.layerRange.checked = !(UI.layerRange.checked || false);
+        //     showSlices();
+        // };
 
-        $('x-').onclick = function(ev) { rotateSelection(ev.shiftKey ? -ROT5 : -ROT,0,0) };
-        $('x+').onclick = function(ev) { rotateSelection(ev.shiftKey ? ROT5 : ROT,0,0) };
-        $('y-').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? -ROT5 : -ROT,0) };
-        $('y+').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? ROT5 : ROT,0) };
-        $('z-').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? ROT5 : ROT) };
-        $('z+').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? -ROT5 : -ROT) };
+        // $('layer-toggle').onclick = function(ev) {
+        //     var ls = UI.layers.style;
+        //     ls.display = ls.display !== 'block' ? 'block' : 'none';
+        //     UI.layers.style.left = ev.target.getBoundingClientRect().left + 'px';
+        // };
 
-        UI.viewModelOpacity.onchange = UI.viewModelOpacity.onclick = function(ev) {
-            setOpacity(parseInt(UI.viewModelOpacity.value)/100);
-        };
+        // $('x-').onclick = function(ev) { rotateSelection(ev.shiftKey ? -ROT5 : -ROT,0,0) };
+        // $('x+').onclick = function(ev) { rotateSelection(ev.shiftKey ? ROT5 : ROT,0,0) };
+        // $('y-').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? -ROT5 : -ROT,0) };
+        // $('y+').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? ROT5 : ROT,0) };
+        // $('z-').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? ROT5 : ROT) };
+        // $('z+').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? -ROT5 : -ROT) };
 
-        UI.layerSlider.ondblclick = function() {
-            UI.layerRange.checked = !UI.layerRange.checked;
-            showSlices();
-        };
+        // UI.viewModelOpacity.onchange = UI.viewModelOpacity.onclick = function(ev) {
+        //     setOpacity(parseInt(UI.viewModelOpacity.value)/100);
+        // };
 
-        UI.layerSlider.onmousedown = function(ev) {
-            if (ev.shiftKey) UI.layerRange.checked = !UI.layerRange.checked;
-        };
+        // UI.layerSlider.ondblclick = function() {
+        //     UI.layerRange.checked = !UI.layerRange.checked;
+        //     showSlices();
+        // };
 
-        UI.layerSlider.onclick = function() {
-            setVisibleLayer(UI.layerSlider.value);
-        };
+        // UI.layerSlider.onmousedown = function(ev) {
+        //     if (ev.shiftKey) UI.layerRange.checked = !UI.layerRange.checked;
+        // };
 
-        UI.layerSlider.onmousemove = UI.layerSlider.onchange = function() {
-            setVisibleLayer(UI.layerSlider.value);
-        };
+        // UI.layerSlider.onclick = function() {
+        //     setVisibleLayer(UI.layerSlider.value);
+        // };
 
-        UI.layerSlider.onmouseup = function() { takeFocus() };
+        // UI.layerSlider.onmousemove = UI.layerSlider.onchange = function() {
+        //     setVisibleLayer(UI.layerSlider.value);
+        // };
 
-        UI.import.setAttribute("import","1");
-        UI.import.onclick = function() {
-            showDialog("catalog");
-        };
+        // UI.layerSlider.onmouseup = function() { takeFocus() };
 
-        UI.toolMetric.onclick = updateTool;
-        UI.toolType.onchange = updateTool;
+        // UI.import.setAttribute("import","1");
+        // UI.import.onclick = function() {
+        //     showDialog("catalog");
+        // };
 
-        $('kiri').onclick = showHelpLocal;
+        // UI.toolMetric.onclick = updateTool;
+        // UI.toolType.onchange = updateTool;
 
-        SPACE.platform.setSize(
-            settings.device.bedWidth,
-            settings.device.bedDepth,
-            settings.device.bedHeight
-        );
+        // $('kiri').onclick = showHelpLocal;
 
-        SPACE.platform.setGrid(25, 5);
-        SPACE.platform.opacity(0.2);
+        // SPACE.platform.setSize(
+        //     settings.device.bedWidth,
+        //     settings.device.bedDepth,
+        //     settings.device.bedHeight
+        // );
 
-        SPACE.mouse.downSelect(function() {
-            if (viewMode !== VIEWS.ARRANGE) return null;
-            return selectedMeshes;
-        });
+        // SPACE.platform.setGrid(25, 5);
+        // SPACE.platform.opacity(0.2);
 
-        SPACE.mouse.upSelect(function(selection, event) {
-            if (event && event.target.nodeName === "CANVAS") {
-                if (selection) {
-                    widgetSelect(selection.object.widget, event.shiftKey);
-                } else {
-                    widgetDeselect();
-                }
-            } else {
-                return meshArray();
-            }
-        });
+        // SPACE.mouse.downSelect(function() {
+        //     if (viewMode !== VIEWS.ARRANGE) return null;
+        //     return selectedMeshes;
+        // });
 
-        SPACE.mouse.onDrag(function(delta) {
-            if (delta) {
-                forSelectedWidgets(function(widget) {
-                    widget.move(delta.x, delta.y, 0);
-                });
-            } else {
-                return selectedMeshes.length > 0;
-            }
-        });
+        // SPACE.mouse.upSelect(function(selection, event) {
+        //     if (event && event.target.nodeName === "CANVAS") {
+        //         if (selection) {
+        //             widgetSelect(selection.object.widget, event.shiftKey);
+        //         } else {
+        //             widgetDeselect();
+        //         }
+        //     } else {
+        //         return meshArray();
+        //     }
+        // });
+
+        // SPACE.mouse.onDrag(function(delta) {
+        //     if (delta) {
+        //         forSelectedWidgets(function(widget) {
+        //             widget.move(delta.x, delta.y, 0);
+        //         });
+        //     } else {
+        //         return selectedMeshes.length > 0;
+        //     }
+        // });
 
         function checkSeed(ondone) {
             // skip sample object load in onshape (or any script postload)

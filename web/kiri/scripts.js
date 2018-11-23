@@ -173,9 +173,6 @@ function showBasic(){
 
 } 
 
-function setDevice(){
-    self.kiri.inkapi.
-}
 
 // Function curtosy of SpiderCode on Stack overflow
 
@@ -209,7 +206,6 @@ jQuery(document).ready(function(){
     jQuery("#viewB2").click(showView);
     jQuery("#devicesB").click(showDevices);
     jQuery("#devicesB2").click(showDevices);
-    jQuery("#main-device").click(setDevice);
     jQuery("#backB").click(showBasic);
 
     jQuery(window).resize(function(){
