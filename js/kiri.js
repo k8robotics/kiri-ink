@@ -21,8 +21,6 @@ self.kiri.license = exports.LICENSE;
         // ---------------
         MODES = {
             FDM: 1,   // fused deposition modeling (also FFF)
-            LASER: 2, // laser cutting
-            CAM: 3    // 3 axis milling/machining
         },
         VIEWS = {
             ARRANGE: 1,
@@ -476,7 +474,6 @@ self.kiri.license = exports.LICENSE;
         UC = MOTO.ui.prefix('kiri').inputAction(updateSettings).hideAction(onControlResize),
         DEFMODE = SETUP.dm && SETUP.dm.length === 1 ? SETUP.dm[0] : 'FDM',
         STARTMODE = SETUP.sm && SETUP.sm.length === 1 ? SETUP.sm[0] : null,
-        MODE = MODES.FDM,
         onEvent = {},
         screenShot = null,
         currentPrint = null,
@@ -515,6 +512,10 @@ self.kiri.license = exports.LICENSE;
     DBUG.enable();
 
     if (SETUP.rm) renderMode = parseInt(SETUP.rm[0]);
+
+    KIRI.inkapi = {
+
+    }
 
     KIRI.api = {
         ui : UI,
@@ -2140,21 +2141,6 @@ self.kiri.license = exports.LICENSE;
             deviceClose: $('device-close'),
             deviceSelect: $('device-select'),
 
-            tools: $('tools'),
-            toolsSave: $('tools-save'),
-            toolsClose: $('tools-close'),
-            toolSelect: $('tool-select'),
-            toolAdd: $('tool-add'),
-            toolDelete: $('tool-del'),
-            toolType: $('tool-type'),
-            toolName: $('tool-name'),
-            toolNum: $('tool-num'),
-            toolFluteDiam: $('tool-fdiam'),
-            toolFluteLen: $('tool-flen'),
-            toolShaftDiam: $('tool-sdiam'),
-            toolShaftLen: $('tool-slen'),
-            toolMetric: $('tool-metric'),
-
             catalog: $('catalog'),
             catalogBody: $('catalogBody'),
             catalogList: $('catalogList'),
@@ -2952,7 +2938,6 @@ self.kiri.license = exports.LICENSE;
 
             UI.deviceSelect.focus();
         }
-
         function renderTools() {
             UI.toolSelect.innerHTML = '';
             editTools.forEach(function(tool, index) {
@@ -2995,62 +2980,11 @@ self.kiri.license = exports.LICENSE;
         }
 
         function showTools() {
-            if (MODE !== MODES.CAM) return;
-
-            var selectedIndex = null;
-
-            editTools = settings.tools.slice();
-
-            UI.toolsClose.onclick = function() {
-                if (editTools.changed && !confirm("abandon changes?")) return;
-                hideDialog();
-            };
-            UI.toolAdd.onclick = function() {
-                editTools.push({
-                    id: UTIL.time(),
-                    number: editTools.length,
-                    name: "new",
-                    type: "endmill",
-                    flute_diam: 0.25,
-                    flute_len: 1,
-                    shaft_diam: 0.25,
-                    shaft_len: 3,
-                    metric: false
-                });
-                editTools.changed = true;
-                renderTools();
-                UI.toolSelect.selectedIndex = editTools.length-1;
-                selectTool(editTools[editTools.length-1]);
-            };
-            UI.toolDelete.onclick = function() {
-                editTools.remove(selectedTool);
-                editTools.changed = true;
-                renderTools();
-            };
-            UI.toolsSave.onclick = function() {
-                editTools.changed = false;
-                if (selectedTool) updateTool();
-                settings.tools = editTools;
-                saveSettings();
-                updateFields();
-                hideDialog();
-                triggerSettingsEvent();
-            };
-
-            renderTools();
-            if (editTools.length > 0) {
-                selectTool(editTools[0]);
-                UI.toolSelect.selectedIndex = 0;
-            } else {
-                UI.toolAdd.onclick();
-            }
-
-            showDialog('tools');
-            UI.toolSelect.focus();
+            return;
         }
 
         function showDevices() {
-            if (MODE === MODES.LASER || deviceLock) return;
+            if (deviceLock) return;
 
             setViewMode(VIEWS.ARRANGE);
 
@@ -3248,7 +3182,7 @@ self.kiri.license = exports.LICENSE;
         });
 
         SPACE.mouse.onDrag(function(delta) {
-            if (delta && MODE === MODES.FDM) {
+            if (delta) {
                 forSelectedWidgets(function(widget) {
                     widget.move(delta.x, delta.y, 0);
                 });

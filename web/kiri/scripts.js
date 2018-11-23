@@ -173,6 +173,10 @@ function showBasic(){
 
 } 
 
+function setDevice(){
+    self.kiri.inkapi.
+}
+
 // Function curtosy of SpiderCode on Stack overflow
 
 function msieversion() {
@@ -205,14 +209,15 @@ jQuery(document).ready(function(){
     jQuery("#viewB2").click(showView);
     jQuery("#devicesB").click(showDevices);
     jQuery("#devicesB2").click(showDevices);
+    jQuery("#main-device").click(setDevice);
     jQuery("#backB").click(showBasic);
 
     jQuery(window).resize(function(){
-        jQuery("#sbl").css("top", ((jQuery(document).height() - jQuery("#sbl").height()) / 2).toString());
+        jQuery("#control-left").css("top", ((jQuery(document).height() - jQuery("#control-left").height()) / 2).toString());
         jQuery("#sidebarR").css("top", ((jQuery(document).height() - jQuery("#sidebarR").height()) / 2).toString());
     });
 
-    jQuery("#sbl").css("top", ((jQuery(document).height() - jQuery("#sbl").height()) / 2).toString());
+    jQuery("#control-left").css("top", ((jQuery(document).height() - jQuery("#control-left").height()) / 2).toString());
     jQuery("#sidebarR").css("top", ((jQuery(document).height() - jQuery("#sidebarR").height()) / 2).toString());
 
     jQuery( document ).on( "mousemove", function( event ) {
