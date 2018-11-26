@@ -18,6 +18,10 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" 
+        href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" 
+        crossorigin="anonymous">
         <script src="/kiri/scripts.js"></script>
             
         
@@ -36,7 +40,7 @@
             <div class="buttonpanel">
                 
                 <button class="topbutton">Save</button>
-                <button class="topbutton callbutton green">Add File</button>
+                <button class="topbutton callbutton green" id="add-file">Add File</button>
                 <button class="topbutton callbutton green">Print</button>
             </div>
         </div>
@@ -45,6 +49,21 @@
 
         <div class="control-left" id="sbl">
             <div class="tooltitle">
+                <h2>Mode</h2>
+            </div>
+            <div class="tool active" id="preview">
+                <i class="far fa-eye"></i>
+                <p class="tooltip">Preview</p>
+            </div>
+            <div class="tool" id="arrange">
+                <i class="fas fa-arrows-alt"></i>
+                <p class="tooltip">Arrange</p>
+            </div>
+            <div class="tool" id="slice">
+                <i class="fas fa-database"></i>
+                <p class="tooltip">Slice</p>
+            </div>
+            <div class="tooldiv">
                 <h2>Tools</h2>
             </div>
             <div class="tool" id="devicesB"> 
@@ -54,10 +73,6 @@
             <div class="tool"> 
                 <img class="toolimg" src = "/kiri/duplicate.png"> 
                 <p class="tooltip">Duplicate</p>
-            </div>
-            <div class="tool"> 
-                <img class="toolimg" src = "/kiri/arrange.png"> 
-                <p class="tooltip">Arrange</p>
             </div>
             <div class="tool"> 
                 <img class="toolimg" src = "/kiri/delete.png"> 
@@ -118,7 +133,7 @@
                     <img class="menuExit" id="devicesB2" src="/kiri/delete.png">
             </div>
             <div class="scaleContent device">
-                <img src="/kiri/printer1.bmp"/>
+                <img src="/kiri/printer1.bmp" id="single-plus"/>
                 <img src="/kiri/printer2.bmp"/>
                 <img src="/kiri/printer3.bmp"/>
             </div>
@@ -139,8 +154,31 @@
             </div>
         </div>
 
+        <!-- all modal dialogs -->
+        <div id="modal">
+            <div id="help"></div>
+            <!-- changeable print dialog -->
+            <div id="print"></div>
+            <!-- hidden file input loader -->
+            <input id="load-file" type="file" name="loadme" style="display:none" accept=".stl,.gcode,.nc"/>
+        </div>
+
         <div id="container"></div>
 
+        <!-- file load catalog -->
+        <div id="catalog" class="dialog">
+            <div id="catalogBody" class="flow-col">
+                <span id="localCache">local cache</span>
+                <div id="catalogList"></div>
+            </div>
+        </div>
+        <!-- settings load dialog -->
+        <div id="settings" class="dialog">
+            <div id="settingsBody" class="flow-col">
+                <span id="settingsCache">saved settings</span>
+                <div id="settingsList"></div>
+            </div>
+        </div>
         <div class="control-right" id="sidebarR">
             <div class="tooltitle"><h2>Settings</h2></div>
 
@@ -426,6 +464,26 @@
         </div>
 
         <p class="credit">Powered by Kiri:Moto</p>
+        <!-- selection info -->
+        <div id="selection">
+            <span>
+                <label class="label">width:</label><label id="sel_width" class="value">mm</label>
+                <label class="label">depth:</label><label id="sel_depth" class="value">mm</label>
+                <label class="label">height:</label><label id="sel_height" class="value">mm</label>
+                &nbsp;&nbsp;
+                <label class="label">scale</label>
+                <label class="label">x</label><input id="scale_x" size="3" value="1"/>
+                <label class="label">y</label><input id="scale_y" size="3" value="1"/>
+                <label class="label">z</label><input id="scale_z" size="3" value="1"/>
+                <label class="label">uniform</label><input type="checkbox" id="scale_uni" checked>
+                &nbsp;&nbsp;
+                <label class="label">rotate</label>
+                <button id="x+" title="hold SHIFT to rotate 5 degrees">x+</button><button id="x-" title="hold SHIFT to rotate 5 degrees">x-</button>
+                <button id="y+" title="hold SHIFT to rotate 5 degrees">y+</button><button id="y-" title="hold SHIFT to rotate 5 degrees">y-</button>
+                <button id="z+" title="hold SHIFT to rotate 5 degrees">z+</button><button id="z-" title="hold SHIFT to rotate 5 degrees">z-</button>
+            </span>
+        </div>
+        <div hidden id="device"></div>
         <!-- layer slider -->
         <div id="layer-view" class="flow-row">
             <span>
