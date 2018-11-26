@@ -1806,7 +1806,6 @@ self.kiri.license = exports.LICENSE;
             if (settings.controller.view) {
                 camera = settings.controller.view;
                 SDB.removeItem('ws-camera');
-                UI.reverseZoom.checked = settings.controller.reverseZoom;
             }
             // update/integrate old settings
             ["FDM","CAM","LASER"].forEach(function(mode) {
@@ -1903,7 +1902,7 @@ self.kiri.license = exports.LICENSE;
             UC.hidePop();
             return;
         }
-        ["catalog","devices","tools","settings"].forEach(function(dialog) {
+        ["catalog","devices","settings"].forEach(function(dialog) {
             var style = UI[dialog].style;
             style.display = (dialog === which && (force || style.display !== 'flex') ? 'flex' : 'none');
         });
@@ -1991,8 +1990,6 @@ self.kiri.license = exports.LICENSE;
             right = UI.ctrlRight.getBoundingClientRect();
         UI.catalog.style.left = (left.width + 5) + 'px';
         UI.devices.style.left = (left.width + 5) + 'px';
-        UI.tools.style.left = (left.width + 5) + 'px';
-        UI.settings.style.right = (right.width + 5) + 'px';
     }
 
     function hideModal() {
@@ -2096,6 +2093,7 @@ self.kiri.license = exports.LICENSE;
     function init() {
         if (kiri.init) return;
         kiri.init = init;
+        kiri.inkUI = {};
 
         var control = $('control'),
             container = $('container'),
@@ -2120,56 +2118,96 @@ self.kiri.license = exports.LICENSE;
 
         set(UI, {
             container: container,
-            ctrlLeft: $('control-left'),
-            ctrlRight: $('control-right'),
+            ctrlLeft: $('sbl'),
+            ctrlRight: $('sidebarR'),
             layerView: $('layer-view'),
             layerSlider: $('layer-slider'),
 
-            // INKSMITH ELEMENTS
-            singlePlus: $('single-plus'),
-
-            // control: control
-            // modal: $('modal'),
+            // assets: assets,
+            control: control,
+            modal: $('modal'),
             // print: $('print'),
             // help: $('help'),
 
-            // devices: $('devices'),
-            // deviceAdd: $('device-add'),
-            // deviceDelete: $('device-del'),
-            // deviceSave: $('device-save'),
-            // deviceClose: $('device-close'),
-            // deviceSelect: $('device-select'),
+            devices: $('devices'),
+            deviceAdd: $('device-add'),
+            deviceDelete: $('device-del'),
+            deviceSave: $('device-save'),
+            deviceClose: $('device-close'),
+            deviceSelect: $('device-select'),
 
-            // catalog: $('catalog'),
-            // catalogBody: $('catalogBody'),
-            // catalogList: $('catalogList'),
+            device: UC.newGroup("device", $('device')),
+            deviceName: UC.newInput("name", {size:20}),
+            setDeviceFilament: UC.newInput("filament", {title:"diameter in millimeters", convert:UC.toFloat, modes:FDM}),
+            setDeviceNozzle: UC.newInput("nozzle", {title:"diameter in millimeters", convert:UC.toFloat, modes:FDM}),
+            setDeviceWidth: UC.newInput("bed width", {title:"millimeters", convert:UC.toInt}),
+            setDeviceDepth: UC.newInput("bed depth", {title:"millimeters", convert:UC.toInt}),
+            setDeviceHeight: UC.newInput("max height", {title:"max build height\nin millimeters", convert:UC.toInt, modes:FDM}),
+            setDeviceMaxSpindle: UC.newInput("max spindle rpm", {title:"max spindle speed\n0 to disable", convert:UC.toInt, modes:CAM}),
+            setDeviceExtrusion: UC.newBoolean("extrusion absolute", onBooleanClick, {title:"extrusion moves absolute"}),
+            setDeviceOrigin: UC.newBoolean("origin center", onBooleanClick, {title:"bed origin center"}),
+            setDeviceOriginTop: UC.newBoolean("origin top", onBooleanClick, {title:"part z origin top", modes:CAM}),
 
-            // settings: $('settings'),
-            // settingsBody: $('settingsBody'),
-            // settingsList: $('settingsList'),
+            setDevice: UC.newGroup("gcode", $('device')),
+            setDeviceFan: UC.newInput("fan power", {title:"set cooling fan power", modes:FDM, size:15}),
+            setDeviceTrack: UC.newInput("progress", {title:"output on each % progress", modes:FDM, size:15}),
+            setDeviceLayer: UC.newText("layer", {title:"output at each layer change", modes:FDM, size:14, height: 2}),
+            setDeviceToken: UC.newBoolean("token spacing", null, {title:"gcode token spacing", modes:CAM}),
+            setDeviceStrip: UC.newBoolean("strip comments", null, {title:"strip gcode comments", modes:CAM}),
+            setDeviceFExt: UC.newInput("file ext", {title:"file name exension", modes:CAM, size:5}),
+            setDeviceDwell: UC.newText("dwell", {title:"gcode dwell script", modes:CAM, size:14, height:2}),
+            setDeviceChange: UC.newText("tool change", {title:"tool change script", modes:CAM, size:14, height:2}),
+            setDeviceSpindle: UC.newText("spindle speed", {title:"set spindle speed", modes:CAM, size:14, height:2}),
+            setDevicePause: UC.newText("pause", {title:"gcode pause script", modes:FDM, size:14, height:3}),
+            setDevicePre: UC.newText("header", {title:"gcode header script", modes:FDM_CAM, size:14, height:3}),
+            setDevicePost: UC.newText("footer", {title:"gcode footer script", modes:FDM_CAM, size:14, height:3}),
 
-            // layerID: $('layer-id'),
-            // layerSpan: $('layer-span'),
-            // layerRange: $('layer-range'),
+            catalog: $('catalog'),
+            catalogBody: $('catalogBody'),
+            catalogList: $('catalogList'),
+
+            settings: $('settings'),
+            settingsBody: $('settingsBody'),
+            settingsList: $('settingsList'),
+
+            layerID: $('layer-id'),
+            layerSpan: $('layer-span'),
+            layerRange: $('layer-range'),
 
             // loading: $('loading').style,
             // progress: $('progress').style,
             // prostatus: $('prostatus'),
 
-            // selection: $('selection'),
-            // selWidth: $('sel_width'),
-            // selHeight: $('sel_height'),
-            // selDepth: $('sel_depth'),
-            // scaleX: $('scale_x'),
-            // scaleY: $('scale_y'),
-            // scaleZ: $('scale_z'),
-            // scaleUniform: $('scale_uni'),
+            selection: $('selection'),
+            selWidth: $('sel_width'),
+            selHeight: $('sel_height'),
+            selDepth: $('sel_depth'),
+            scaleX: $('scale_x'),
+            scaleY: $('scale_y'),
+            scaleZ: $('scale_z'),
+            scaleUniform: $('scale_uni'),
 
+            // mode: UC.newGroup('mode', assets),
+            // modeTable: UC.newTableRow([
+            //     [
+            //         UI.modeFDM =
+            //         UC.newButton("FDM Printing", function() { setMode('FDM',null,updatePlatformSize) }),
+            //     ],[
+            //         UI.modeLASER =
+            //         UC.newButton("Laser Cutting", function() { setMode('LASER',null,updatePlatformSize) }),
+            //     ],[
+            //         UI.modeCAM =
+            //         UC.newButton("CNC Milling",   function() { setMode('CAM',null,updatePlatformSize) }, {id:"modeCAM"}),
+            //     ]
+            // ]),
             // system: UC.newGroup('setup'),
             // sysTable: UC.newTableRow([
             //     [
             //         UI.setupDevices =
-            //         UC.newButton("Devices", showDevices, {modes:FDM})
+            //         UC.newButton("Devices", showDevices, {modes:FDM_CAM})
+            //     ],[
+            //         UI.setupTools =
+            //         UC.newButton('Tools',   showTools, {modes:CAM}),
             //     ],[
             //         UI.helpButton =
             //         UC.newButton("Help",    showHelp)
@@ -2223,8 +2261,13 @@ self.kiri.license = exports.LICENSE;
             // ]]),
 
             // layers: UC.setGroup($("layers")),
-            // layerOutline: UC.newBoolean("outline", onBooleanClick, {modes:FDM}),
-            // layerTrace: UC.newBoolean("trace", onBooleanClick, {modes:FDM}),
+            // layerOutline: UC.newBoolean("outline", onBooleanClick, {modes:LOCAL ? ALL : FDM_LASER}),
+            // layerTrace: UC.newBoolean("trace", onBooleanClick, {modes:FDM_LASER}),
+            // layerFacing: UC.newBoolean("facing", onBooleanClick, {modes:CAM}),
+            // layerRough: UC.newBoolean("roughing", onBooleanClick, {modes:CAM}),
+            // layerFinish: UC.newBoolean("finishing", onBooleanClick, {modes:CAM}),
+            // layerFinishX: UC.newBoolean("finish x", onBooleanClick, {modes:CAM}),
+            // layerFinishY: UC.newBoolean("finish y", onBooleanClick, {modes:CAM}),
             // layerDelta: UC.newBoolean("delta", onBooleanClick, {modes:FDM}),
             // layerSolid: UC.newBoolean("solids", onBooleanClick, {modes:FDM}),
             // layerFill: UC.newBoolean("solid fill", onBooleanClick, {modes:FDM}),
@@ -2242,7 +2285,11 @@ self.kiri.license = exports.LICENSE;
             //     ]
             // ]),
 
-            // process: UC.newGroup("process", control, {modes:FDM}),
+            platform: UC.newGroup("build area", control, {modes:LASER}),
+            bedWidth: UC.newInput("width", {title:"millimeters", convert:UC.toInt, modes:LASER}),
+            bedDepth: UC.newInput("depth", {title:"millimeters", convert:UC.toInt, modes:LASER}),
+
+            // process: UC.newGroup("process", control, {modes:FDM_LASER}),
 
             // // 3d print
             // sliceHeight: UC.newInput("layer height", {title:"millimeters", convert:UC.toFloat, modes:FDM}),
@@ -2306,7 +2353,24 @@ self.kiri.license = exports.LICENSE;
             // gcodeVars: UC.newGroup("gcode", null, {modes:FDM}),
             // gcodeKFactor: UC.newInput("k-factor", {title: "aka linear advance\nuse {kfactor} in gcode", convert:UC.toInt, modes:FDM}),
             // gcodePauseLayers: UC.newInput("pause layers", {title: "comma-separated list of layers\nto inject pause commands before", modes:FDM})
+        
+            // Inksmith UI Elements
+        
         });
+
+        set(INK, {
+            container: container,
+            singlePlus: $('single-plus'),
+            addFile: $('add-file')
+        })
+
+        // Inksmith UI functionality
+        INK.singlePlus.onclick = function () {
+            console.log("Single+");
+            selectDevice("Cubicon.Single+");
+        }
+
+        INK.addFile.onclick = function(){ showCatalog("catalog"); }
 
         function toolUpdate(a,b,c) {
             DBUG.log(['toolUpdate',a,b,c])
@@ -2807,14 +2871,6 @@ self.kiri.license = exports.LICENSE;
                 UI.setDeviceLayer.value = dev.gcodeLayer.join('\n');
                 UI.setDeviceFilament.value = dev.filamentSize;
                 UI.setDeviceNozzle.value = dev.nozzleSize;
-                // CAM
-                UI.setDeviceMaxSpindle.value = dev.spindleMax;
-                UI.setDeviceSpindle.value = dev.gcodeSpindle.join('\n');
-                UI.setDeviceDwell.value = dev.gcodeDwell.join('\n');
-                UI.setDeviceChange.value = dev.gcodeChange.join('\n');
-                UI.setDeviceFExt.value = dev.gcodeFExt;
-                UI.setDeviceToken.checked = dev.gcodeSpace ? true : false;
-                UI.setDeviceStrip.checked = dev.gcodeStrip;
 
                 // disable editing for non-local devices
                 [
@@ -3075,125 +3131,101 @@ self.kiri.license = exports.LICENSE;
             'drop', dropHandler
         ]);
 
-        // SPACE.onEnterKey([
-        //     UI.layerSpan,    function() { showSlices() },
-        //     UI.layerID,      function() { setVisibleLayer(UI.layerID.value) },
+        SPACE.onEnterKey([
+            UI.layerSpan,    function() { showSlices() },
+            UI.layerID,      function() { setVisibleLayer(UI.layerID.value) },
 
-        //     UI.scaleX,           scaleSelection,
-        //     UI.scaleY,           scaleSelection,
-        //     UI.scaleZ,           scaleSelection,
+            UI.scaleX,           scaleSelection,
+            UI.scaleY,           scaleSelection,
+            UI.scaleZ,           scaleSelection,
 
-        //     UI.toolName,         updateTool,
-        //     UI.toolNum,          updateTool,
-        //     UI.toolFluteDiam,    updateTool,
-        //     UI.toolFluteLen,     updateTool,
-        //     UI.toolShaftDiam,    updateTool,
-        //     UI.toolShaftLen,     updateTool,
+            UI.bedWidth,         updatePlatformSize,
+            UI.bedDepth,         updatePlatformSize
+        ]);
 
-        //     UI.bedWidth,         updatePlatformSize,
-        //     UI.bedDepth,         updatePlatformSize
-        // ]);
+        UI.layerID.convert = UC.toFloat.bind(UI.layerID);
+        UI.layerSpan.convert = UC.toFloat.bind(UI.layerSpan);
+        UI.layerRange.onclick = function() {
+            UI.layerRange.checked = !(UI.layerRange.checked || false);
+            showSlices();
+        };
 
-        // INKSMITH Click Behaviour
-        UI.singlePlus.onclick = selectDevice("Cubicon.Single+");
-        console.log(UI.singlePlus);
+        $('layer-toggle').onclick = function(ev) {
+            var ls = UI.layers.style;
+            ls.display = ls.display !== 'block' ? 'block' : 'none';
+            UI.layers.style.left = ev.target.getBoundingClientRect().left + 'px';
+        };
 
-        // UI.setupDevices.innerHTML = "D<u>e</u>vices";
-        // UI.setupTools.innerHTML = "T<u>o</u>ols";
-
-        // UI.modeArrange.innerHTML = "<u>A</u>rrange";
-        // UI.modeSlice.innerHTML = "<u>S</u>lice";
-        // UI.modePreview.innerHTML = "<u>P</u>review";
-        // UI.modeExport.innerHTML = "E<u>x</u>port";
-
-        // UI.layerID.convert = UC.toFloat.bind(UI.layerID);
-        // UI.layerSpan.convert = UC.toFloat.bind(UI.layerSpan);
-        // UI.layerRange.onclick = function() {
-        //     UI.layerRange.checked = !(UI.layerRange.checked || false);
-        //     showSlices();
-        // };
-
-        // $('layer-toggle').onclick = function(ev) {
-        //     var ls = UI.layers.style;
-        //     ls.display = ls.display !== 'block' ? 'block' : 'none';
-        //     UI.layers.style.left = ev.target.getBoundingClientRect().left + 'px';
-        // };
-
-        // $('x-').onclick = function(ev) { rotateSelection(ev.shiftKey ? -ROT5 : -ROT,0,0) };
-        // $('x+').onclick = function(ev) { rotateSelection(ev.shiftKey ? ROT5 : ROT,0,0) };
-        // $('y-').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? -ROT5 : -ROT,0) };
-        // $('y+').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? ROT5 : ROT,0) };
-        // $('z-').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? ROT5 : ROT) };
-        // $('z+').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? -ROT5 : -ROT) };
+        $('x-').onclick = function(ev) { rotateSelection(ev.shiftKey ? -ROT5 : -ROT,0,0) };
+        $('x+').onclick = function(ev) { rotateSelection(ev.shiftKey ? ROT5 : ROT,0,0) };
+        $('y-').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? -ROT5 : -ROT,0) };
+        $('y+').onclick = function(ev) { rotateSelection(0,ev.shiftKey ? ROT5 : ROT,0) };
+        $('z-').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? ROT5 : ROT) };
+        $('z+').onclick = function(ev) { rotateSelection(0,0,ev.shiftKey ? -ROT5 : -ROT) };
 
         // UI.viewModelOpacity.onchange = UI.viewModelOpacity.onclick = function(ev) {
         //     setOpacity(parseInt(UI.viewModelOpacity.value)/100);
         // };
 
-        // UI.layerSlider.ondblclick = function() {
-        //     UI.layerRange.checked = !UI.layerRange.checked;
-        //     showSlices();
-        // };
+        UI.layerSlider.ondblclick = function() {
+            UI.layerRange.checked = !UI.layerRange.checked;
+            showSlices();
+        };
 
-        // UI.layerSlider.onmousedown = function(ev) {
-        //     if (ev.shiftKey) UI.layerRange.checked = !UI.layerRange.checked;
-        // };
+        UI.layerSlider.onmousedown = function(ev) {
+            if (ev.shiftKey) UI.layerRange.checked = !UI.layerRange.checked;
+        };
 
-        // UI.layerSlider.onclick = function() {
-        //     setVisibleLayer(UI.layerSlider.value);
-        // };
+        UI.layerSlider.onclick = function() {
+            setVisibleLayer(UI.layerSlider.value);
+        };
 
-        // UI.layerSlider.onmousemove = UI.layerSlider.onchange = function() {
-        //     setVisibleLayer(UI.layerSlider.value);
-        // };
+        UI.layerSlider.onmousemove = UI.layerSlider.onchange = function() {
+            setVisibleLayer(UI.layerSlider.value);
+        };
 
-        // UI.layerSlider.onmouseup = function() { takeFocus() };
+        UI.layerSlider.onmouseup = function() { takeFocus() };
 
         // UI.import.setAttribute("import","1");
         // UI.import.onclick = function() {
         //     showDialog("catalog");
         // };
 
-        // UI.toolMetric.onclick = updateTool;
-        // UI.toolType.onchange = updateTool;
+        SPACE.platform.setSize(
+            settings.device.bedWidth,
+            settings.device.bedDepth,
+            settings.device.bedHeight
+        );
 
-        // $('kiri').onclick = showHelpLocal;
+        SPACE.platform.setGrid(25, 5);
+        SPACE.platform.opacity(0.2);
 
-        // SPACE.platform.setSize(
-        //     settings.device.bedWidth,
-        //     settings.device.bedDepth,
-        //     settings.device.bedHeight
-        // );
+        SPACE.mouse.downSelect(function() {
+            if (viewMode !== VIEWS.ARRANGE) return null;
+            return selectedMeshes;
+        });
 
-        // SPACE.platform.setGrid(25, 5);
-        // SPACE.platform.opacity(0.2);
+        SPACE.mouse.upSelect(function(selection, event) {
+            if (event && event.target.nodeName === "CANVAS") {
+                if (selection) {
+                    widgetSelect(selection.object.widget, event.shiftKey);
+                } else {
+                    widgetDeselect();
+                }
+            } else {
+                return meshArray();
+            }
+        });
 
-        // SPACE.mouse.downSelect(function() {
-        //     if (viewMode !== VIEWS.ARRANGE) return null;
-        //     return selectedMeshes;
-        // });
-
-        // SPACE.mouse.upSelect(function(selection, event) {
-        //     if (event && event.target.nodeName === "CANVAS") {
-        //         if (selection) {
-        //             widgetSelect(selection.object.widget, event.shiftKey);
-        //         } else {
-        //             widgetDeselect();
-        //         }
-        //     } else {
-        //         return meshArray();
-        //     }
-        // });
-
-        // SPACE.mouse.onDrag(function(delta) {
-        //     if (delta) {
-        //         forSelectedWidgets(function(widget) {
-        //             widget.move(delta.x, delta.y, 0);
-        //         });
-        //     } else {
-        //         return selectedMeshes.length > 0;
-        //     }
-        // });
+        SPACE.mouse.onDrag(function(delta) {
+            if (delta && MODE === MODES.FDM) {
+                forSelectedWidgets(function(widget) {
+                    widget.move(delta.x, delta.y, 0);
+                });
+            } else {
+                return selectedMeshes.length > 0;
+            }
+        });
 
         function checkSeed(ondone) {
             // skip sample object load in onshape (or any script postload)
