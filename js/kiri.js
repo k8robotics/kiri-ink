@@ -402,8 +402,8 @@ self.kiri.license = exports.LICENSE;
             },
             // now they're called devices instead of gcode filters
             filter:{
-                FDM: "Any.Generic.Marlin",
-                CAM: "Any.Generic.Grbl"
+                FDM: "Cubicon.Single+",
+                CAM: "Cubicon.Single+"
             },
             // custom devices by name
             devices:{
@@ -471,6 +471,7 @@ self.kiri.license = exports.LICENSE;
         newWidget = kiri.newWidget,
         // ---------------
         UI = {},
+        INK = {},
         UC = MOTO.ui.prefix('kiri').inputAction(updateSettings).hideAction(onControlResize),
         DEFMODE = SETUP.dm && SETUP.dm.length === 1 ? SETUP.dm[0] : 'FDM',
         STARTMODE = SETUP.sm && SETUP.sm.length === 1 ? SETUP.sm[0] : null,
@@ -574,7 +575,7 @@ self.kiri.license = exports.LICENSE;
             delete o[k];
             o[p+(k.split('-')[1].toLowerCase())] = ov;
         } catch (e) {
-            console.log(e)
+            console.log("Remap Error:", e)
         }
     }
 
@@ -648,7 +649,7 @@ self.kiri.license = exports.LICENSE;
         try {
             return s ? JSON.parse(s) : def || null;
         } catch (e) {
-            console.log({malformed_json:s});
+            console.log("JS2O Error:", {malformed_json:s});
             return def || null;
         }
     }
@@ -1215,7 +1216,6 @@ self.kiri.license = exports.LICENSE;
             SPACE.platform.remove(currentPrint.group);
             currentPrint = null;
         }
-        UI.layerPrint.checked = false;
     }
 
     function clearSlices() {
@@ -1351,9 +1351,6 @@ self.kiri.license = exports.LICENSE;
     }
 
     function setOpacity(value) {
-        forWidgets(function (w) { w.setOpacity(value) });
-        UI.viewModelOpacity.value = value * 100;
-        SPACE.update();
     }
 
     function moveSelection(x, y, z, abs) {
@@ -1986,10 +1983,8 @@ self.kiri.license = exports.LICENSE;
     }
 
     function onControlResize() {
-        var left = UI.ctrlLeft.getBoundingClientRect(),
-            right = UI.ctrlRight.getBoundingClientRect();
-        UI.catalog.style.left = (left.width + 5) + 'px';
-        UI.devices.style.left = (left.width + 5) + 'px';
+        INK.toolbar.style.top = "10%";
+        INK.basicSettings.style.top = "10%";
     }
 
     function hideModal() {
@@ -2012,9 +2007,6 @@ self.kiri.license = exports.LICENSE;
             return;
         }
         ajax(local, function(html) {
-            UI.help.innerHTML = html;
-            $('help-close').onclick = hideModal;
-            $('kiri-version').innerHTML = '<i>version '+kiri.version+"</i>";
             showModal('help');
             STATS.add('d-help');
         });
@@ -2022,7 +2014,7 @@ self.kiri.license = exports.LICENSE;
 
     function takeFocus(el) {
         DOC.activeElement.blur();
-        el = [ el || DOC.body, UI.ctrlLeft, UI.container, UI.control, UI.modeFDM, UI.reverseZoom, UI.viewModelOpacity, DOC.body ];
+        el = [ el || DOC.body, INK.toolbar, UI.container, UI.control, DOC.body ];
         for (var es, i=0; i<el.length; i++) {
             es = el[i];
             es.focus();
@@ -2030,7 +2022,7 @@ self.kiri.license = exports.LICENSE;
                 break;
             }
         }
-        UI.ctrlLeft.focus();
+        INK.toolbar.focus();
         UI.container.focus();
         //console.log({focus: DOC.activeElement});
     }
@@ -2040,23 +2032,23 @@ self.kiri.license = exports.LICENSE;
         viewMode = mode;
         widgetDeselect();
         meshUpdateInfo();
-        [ UI.modeArrange, UI.modeSlice, UI.modePreview ].forEach(function(b) {
-            b.removeAttribute("class");
+        [ INK.arrange, INK.preview, INK.slice ].forEach(function(b) {
+            b.className = b.className.replace(" active", "");
         });
         switch (mode) {
             case VIEWS.ARRANGE:
-                updateSliderMax();
+                INK.arrange.className += " active";
                 UI.layerView.style.display = 'none';
-                UI.modeArrange.setAttribute("class","buton");
+                updateSliderMax();
                 break;
             case VIEWS.SLICE:
+                INK.slice.className += " active";
                 UI.layerView.style.display = 'block';
-                UI.modeSlice.setAttribute("class","buton");
                 updateSliderMax();
                 break;
             case VIEWS.PREVIEW:
+                INK.preview.className += " active";
                 UI.layerView.style.display = 'block';
-                UI.modePreview.setAttribute("class","buton");
                 break;
             default:
                 DBUG.log("invalid view mode: "+mode);
@@ -2077,8 +2069,9 @@ self.kiri.license = exports.LICENSE;
     }
 
     function setControlsVisible(show) {
-        UI.ctrlLeft .style.display = show ? 'block' : 'none';
-        UI.ctrlRight.style.display = show ? 'block' : 'none';
+        INK.toolbar.style.display = show ? 'block' : 'none';
+        INK.basicSettings.style.display = show ? 'block' : 'none';
+        INK.advancedSettings.style.display = show ? 'block' : 'none';
     }
 
     function eat(ev) {
@@ -2093,7 +2086,6 @@ self.kiri.license = exports.LICENSE;
     function init() {
         if (kiri.init) return;
         kiri.init = init;
-        kiri.inkUI = {};
 
         var control = $('control'),
             container = $('container'),
@@ -2101,7 +2093,8 @@ self.kiri.license = exports.LICENSE;
             editTools = null,
             ROT = Math.PI/2,
             ROT5 = ROT / 9,
-            FDM = [MODES.FDM];
+            FDM = [MODES.FDM],
+            LASER = [MODES.LASER];
 
         WIN.addEventListener("resize", onWindowResize);
 
@@ -2123,11 +2116,11 @@ self.kiri.license = exports.LICENSE;
             layerView: $('layer-view'),
             layerSlider: $('layer-slider'),
 
-            // assets: assets,
+            assets: assets,
             control: control,
             modal: $('modal'),
-            // print: $('print'),
-            // help: $('help'),
+            print: $('print'),
+            help: $('help'),
 
             devices: $('devices'),
             deviceAdd: $('device-add'),
@@ -2143,24 +2136,16 @@ self.kiri.license = exports.LICENSE;
             setDeviceWidth: UC.newInput("bed width", {title:"millimeters", convert:UC.toInt}),
             setDeviceDepth: UC.newInput("bed depth", {title:"millimeters", convert:UC.toInt}),
             setDeviceHeight: UC.newInput("max height", {title:"max build height\nin millimeters", convert:UC.toInt, modes:FDM}),
-            setDeviceMaxSpindle: UC.newInput("max spindle rpm", {title:"max spindle speed\n0 to disable", convert:UC.toInt, modes:CAM}),
             setDeviceExtrusion: UC.newBoolean("extrusion absolute", onBooleanClick, {title:"extrusion moves absolute"}),
             setDeviceOrigin: UC.newBoolean("origin center", onBooleanClick, {title:"bed origin center"}),
-            setDeviceOriginTop: UC.newBoolean("origin top", onBooleanClick, {title:"part z origin top", modes:CAM}),
 
             setDevice: UC.newGroup("gcode", $('device')),
             setDeviceFan: UC.newInput("fan power", {title:"set cooling fan power", modes:FDM, size:15}),
             setDeviceTrack: UC.newInput("progress", {title:"output on each % progress", modes:FDM, size:15}),
             setDeviceLayer: UC.newText("layer", {title:"output at each layer change", modes:FDM, size:14, height: 2}),
-            setDeviceToken: UC.newBoolean("token spacing", null, {title:"gcode token spacing", modes:CAM}),
-            setDeviceStrip: UC.newBoolean("strip comments", null, {title:"strip gcode comments", modes:CAM}),
-            setDeviceFExt: UC.newInput("file ext", {title:"file name exension", modes:CAM, size:5}),
-            setDeviceDwell: UC.newText("dwell", {title:"gcode dwell script", modes:CAM, size:14, height:2}),
-            setDeviceChange: UC.newText("tool change", {title:"tool change script", modes:CAM, size:14, height:2}),
-            setDeviceSpindle: UC.newText("spindle speed", {title:"set spindle speed", modes:CAM, size:14, height:2}),
             setDevicePause: UC.newText("pause", {title:"gcode pause script", modes:FDM, size:14, height:3}),
-            setDevicePre: UC.newText("header", {title:"gcode header script", modes:FDM_CAM, size:14, height:3}),
-            setDevicePost: UC.newText("footer", {title:"gcode footer script", modes:FDM_CAM, size:14, height:3}),
+            setDevicePre: UC.newText("header", {title:"gcode header script", modes:FDM, size:14, height:3}),
+            setDevicePost: UC.newText("footer", {title:"gcode footer script", modes:FDM, size:14, height:3}),
 
             catalog: $('catalog'),
             catalogBody: $('catalogBody'),
@@ -2174,9 +2159,9 @@ self.kiri.license = exports.LICENSE;
             layerSpan: $('layer-span'),
             layerRange: $('layer-range'),
 
-            // loading: $('loading').style,
-            // progress: $('progress').style,
-            // prostatus: $('prostatus'),
+            loading: $('loading').style,
+            progress: $('progress').style,
+            prostatus: $('prostatus'),
 
             selection: $('selection'),
             selWidth: $('sel_width'),
@@ -2187,7 +2172,7 @@ self.kiri.license = exports.LICENSE;
             scaleZ: $('scale_z'),
             scaleUniform: $('scale_uni'),
 
-            // mode: UC.newGroup('mode', assets),
+            mode: UC.newGroup('mode', assets),
             // modeTable: UC.newTableRow([
             //     [
             //         UI.modeFDM =
@@ -2260,20 +2245,15 @@ self.kiri.license = exports.LICENSE;
             //     UI.viewModelOpacity = UC.newRange(null, {title:"change model opacity"})
             // ]]),
 
-            // layers: UC.setGroup($("layers")),
-            // layerOutline: UC.newBoolean("outline", onBooleanClick, {modes:LOCAL ? ALL : FDM_LASER}),
-            // layerTrace: UC.newBoolean("trace", onBooleanClick, {modes:FDM_LASER}),
-            // layerFacing: UC.newBoolean("facing", onBooleanClick, {modes:CAM}),
-            // layerRough: UC.newBoolean("roughing", onBooleanClick, {modes:CAM}),
-            // layerFinish: UC.newBoolean("finishing", onBooleanClick, {modes:CAM}),
-            // layerFinishX: UC.newBoolean("finish x", onBooleanClick, {modes:CAM}),
-            // layerFinishY: UC.newBoolean("finish y", onBooleanClick, {modes:CAM}),
-            // layerDelta: UC.newBoolean("delta", onBooleanClick, {modes:FDM}),
-            // layerSolid: UC.newBoolean("solids", onBooleanClick, {modes:FDM}),
-            // layerFill: UC.newBoolean("solid fill", onBooleanClick, {modes:FDM}),
-            // layerSparse: UC.newBoolean("sparse fill", onBooleanClick, {modes:FDM}),
-            // layerSupport: UC.newBoolean("support", onBooleanClick, {modes:FDM}),
-            // layerPrint: UC.newBoolean("print", onBooleanClick),
+            layers: UC.setGroup($("layers")),
+            layerOutline: UC.newBoolean("outline", onBooleanClick, {modes:FDM}),
+            layerTrace: UC.newBoolean("trace", onBooleanClick, {modes:FDM}),
+            layerDelta: UC.newBoolean("delta", onBooleanClick, {modes:FDM}),
+            layerSolid: UC.newBoolean("solids", onBooleanClick, {modes:FDM}),
+            layerFill: UC.newBoolean("solid fill", onBooleanClick, {modes:FDM}),
+            layerSparse: UC.newBoolean("sparse fill", onBooleanClick, {modes:FDM}),
+            layerSupport: UC.newBoolean("support", onBooleanClick, {modes:FDM}),
+            layerPrint: UC.newBoolean("print", onBooleanClick),
 
             // settingsGroup: UC.newGroup("settings", control),
             // settingsTable: UC.newTableRow([
@@ -2354,23 +2334,58 @@ self.kiri.license = exports.LICENSE;
             // gcodeKFactor: UC.newInput("k-factor", {title: "aka linear advance\nuse {kfactor} in gcode", convert:UC.toInt, modes:FDM}),
             // gcodePauseLayers: UC.newInput("pause layers", {title: "comma-separated list of layers\nto inject pause commands before", modes:FDM})
         
-            // Inksmith UI Elements
-        
         });
 
+        // Inksmith UI Elements
         set(INK, {
             container: container,
+            
+            toolbar: $('control-left'),
+            basicSettings: $('sidebarR'),
+            advancedSettings: $('advanced'),
+            
+            addFile: $('add-file'),
+            print: $('print-button'),
+
             singlePlus: $('single-plus'),
-            addFile: $('add-file')
+            
+            helpButton: $('helpB'),
+            
+            // View Mode Buttons
+            preview: $('preview'),
+            arrange: $('arrange'),
+            slice: $('slice')
         })
 
         // Inksmith UI functionality
         INK.singlePlus.onclick = function () {
-            console.log("Single+");
             selectDevice("Cubicon.Single+");
         }
 
-        INK.addFile.onclick = function(){ showCatalog("catalog"); }
+        INK.preview.onclick = function() {
+            preparePrint();
+            setViewMode(VIEWS.PREVIEW);
+        }
+        INK.arrange.onclick = function() {
+            layoutPlatform();
+            setViewMode(VIEWS.ARRANGE);
+        }
+        INK.slice.onclick = function() {
+            prepareSlices();
+            setViewMode(VIEWS.SLICE);
+        }
+
+        INK.helpButton.onclick = function() {
+            showHelp();
+        };
+
+        INK.addFile.onclick = function(){ 
+            KIRI.api.import(); 
+        }
+
+        INK.print.onclick = function() {
+            exportPrint();
+        }
 
         function toolUpdate(a,b,c) {
             DBUG.log(['toolUpdate',a,b,c])
@@ -2559,7 +2574,7 @@ self.kiri.license = exports.LICENSE;
                             settings.process = JSON.parse(v);
                             updateFields();
                         } catch (e) {
-                            console.log(e);
+                            console.log("Setting Error:", e);
                             alert("invalid settings format");
                         }
                     }
@@ -2883,31 +2898,14 @@ self.kiri.license = exports.LICENSE;
                  UI.setDeviceHeight,
                  UI.setDeviceExtrusion,
                  UI.setDeviceOrigin,
-                 UI.setDeviceOriginTop,
                  UI.setDeviceFan,
                  UI.setDeviceTrack,
                  UI.setDeviceLayer,
                  UI.setDeviceFilament,
-                 UI.setDeviceNozzle,
-                 UI.setDeviceMaxSpindle,
-                 UI.setDeviceSpindle,
-                 UI.setDeviceDwell,
-                 UI.setDeviceChange,
-                 UI.setDeviceFExt,
-                 UI.setDeviceToken,
-                 UI.setDeviceStrip
+                 UI.setDeviceNozzle
                  ].forEach(function(e) {
                     e.disabled = !local;
                  });
-
-                // hide spindle fields when device doens't support it
-                [
-                 UI.roughingSpindle,
-                 UI.finishingSpindle,
-                 UI.drillSpindle
-                ].forEach(function(e) {
-                 e.parentNode.style.display = dev.spindleMax ? 'block' : 'none';
-                });
 
                 UI.deviceSave.disabled =
                 UI.deviceDelete.disabled = !local;
@@ -2923,7 +2921,7 @@ self.kiri.license = exports.LICENSE;
 
                 saveSettings();
             } catch (e) {
-                console.log({error:e, device:code});
+                console.log("Set Device Code Error:", {error:e, device:code});
                 // alert("invalid or deprecated device. please select a new device.");
                 showDevices();
             }
@@ -2932,66 +2930,66 @@ self.kiri.license = exports.LICENSE;
         }
 
         function renderDevices(devices) {
-            UI.devices.onclick = UC.hidePop;
-            UC.hidePop();
+            // UI.devices.onclick = UC.hidePop;
+            // UC.hidePop();
 
-            var selectedIndex = -1,
-                selected = currentDeviceName(),
-                devs = settings.devices;
+            // var selectedIndex = -1,
+            //     selected = currentDeviceName(),
+            //     devs = settings.devices;
 
-            for (var local in devs) {
-                if (!(devs.hasOwnProperty(local) && devs[local])) continue;
-                var dev = devs[local],
-                    fdmCode = dev.cmd,
-                    fdmMode = (getMode() === 'FDM');
+            // for (var local in devs) {
+            //     if (!(devs.hasOwnProperty(local) && devs[local])) continue;
+            //     var dev = devs[local],
+            //         fdmCode = dev.cmd,
+            //         fdmMode = (getMode() === 'FDM');
 
-                if (dev.mode ? (dev.mode === getMode()) : (fdmCode ? fdmMode : !fdmMode)) {
-                    devices.push(local);
-                }
-            };
+            //     if (dev.mode ? (dev.mode === getMode()) : (fdmCode ? fdmMode : !fdmMode)) {
+            //         devices.push(local);
+            //     }
+            // };
 
-            devices = devices.sort();
+            // devices = devices.sort();
 
-            UI.deviceClose.onclick = hideDialog;
-            UI.deviceSave.onclick = function() {
-                clearWidgetCache();
-                updateDeviceCode();
-                saveSettings();
-                showDevices();
-            };
-            UI.deviceAdd.onclick = function() {
-                clearWidgetCache();
-                updateDeviceCode(getSelectedDevice()+".copy");
-                showDevices();
-            };
-            UI.deviceDelete.onclick = function() {
-                clearWidgetCache();
-                removeLocalDevice(getSelectedDevice());
-                showDevices();
-            };
+            // UI.deviceClose.onclick = hideDialog;
+            // UI.deviceSave.onclick = function() {
+            //     clearWidgetCache();
+            //     updateDeviceCode();
+            //     saveSettings();
+            //     showDevices();
+            // };
+            // UI.deviceAdd.onclick = function() {
+            //     clearWidgetCache();
+            //     updateDeviceCode(getSelectedDevice()+".copy");
+            //     showDevices();
+            // };
+            // UI.deviceDelete.onclick = function() {
+            //     clearWidgetCache();
+            //     removeLocalDevice(getSelectedDevice());
+            //     showDevices();
+            // };
 
-            UI.deviceSelect.innerHTML = '';
-            devices.forEach(function(device, index) {
-                var opt = DOC.createElement('option');
-                opt.appendChild(DOC.createTextNode(device));
-                opt.onclick = function() { selectDevice(device) };
-                if (isLocalDevice(device)) opt.setAttribute("local", 1);
-                UI.deviceSelect.appendChild(opt);
-                if (device === selected) selectedIndex = index;
-            });
+            // UI.deviceSelect.innerHTML = '';
+            // devices.forEach(function(device, index) {
+            //     var opt = DOC.createElement('option');
+            //     opt.appendChild(DOC.createTextNode(device));
+            //     opt.onclick = function() { selectDevice(device) };
+            //     if (isLocalDevice(device)) opt.setAttribute("local", 1);
+            //     UI.deviceSelect.appendChild(opt);
+            //     if (device === selected) selectedIndex = index;
+            // });
 
-            if (selectedIndex >= 0) {
-                UI.deviceSelect.selectedIndex = selectedIndex;
-                selectDevice(selected);
-            } else {
-                UI.deviceSelect.selectedIndex = 0;
-                selectDevice(devices[0]);
-            }
+            // if (selectedIndex >= 0) {
+            //     UI.deviceSelect.selectedIndex = selectedIndex;
+            //     selectDevice(selected);
+            // } else {
+            //     UI.deviceSelect.selectedIndex = 0;
+            //     selectDevice(devices[0]);
+            // }
 
-            showDialog('devices', true);
-            onWindowResize();
+            // showDialog('devices', true);
+            // onWindowResize();
 
-            UI.deviceSelect.focus();
+            // UI.deviceSelect.focus();
         }
 
         function renderTools() {
@@ -3138,9 +3136,6 @@ self.kiri.license = exports.LICENSE;
             UI.scaleX,           scaleSelection,
             UI.scaleY,           scaleSelection,
             UI.scaleZ,           scaleSelection,
-
-            UI.bedWidth,         updatePlatformSize,
-            UI.bedDepth,         updatePlatformSize
         ]);
 
         UI.layerID.convert = UC.toFloat.bind(UI.layerID);
@@ -3279,7 +3274,7 @@ self.kiri.license = exports.LICENSE;
                 };
                 SDB['octo-host'] = OCTOPRINT.host;
                 SDB['octo-apik'] = OCTOPRINT.apik;
-                console.log({octoprint:OCTOPRINT});
+                console.log("octoprint Error:", {octoprint:OCTOPRINT});
             }
 
             // device name pass on url
@@ -3299,9 +3294,6 @@ self.kiri.license = exports.LICENSE;
 
             // init gcode sender
             KIRI.serial.init();
-
-            // place version number a couple of places to help users
-            UI.helpButton.title = "version " + KIRI.version;
 
             // setup tab visibility watcher
             // DOC.addEventListener('visibilitychange', function() { document.title = document.hidden });
