@@ -887,15 +887,6 @@ button[import="1"] {
 /** PRINT DIALOG */
 
 #print {
-    /* position: fixed;
-    -webkit-transform: translate(-50%, 0);
-    transform: translate(-50%, 0);
-    text-align: center;
-    top: 50px;
-    left: 50%;
-    background-color: white;
-    padding: 10px; */
-
     background-color:white;
     z-index:0;
     position:fixed;
