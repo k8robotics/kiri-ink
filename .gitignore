@@ -6,6 +6,3 @@ node_modules
 persist
 mod
 package-lock.json
-js/ext-n3d.js
-js/ext-three.js
-js/ext-tween.js
