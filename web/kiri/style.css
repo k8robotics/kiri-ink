@@ -909,6 +909,7 @@ button[import="1"] {
     display:flex;
     box-shadow: 0px 2px 3px 1px #727272;
     transition: right .2s;
+    display: none;
 }
 #print-close {
     position: absolute;
