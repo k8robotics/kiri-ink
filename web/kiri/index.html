@@ -18,6 +18,10 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" 
+        href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" 
+        crossorigin="anonymous">
         <script src="/kiri/scripts.js"></script>
             
         
@@ -27,24 +31,38 @@
     </head>
     <body>
         <script>
-            /* because TWEEN complains */
             module = {};
         </script>
-<!--{kiri}-->
+        <!--{kiri}-->
         <div class="topbar">
             <img src="/kiri/logo2.png" class="logotop">
             <div class="buttonpanel">
                 
                 <button class="topbutton">Save</button>
-                <button class="topbutton callbutton green">Add File</button>
-                <button class="topbutton callbutton green">Print</button>
+                <button class="topbutton callbutton green" id="add-file">Add File</button>
+                <button class="topbutton callbutton green" id="print-button">Print</button>
             </div>
         </div>
 
         <div class="topbar-spacer"></div>
 
-        <div class="control-left" id="sbl">
+        <div class="control-left" id="control-left">
             <div class="tooltitle">
+                <h2>Mode</h2>
+            </div>
+            <div class="tool active" id="arrange">
+                <i class="fas fa-arrows-alt"></i>
+                <p class="tooltip">Arrange</p>
+            </div>
+            <div class="tool" id="preview">
+                <i class="far fa-eye"></i>
+                <p class="tooltip">Preview</p>
+            </div>
+            <div class="tool" id="slice">
+                <i class="fas fa-database"></i>
+                <p class="tooltip">Slice</p>
+            </div>
+            <div class="tooldiv">
                 <h2>Tools</h2>
             </div>
             <div class="tool" id="devicesB"> 
@@ -54,10 +72,6 @@
             <div class="tool"> 
                 <img class="toolimg" src = "/kiri/duplicate.png"> 
                 <p class="tooltip">Duplicate</p>
-            </div>
-            <div class="tool"> 
-                <img class="toolimg" src = "/kiri/arrange.png"> 
-                <p class="tooltip">Arrange</p>
             </div>
             <div class="tool"> 
                 <img class="toolimg" src = "/kiri/delete.png"> 
@@ -75,12 +89,12 @@
                 <img class="toolimg"  src = "/kiri/camera.png"> 
                 <p class="tooltip">View</p>
             </div>
-            <div class="end tool"> 
-            <img class="toolimg" src = "/kiri/help.png"> 
-            <p class="tooltip">Help</p>
+            <div class="end tool" id="helpB"> 
+                <img class="toolimg" src = "/kiri/help.png"> 
+                <p class="tooltip">Help</p>
             </div>
         </div>
-
+        <div id="assets"></div>
         <div class="scale" id = "scale">
             <div class="tooltitle">
                  <h2> Scale </h2>
@@ -114,11 +128,11 @@
 
         <div class="scale dwind" id = "devices">
             <div class="tooltitle">
-                    <h2> Devices </h2>
-                    <img class="menuExit" id="devicesB2" src="/kiri/delete.png">
+                <h2> Devices </h2>
+                <img class="menuExit" id="devicesB2" src="/kiri/delete.png">
             </div>
             <div class="scaleContent device">
-                <img src="/kiri/printer1.bmp"/>
+                <img src="/kiri/printer1.bmp" id="single-plus"/>
                 <img src="/kiri/printer2.bmp"/>
                 <img src="/kiri/printer3.bmp"/>
             </div>
@@ -138,9 +152,6 @@
                 <input class="inputbox">
             </div>
         </div>
-
-        <div id="container"></div>
-
         <div class="control-right" id="sidebarR">
             <div class="tooltitle"><h2>Settings</h2></div>
 
@@ -420,12 +431,157 @@
                 <p class="sr_title">pause layers </p>
                 <input class="sr_input"/>
             </div>
+        </div>
 
 
 
+        <div id="sender">
+            <div id="sender-bar">
+                <button id="sender-spjs">?</button>
+                <button id="sender-close">X</button>
+            </div>
+            <span>direct device control</span>
+            <div class="sender-sel">
+                <table>
+                    <tr>
+                        <th colspan="2" class="flow-row">
+                            <input class="flow-grow" id="sender-host" size="30" spellcheck="false" placeholder="host:port of SPJS server" />
+                        </th>
+                        <td> <button id="sender-connect">connect</button> </td>
+                    </tr>
+                    <tr>
+                        <th class="flow-row">
+                            <select class="flow-grow" id="sender-port" disabled="true"><option>select port</option></select> &nbsp;
+                            <select id="sender-mode" disabled="true">
+                                <option id="mode-option">set mode</option>
+                                <option value="grbl">grbl</option>
+                                <option value="tinyg">tinyg</option>
+                            </select>
+                        </th>
+                        <td> <button id="sender-port-close">close</button> </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sender-sel"> <div id="sender-log"></div> </div>
+            <div class="sender-sel" id="sender-cc">
+                <table>
+                    <tr>
+                        <th>
+                            <label>status</label>
+                            <input id="sender-status" size="5" disabled="true" />
+                            <label>send</label>
+                            <input id="sender-command" size="30" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="flow-row" id="sender-quick">
+                            <button id="sender-ctrlx">soft reset</button> &nbsp;
+                            <button id="sender-hold">feed hold</button> &nbsp;
+                            <button id="sender-resume">feed resume</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sender-sel flow-row flow-space-between" id="sender-pad">
+                <div>
+                <table>
+                    <tr><th>
+                        <button id="sjx-">X-</button>
+                        <button id="sjx+">X+</button>
+                    </th></tr>
+                    <tr><th>
+                        <button id="sjy-">Y-</button>
+                        <button id="sjy+">Y+</button>
+                    </th></tr>
+                    <tr><th>
+                        <button id="sjz-">Z-</button>
+                        <button id="sjz+">Z+</button>
+                    </th></tr>
+                </table>
+            </div><div>
+                <table>
+                    <tr><th> <label>jog</label><input id="sender-jog" size="4" value="1" title="jog distance in mm" /><label>mm</label> </th></tr>
+                    <tr><th> <button id="sender-set-zero">zero out axes</button> </th></tr>
+                    <tr><th> <button id="sender-goto-zero">goto zero axis</button> </th></tr>
+                </table>
+            </div><div>
+                <table id="sender-coordinates">
+                    <tr><th><label>X</label> <input id="saxi" disabled="true" size="8" /> <input id="srxi" disabled="true" size="8" /></th></tr>
+                    <tr><th><label>Y</label> <input id="sayi" disabled="true" size="8" /> <input id="sryi" disabled="true" size="8" /></th></tr>
+                    <tr><th><label>Z</label> <input id="sazi" disabled="true" size="8" /> <input id="srzi" disabled="true" size="8" /></th></tr>
+                </table>
+            </div>
+            </div>
+            <div class="sender-sel" id="sender-control">
+                <table>
+                    <tr><td>
+                        <label>gcode control</label>
+                        <div id="sender-control-buttons">
+                            <button id="sender-gc-send">send</button>
+                            <button id="sender-gc-pause">pause</button>
+                            <button id="sender-gc-abort">abort</button>
+                            : <button id="sender-gc-runbox">runbox</button>
+                        </div>
+                    </td></tr>
+                    <tr><td class="flow-row flow-space-between">
+                        <div><label>queue</label><input id="sender-gc-queue" disabled="true" size="9" /> </div>
+                        <div><label>sent</label><input id="sender-gc-sent" disabled="true" size="9" /> </div>
+                        <div><label>total</label><input id="sender-gc-lines" disabled="true" size="9" /> </div>
+                    </td></tr>
+                </table>
+            </div>
+    </div>
+
+        <!-- all modal dialogs -->
+        <div id="modal">
+            <div id="help"></div>
+            <!-- changeable print dialog -->
+            <div id="print"></div>
+            <!-- hidden file input loader -->
+            <input id="load-file" type="file" name="loadme" style="display:none" accept=".stl,.gcode,.nc"/>
+        </div>
+
+        <div id="container"></div>
+
+        <!-- progress bar -->
+        <div id="loading"><div id="progress"><span id="prostatus">status</span></div></div>
+
+        <!-- file load catalog -->
+        <div id="catalog" class="dialog">
+            <div id="catalogBody" class="flow-col">
+                <span id="localCache">local cache</span>
+                <div id="catalogList"></div>
+            </div>
+        </div>
+        <!-- settings load dialog -->
+        <div id="settings" class="dialog">
+            <div id="settingsBody" class="flow-col">
+                <span id="settingsCache">saved settings</span>
+                <div id="settingsList"></div>
+            </div>
         </div>
 
         <p class="credit">Powered by Kiri:Moto</p>
+        <!-- selection info -->
+        <div id="selection">
+            <span>
+                <label class="label">width:</label><label id="sel_width" class="value">mm</label>
+                <label class="label">depth:</label><label id="sel_depth" class="value">mm</label>
+                <label class="label">height:</label><label id="sel_height" class="value">mm</label>
+                &nbsp;&nbsp;
+                <label class="label">scale</label>
+                <label class="label">x</label><input id="scale_x" size="3" value="1"/>
+                <label class="label">y</label><input id="scale_y" size="3" value="1"/>
+                <label class="label">z</label><input id="scale_z" size="3" value="1"/>
+                <label class="label">uniform</label><input type="checkbox" id="scale_uni" checked>
+                &nbsp;&nbsp;
+                <label class="label">rotate</label>
+                <button id="x+" title="hold SHIFT to rotate 5 degrees">x+</button><button id="x-" title="hold SHIFT to rotate 5 degrees">x-</button>
+                <button id="y+" title="hold SHIFT to rotate 5 degrees">y+</button><button id="y-" title="hold SHIFT to rotate 5 degrees">y-</button>
+                <button id="z+" title="hold SHIFT to rotate 5 degrees">z+</button><button id="z-" title="hold SHIFT to rotate 5 degrees">z-</button>
+            </span>
+        </div>
+        <div hidden id="device"></div>
         <!-- layer slider -->
         <div id="layer-view" class="flow-row">
             <span>
