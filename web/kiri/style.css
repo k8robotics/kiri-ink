@@ -411,7 +411,7 @@ button{
     z-index:0;
     position:absolute;
     flex-direction:column;
-    top: calc(30%);
+    top: calc(10%);
     right:1%;
     height:auto;
     min-width: 12%;

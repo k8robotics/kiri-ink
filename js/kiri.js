@@ -264,9 +264,9 @@ self.kiri.license = exports.LICENSE;
                 sliceHeight: 0.2,
                 sliceShells: 2,
                 sliceShellSpacing: 1.0,
-                sliceFillAngle: 45,
                 sliceFillOverlap: 0.3,
                 sliceFillSpacing: 1.0,
+                sliceFillAngle: 45,
                 sliceFillSparse: 0.5,
                 sliceSolidMinArea: 5,
                 sliceSolidLayers: 3,
@@ -294,14 +294,14 @@ self.kiri.license = exports.LICENSE;
                 outputBrimOffset: 20,
 
                 // Supports
-                sliceSupportEnable: false,
                 sliceSupportDensity: 0.15,
+                sliceSupportSize: 10,
                 sliceSupportOffset: 1.0,
                 sliceSupportGap: 1,
-                sliceSupportSize: 10,
+                sliceSupportSpan: 6,
                 sliceSupportArea: 1,
                 sliceSupportExtra: 0,
-                sliceSupportSpan: 6,
+                sliceSupportEnable: false,
 
                 // Raft
                 outputRaftSpacing: 0.2,
@@ -316,7 +316,6 @@ self.kiri.license = exports.LICENSE;
                 outputShortFactor: 0.2,
                 outputFinishFactor: 0,
                 sliceMinHeight: 0,
-                detectThinWalls: false,
                 zHopDistance: 0,
                 antiBacklash: 2,
 
@@ -2401,69 +2400,72 @@ self.kiri.license = exports.LICENSE;
             arrange: $('arrange'),
             slice: $('slice'),
 
+            // Basic Settings
+            basicRaft: $('basic-raft'),
+            basicSupport:$('basic-support'),
+
             // Settings
-            sliceHeight: 0.2,
-            sliceShells: 2,
-            sliceShellSpacing: 1.0,
-            sliceFillAngle: 45,
-            sliceFillOverlap: 0.3,
-            sliceFillSpacing: 1.0,
-            sliceFillSparse: 0.5,
-            sliceSolidMinArea: 5,
-            sliceSolidLayers: 3,
-            sliceBottomLayers: 2,
-            sliceTopLayers: 6,
-            sliceVase: false,
+            sliceHeight: $('layer-height'),
+            sliceShells: $('shell-count'),
+            sliceShellSpacing: $('shell-spacing'),
+            sliceFillAngle: $('fill-angle'),
+            sliceFillOverlap: $('fill-overlap'),
+            sliceFillSpacing: $('fill-spacing'),
+            sliceFillSparse: $('fill-ratio'),
+            sliceSolidMinArea: $('solid-area'),
+            sliceSolidLayers: $('solid-layers'),
+            sliceBottomLayers: $('base-layers'),
+            sliceTopLayers: $('top-layers'),
+            sliceVase: $('vase-mode'),
 
             // Output
-            outputBedTemp: 50,
-            outputTemp: 210,
-            outputFeedrate: 80,
-            outputFinishrate: 50,
-            outputSeekrate: 100,
-            outputShellMult: 1.1,
-            outputFillMult: 1.2,
-            outputSparseMult: 1.3,
-            outputCooling: true,
+            outputBedTemp: $('bed-temp'),
+            outputTemp: $('nozzle-temp'),
+            outputFeedrate: $('print-speed'),
+            outputFinishrate: $('finish-speed'),
+            outputSeekrate: $('move-speed'),
+            outputShellMult: $('shell-factor'),
+            outputFillMult: $('solid-factor'),
+            outputSparseMult: $('infill-factor'),
+            outputCooling: $('cooling'),
 
             // First Layer
-            firstSliceHeight: 0.2,
-            firstLayerRate: 30,
-            firstLayerFillRate: 40,
-            firstLayerPrintMult: 1.0,
-            outputBrimCount: 1,
-            outputBrimOffset: 20,
+            firstSliceHeight: $('first-layer-height'),
+            firstLayerRate: $('shell-speed'),
+            firstLayerFillRate: $('fill-speed'),
+            firstLayerPrintMult: $('print-factor'),
+            outputBrimCount: $('skirt-count'),
+            outputBrimOffset: $('skirt-offset'),
 
             // Supports
-            sliceSupportEnable: false,
-            sliceSupportDensity: 0.15,
-            sliceSupportOffset: 1.0,
-            sliceSupportGap: 1,
-            sliceSupportSize: 10,
-            sliceSupportArea: 1,
-            sliceSupportExtra: 0,
-            sliceSupportSpan: 6,
+            sliceSupportDensity: $('density'),
+            sliceSupportSize: $('pillar-size'),
+            sliceSupportOffset: $('part-offset'),
+            sliceSupportGap: $('gap-layers'),
+            sliceSupportSpan: $('max-bridge'),
+            sliceSupportArea: $('min-area'),
+            sliceSupportExtra: $('expand'),
+            sliceSupportEnable: $('supports-enable'),
 
             // Raft
-            outputRaftSpacing: 0.2,
-            outputRaft: false,
+            outputRaftSpacing: $('spacing'),
+            outputRaft: $('raft-enable'),
 
             // Advanced
-            outputRetractDist: 1.0,
-            outputRetractSpeed: 40,
-            outputRetractDwell: 30,
-            outputShortPoly: 15.0,
-            outputShortDistance: 0.0,
-            outputShortFactor: 0.2,
-            outputFinishFactor: 0,
-            sliceMinHeight: 0,
-            detectThinWalls: false,
-            zHopDistance: 0,
-            antiBacklash: 2,
+            outputRetractDist: $('retract-dist'),
+            outputRetractSpeed: $('retract-rate'),
+            outputRetractDwell: $('engage-dwell'),
+            outputShortPoly: $('short-outline'),
+            outputShortDistance: $('short-segment'),
+            outputShortFactor: $('short-factor'),
+            outputFinishFactor: $('finish-factor'),
+            sliceMinHeight: $('min-layer'),
+            zHopDistance: $('z-hop-distance'),
+            antiBacklash: $('anti-backlash'),
 
             // GCode
-            gcodeKFactor: 0,
-            gcodePauseLayers: ""
+            gcodeKFactor: $('k-factor'),
+            gcodePauseLayers: $('pause-layers')
             
         })
 
@@ -2524,6 +2526,19 @@ self.kiri.license = exports.LICENSE;
         INK.camLeft.onclick = function() { SPACE.view.left(); }
         INK.camRight.onclick = function() { SPACE.view.right(); }
         INK.camReset.onclick = function() { SPACE.view.reset(); }
+
+        INK.basicRaft.onchange = function(){
+            INK.outputRaft.checked = this.value;
+        };
+        INK.outputRaft.change = function(){
+            INK.basicRaft.checked = this.value;
+        };
+        INK.sliceSupportEnable.change = function(){
+            INK.basicSupport.checked  = this.value;
+        };
+        INK.basicSupport.onchange = function(){
+            INK.sliceSupportEnable.checked = this.value;
+        };
 
         function toolUpdate(a,b,c) {
             DBUG.log(['toolUpdate',a,b,c])
