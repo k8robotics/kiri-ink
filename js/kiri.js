@@ -268,7 +268,32 @@ self.kiri.license = exports.LICENSE;
                 sliceFillOverlap: 0.3,
                 sliceFillSpacing: 1.0,
                 sliceFillSparse: 0.5,
+                sliceSolidMinArea: 5,
+                sliceSolidLayers: 3,
+                sliceBottomLayers: 2,
+                sliceTopLayers: 6,
+                sliceVase: false,
 
+                // Output
+                outputBedTemp: 50,
+                outputTemp: 210,
+                outputFeedrate: 80,
+                outputFinishrate: 50,
+                outputSeekrate: 100,
+                outputShellMult: 1.1,
+                outputFillMult: 1.2,
+                outputSparseMult: 1.3,
+                outputCooling: true,
+
+                // First Layer
+                firstSliceHeight: 0.2,
+                firstLayerRate: 30,
+                firstLayerFillRate: 40,
+                firstLayerPrintMult: 1.0,
+                outputBrimCount: 1,
+                outputBrimOffset: 20,
+
+                // Supports
                 sliceSupportEnable: false,
                 sliceSupportDensity: 0.15,
                 sliceSupportOffset: 1.0,
@@ -278,44 +303,28 @@ self.kiri.license = exports.LICENSE;
                 sliceSupportExtra: 0,
                 sliceSupportSpan: 6,
 
-                sliceSolidMinArea: 5,
-                sliceSolidLayers: 3,
-                sliceBottomLayers: 2,
-                sliceTopLayers: 3,
-                sliceVase: false,
-
-                firstSliceHeight: 0.25,
-                firstLayerRate: 30,
-                firstLayerFillRate: 40,
-                firstLayerPrintMult: 1.0,
-                outputRaft: false,
+                // Raft
                 outputRaftSpacing: 0.2,
+                outputRaft: false,
 
-                outputTemp: 220,
-                outputFanMax: 255,
-                outputBedTemp: 0,
-                outputFeedrate: 80,
-                outputFinishrate: 60,
-                outputSeekrate: 100,
-                outputShellMult: 1.1,
-                outputFillMult: 1.2,
-                outputSparseMult: 1.3,
+                // Advanced
                 outputRetractDist: 1.0,
                 outputRetractSpeed: 40,
                 outputRetractDwell: 30,
-                outputBrimCount: 2,
-                outputBrimOffset: 2,
                 outputShortPoly: 15.0,
                 outputShortDistance: 0.0,
                 outputShortFactor: 0.2,
                 outputFinishFactor: 0,
                 sliceMinHeight: 0,
                 detectThinWalls: false,
-                antiBacklash: 2,
                 zHopDistance: 0,
+                antiBacklash: 2,
+
+                // GCode
                 gcodeKFactor: 0,
                 gcodePauseLayers: "",
-                outputCooling: true,
+
+                outputFanMax: 255,
 
                 // --- LASER ---
 
