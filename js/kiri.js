@@ -260,8 +260,8 @@ self.kiri.license = exports.LICENSE;
                 processName: "default",
 
                 // --- FDM ---
-
-                sliceHeight: 0.25,
+                // DEFAULT - Single+ Medium
+                sliceHeight: 0.2,
                 sliceShells: 2,
                 sliceShellSpacing: 1.0,
                 sliceFillAngle: 45,
@@ -270,7 +270,7 @@ self.kiri.license = exports.LICENSE;
                 sliceFillSparse: 0.5,
 
                 sliceSupportEnable: false,
-                sliceSupportDensity: 0.25,
+                sliceSupportDensity: 0.15,
                 sliceSupportOffset: 1.0,
                 sliceSupportGap: 1,
                 sliceSupportSize: 10,

@@ -477,6 +477,7 @@ button{
     width:90%;
     height:auto;
     display:flex;
+    font-weight: bold;
     justify-content: space-between;
 }
 
