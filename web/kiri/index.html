@@ -73,7 +73,7 @@
                 <img class="toolimg" src = "/kiri/duplicate.png"> 
                 <p class="tooltip">Duplicate</p>
             </div>
-            <div class="tool"> 
+            <div class="tool" id="deleteB"> 
                 <img class="toolimg" src = "/kiri/delete.png"> 
                 <p class="tooltip">Delete</p>
             </div>
@@ -102,12 +102,12 @@
             </div>
             <div class="scaleContent">
                 <p> X: </p>
-                <input class="inputbox">
+                <input class="inputbox" id="scaleX" value="1">
                 <p> Y: </p>
-                <input class="inputbox">
+                <input class="inputbox" id="scaleY" value="1">
                 <p> Z: </p>
-                <input class="inputbox">
-                <input type="radio" class="radio"> <p>Maintain Ratio</p>
+                <input class="inputbox" id="scaleZ" value="1">
+                <input type="checkbox" class="radio" id="scaleUniform"> <p>Maintain Ratio</p>
             </div>
         </div>
 
@@ -117,12 +117,12 @@
                  <img class="menuExit" id="viewB2" src="/kiri/delete.png">
             </div>
             <div class="scaleContent view">
-                <button>home</button>
-                <button>reset</button>
-                <button>top</button>
-                <button>front</button>
-                <button>left</button>
-                <button>right</button>
+                <button id="homeB">home</button>
+                <button id="resetB">reset</button>
+                <button id="topB">top</button>
+                <button id="frontB">front</button>
+                <button id="leftB">left</button>
+                <button id="rightB">right</button>
             </div>
         </div>
 
@@ -145,11 +145,13 @@
             </div>
             <div class="scaleContent">
                 <p> X: </p>
-                <input class="inputbox">
+                <input class="inputbox" id="rotateX" value="0">
+                <br>
                 <p> Y: </p>
-                <input class="inputbox">
+                <input class="inputbox" id="rotateY" value="0">
+                <br>
                 <p> Z: </p>
-                <input class="inputbox">
+                <input class="inputbox" id="rotateZ" value="0">
             </div>
         </div>
         <div class="control-right" id="sidebarR">

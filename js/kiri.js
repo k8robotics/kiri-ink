@@ -1360,23 +1360,41 @@ self.kiri.license = exports.LICENSE;
 
     function scaleSelection(ev) {
         var dv = parseFloat(ev.target.value || 1);
-        if (UI.scaleUniform.checked) {
-            UI.scaleX.value = dv;
-            UI.scaleY.value = dv;
-            UI.scaleZ.value = dv;
+        if (INK.scaleUniform.checked) {
+            INK.scaleX.value = dv;
+            INK.scaleY.value = dv;
+            INK.scaleZ.value = dv;
         }
-        var x = parseFloat(UI.scaleX.value || dv),
-            y = parseFloat(UI.scaleY.value || dv),
-            z = parseFloat(UI.scaleZ.value || dv);
+        var x = parseFloat(INK.scaleX.value || dv),
+            y = parseFloat(INK.scaleY.value || dv),
+            z = parseFloat(INK.scaleZ.value || dv);
         forSelectedWidgets(function (w) {
             w.scale(x,y,z);
             meshUpdateInfo(w.mesh);
         });
-        UI.scaleX.value = 1;
-        UI.scaleY.value = 1;
-        UI.scaleZ.value = 1;
+        INK.scaleX.value = 1;
+        INK.scaleY.value = 1;
+        INK.scaleZ.value = 1;
         platformComputeMaxZ();
         SPACE.update();
+    }
+
+    function rotateX() {
+        var deg = INK.rotateX.value * Math.PI * 2 / 360;
+        rotateSelection(deg, 0, 0);
+        INK.rotateX.value = 0;
+    }
+
+    function rotateY() {
+        var deg = INK.rotateY.value * Math.PI * 2 / 360;
+        rotateSelection(0, deg, 0);
+        INK.rotateY.value = 0;
+    }
+
+    function rotateZ() {
+        var deg = INK.rotateZ.value * Math.PI * 2 / 360;
+        rotateSelection(0, 0, deg);
+        INK.rotateZ.value = 0;
     }
 
     function rotateSelection(x, y, z) {
@@ -2351,12 +2369,31 @@ self.kiri.license = exports.LICENSE;
             
             helpButton: $('helpB'),
             duplicateButton: $('duplicateB'),
-            
+            deleteButton: $('deleteB'),
+
+            scaleX: $('scaleX'),
+            scaleY: $('scaleY'),
+            scaleZ: $('scaleZ'),
+            scaleUniform: $('scaleUniform'),
+
+            rotateX: $('rotateX'),
+            rotateY: $('rotateY'),
+            rotateZ: $('rotateZ'),
+
+            camHome: $('homeB'),
+            camReset: $('resetB'),
+            camTop: $('topB'),
+            camFront: $('frontB'),
+            camLeft: $('leftB'),
+            camRight: $('rightB'),
+
             // View Mode Buttons
             preview: $('preview'),
             arrange: $('arrange'),
             slice: $('slice')
         })
+
+
 
         // Inksmith UI functionality
         INK.singlePlus.onclick = function () {
@@ -2378,7 +2415,7 @@ self.kiri.license = exports.LICENSE;
 
         INK.helpButton.onclick = function() {
             showHelp();
-        };
+        }
 
         INK.duplicateButton.onclick = function() {
             sel = selectedMeshes.slice();
@@ -2394,13 +2431,27 @@ self.kiri.license = exports.LICENSE;
             }
         };
 
-        INK.addFile.onclick = function(){ 
-            KIRI.api.import(); 
+        INK.deleteButton.onclick = function() {
+            if (selectedMeshes.length > 0) {
+                platformDelete(selectedMeshes);
+            }
+            evt.preventDefault();
+        }
+
+        INK.addFile.onclick = function() {
+            KIRI.api.import();
         }
 
         INK.print.onclick = function() {
             exportPrint();
-        }
+        } 
+
+        INK.camHome.onclick = function() { SPACE.view.home(); }
+        INK.camTop.onclick = function() { SPACE.view.top(); }
+        INK.camFront.onclick = function() { SPACE.view.front(); }
+        INK.camLeft.onclick = function() { SPACE.view.left(); }
+        INK.camRight.onclick = function() { SPACE.view.right(); }
+        INK.camReset.onclick = function() { SPACE.view.reset(); }
 
         function toolUpdate(a,b,c) {
             DBUG.log(['toolUpdate',a,b,c])
@@ -3148,9 +3199,13 @@ self.kiri.license = exports.LICENSE;
             UI.layerSpan,    function() { showSlices() },
             UI.layerID,      function() { setVisibleLayer(UI.layerID.value) },
 
-            UI.scaleX,           scaleSelection,
-            UI.scaleY,           scaleSelection,
-            UI.scaleZ,           scaleSelection,
+            INK.scaleX,           scaleSelection,
+            INK.scaleY,           scaleSelection,
+            INK.scaleZ,           scaleSelection,
+            
+            INK.rotateX,           rotateX,
+            INK.rotateY,           rotateY,
+            INK.rotateZ,           rotateZ,
         ]);
 
         UI.layerID.convert = UC.toFloat.bind(UI.layerID);
