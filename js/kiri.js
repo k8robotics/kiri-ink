@@ -2350,6 +2350,7 @@ self.kiri.license = exports.LICENSE;
             singlePlus: $('single-plus'),
             
             helpButton: $('helpB'),
+            duplicateButton: $('duplicateB'),
             
             // View Mode Buttons
             preview: $('preview'),
@@ -2377,6 +2378,20 @@ self.kiri.license = exports.LICENSE;
 
         INK.helpButton.onclick = function() {
             showHelp();
+        };
+
+        INK.duplicateButton.onclick = function() {
+            sel = selectedMeshes.slice();
+            widgetDeselect();
+            for (i=0; i<sel.length; i++) {
+                m = sel[i].clone();
+                m.geometry = m.geometry.clone();
+                m.material = m.material.clone();
+                bb = m.getBoundingBox();
+                var nw = newWidget().loadGeometry(m.geometry);
+                nw.move(bb.max.x - bb.min.x + 1, 0, 0);
+                platformAdd(nw,true);
+            }
         };
 
         INK.addFile.onclick = function(){ 
