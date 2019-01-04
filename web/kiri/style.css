@@ -52,6 +52,10 @@ button{
     font-size:20px;
 }
 
+.invisible {
+  display: none;
+}
+
 /* Pop up Styles */
 
 .cover{
@@ -888,6 +892,8 @@ button[import="1"] {
 /** PRINT DIALOG */
 
 #print {
+    font-family: 'Roboto', sans-serif;
+    font-weight:300;
     background-color:white;
     z-index:0;
     position:fixed;
@@ -903,6 +909,23 @@ button[import="1"] {
     transition: right .2s;
     display: none;
 }
+
+#print-title {
+  background-color:#414042;
+  color:white;
+  font-size:20px;
+  text-align: center;
+  border-radius:15px 15px 0px 0px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#print-download {
+  border-radius: 0px 0px 15px 15px;
+  width: 100%;
+}
+
 #print-close {
     position: absolute;
     z-index: 200;
@@ -915,11 +938,6 @@ button[import="1"] {
     border-bottom-right-radius: 5px;
     padding: 2px;
     margin: 6px 0 6px 0;
-}
-#print .print-sel:hover {
-    border: 1px solid yellow;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 #print table {
     width: 100%;
