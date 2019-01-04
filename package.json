@@ -9,6 +9,9 @@
         "type": "git",
         "url": "https://github.com/gridspace/apps.git"
     },
+    "engines": {
+        "node": "v8.15.0"
+    },
     "keywords": [
         "grid.space",
         "kiri:moto",
