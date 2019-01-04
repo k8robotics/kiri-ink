@@ -448,6 +448,276 @@ self.kiri.license = exports.LICENSE;
             id: genID(),
             ver: 1
         },
+        single_plus_process = {
+          processName: "default",
+
+          // --- FDM ---
+          // DEFAULT - Single+ Medium
+          sliceHeight: 0.2,
+          sliceShells: 2,
+          sliceShellSpacing: 1.0,
+          sliceFillOverlap: 0.3,
+          sliceFillSpacing: 1.0,
+          sliceFillAngle: 45,
+          sliceFillSparse: 0.5,
+          sliceSolidMinArea: 5,
+          sliceSolidLayers: 3,
+          sliceBottomLayers: 2,
+          sliceTopLayers: 6,
+          sliceVase: false,
+
+          // Output
+          outputBedTemp: 50,
+          outputTemp: 210,
+          outputFeedrate: 80,
+          outputFinishrate: 50,
+          outputSeekrate: 100,
+          outputShellMult: 1.1,
+          outputFillMult: 1.2,
+          outputSparseMult: 1.3,
+          outputCooling: true,
+
+          // First Layer
+          firstSliceHeight: 0.2,
+          firstLayerRate: 30,
+          firstLayerFillRate: 40,
+          firstLayerPrintMult: 1.0,
+          outputBrimCount: 1,
+          outputBrimOffset: 20,
+
+          // Supports
+          sliceSupportDensity: 0.15,
+          sliceSupportSize: 10,
+          sliceSupportOffset: 1.0,
+          sliceSupportGap: 1,
+          sliceSupportSpan: 6,
+          sliceSupportArea: 1,
+          sliceSupportExtra: 0,
+          sliceSupportEnable: false,
+
+          // Raft
+          outputRaftSpacing: 0.2,
+          outputRaft: false,
+
+          // Advanced
+          outputRetractDist: 1.0,
+          outputRetractSpeed: 40,
+          outputRetractDwell: 30,
+          outputShortPoly: 15.0,
+          outputShortDistance: 0.0,
+          outputShortFactor: 0.2,
+          outputFinishFactor: 0,
+          sliceMinHeight: 0,
+          zHopDistance: 0,
+          antiBacklash: 2,
+
+          // GCode
+          gcodeKFactor: 0,
+          gcodePauseLayers: "",
+
+          outputFanMax: 255,
+
+          // --- LASER ---
+
+          laserOffset: 0.25,
+          laserSliceHeight: 1,
+
+          outputTileSpacing: 1,   // LASER
+          outputTileScaling: 1,   // LASER
+          outputLaserPower: 100,  // LASER
+          outputLaserSpeed: 1000, // LASER
+
+          // --- CAM ---
+
+          roughingTool: 1000,
+          roughingSpindle: 1000,
+          roughingDown: 2,
+          roughingOver: 0.5,
+          roughingSpeed: 1000,
+          roughingPlunge: 250,
+          roughingStock: 0,
+          roughingOn: true,
+
+          finishingTool: 1000,
+          finishingSpindle: 1000,
+          finishingDown: 3,
+          finishingOver: 0.5,
+          finishingAngle: 85,
+          finishingSpeed: 800,
+          finishingPlunge: 250,
+          finishingOn: true,
+          finishingXOn: true,
+          finishingYOn: true,
+          finishCurvesOnly: false,
+
+          drillTool: 1000,
+          drillSpindle: 1000,
+          drillDownSpeed: 250,
+          drillDown: 5,
+          drillDwell: 250,
+          drillLift: 2,
+          drillingOn: false,
+
+          camTabsWidth: 5,
+          camTabsHeight: 5,
+          camTabsOn: false,
+
+          camPocketOnly: false,
+          camDepthFirst: false,
+          camEaseDown: false,
+          camOriginTop: true,
+          camTolerance: 0.15,
+          camZTopOffset: 0,
+          camZBottom: 0,
+          camZClearance: 1,
+
+          camStockX: 0,
+          camStockY: 0,
+          camStockZ: 0,
+
+          outputClockwise: true,
+
+          // --- shared FDM/Laser/CAM ---
+
+          outputOriginCenter: false,
+          outputInvertX: false,
+          outputInvertY: false
+      },
+        orbit_process = {
+          processName: "default",
+
+          // --- FDM ---
+          sliceHeight: 0.25,
+          sliceShells: 2,
+          sliceShellSpacing: 1.0,
+          sliceFillOverlap: 0.3,
+          sliceFillSpacing: 1.0,
+          sliceFillAngle: 45,
+          sliceFillSparse: 0.5,
+          sliceSolidMinArea: 5,
+          sliceSolidLayers: 3,
+          sliceBottomLayers: 2,
+          sliceTopLayers: 3,
+          sliceVase: false,
+
+          // Output
+          outputBedTemp: 0,
+          outputTemp: 200,
+          outputFeedrate: 80,
+          outputFinishrate: 60,
+          outputSeekrate: 100,
+          outputShellMult: 1.1,
+          outputFillMult: 1.2,
+          outputSparseMult: 1.3,
+          outputCooling: true,
+
+          // First Layer
+          firstSliceHeight: 0.3,
+          firstLayerRate: 30,
+          firstLayerFillRate: 40,
+          firstLayerPrintMult: 1.0,
+          outputBrimCount: 2,
+          outputBrimOffset: 2,
+
+          // Supports
+          sliceSupportDensity: 0.25,
+          sliceSupportSize: 10,
+          sliceSupportOffset: 1.0,
+          sliceSupportGap: 1,
+          sliceSupportSpan: 6,
+          sliceSupportArea: 1,
+          sliceSupportExtra: 0,
+          sliceSupportEnable: false,
+
+          // Raft
+          outputRaftSpacing: 0.2,
+          outputRaft: false,
+
+          // Advanced
+          outputRetractDist: 1.0,
+          outputRetractSpeed: 40,
+          outputRetractDwell: 0,
+          outputShortPoly: 15.0,
+          outputShortDistance: 0.0,
+          outputShortFactor: 0.2,
+          outputFinishFactor: 0,
+          sliceMinHeight: 0,
+          zHopDistance: 0,
+          antiBacklash: 2,
+
+          // GCode
+          gcodeKFactor: 0,
+          gcodePauseLayers: "",
+
+          outputFanMax: 255,
+
+          // --- LASER ---
+
+          laserOffset: 0.25,
+          laserSliceHeight: 1,
+
+          outputTileSpacing: 1,   // LASER
+          outputTileScaling: 1,   // LASER
+          outputLaserPower: 100,  // LASER
+          outputLaserSpeed: 1000, // LASER
+
+          // --- CAM ---
+
+          roughingTool: 1000,
+          roughingSpindle: 1000,
+          roughingDown: 2,
+          roughingOver: 0.5,
+          roughingSpeed: 1000,
+          roughingPlunge: 250,
+          roughingStock: 0,
+          roughingOn: true,
+
+          finishingTool: 1000,
+          finishingSpindle: 1000,
+          finishingDown: 3,
+          finishingOver: 0.5,
+          finishingAngle: 85,
+          finishingSpeed: 800,
+          finishingPlunge: 250,
+          finishingOn: true,
+          finishingXOn: true,
+          finishingYOn: true,
+          finishCurvesOnly: false,
+
+          drillTool: 1000,
+          drillSpindle: 1000,
+          drillDownSpeed: 250,
+          drillDown: 5,
+          drillDwell: 250,
+          drillLift: 2,
+          drillingOn: false,
+
+          camTabsWidth: 5,
+          camTabsHeight: 5,
+          camTabsOn: false,
+
+          camPocketOnly: false,
+          camDepthFirst: false,
+          camEaseDown: false,
+          camOriginTop: true,
+          camTolerance: 0.15,
+          camZTopOffset: 0,
+          camZBottom: 0,
+          camZClearance: 1,
+
+          camStockX: 0,
+          camStockY: 0,
+          camStockZ: 0,
+
+          outputClockwise: true,
+
+          // --- shared FDM/Laser/CAM ---
+
+          outputOriginCenter: false,
+          outputInvertX: false,
+          outputInvertY: false
+        },
+
         settingsDefault = settings,
         autoDecimate = true,
         // ---------------
@@ -1649,9 +1919,9 @@ self.kiri.license = exports.LICENSE;
                 // skip empty UI values
                 if (!uie || uie === '') continue;
                 if (uie.type === 'text') {
-                    nval = UI[key].convert();
+                    nval = parseFloat(INK[key].value);
                 } else if (uie.type === 'checkbox') {
-                    nval = UI[key].checked;
+                    nval = INK[key].checked;
                 } else if (uie.type === 'select-one') {
                     if (uie.selectedIndex > 0) {
                         nval = parseInt(uie.options[uie.selectedIndex].value);
@@ -1903,8 +2173,10 @@ self.kiri.license = exports.LICENSE;
     function modalShowing() {
         var showing = false;
         ["modal","catalog","devices","tools"].forEach(function(dialog) {
-            var state = UI[dialog].style.display
-            showing = showing || state !== 'none';
+            if (UI[dialog] !== "undefined") {
+              var state = UI[dialog].style.display
+              showing = showing || state !== 'none';  
+            }
         });
         return showing || UC.isPopped();
     }
@@ -1912,6 +2184,7 @@ self.kiri.license = exports.LICENSE;
     function showModal(which) {
         UI.modal.style.display = 'block';
         ["print","help"].forEach(function(modal) {
+          if (UI[modal] !== "undefined")
             UI[modal].style.display = (modal === which ? 'block' : 'none');
         });
     }
@@ -1926,8 +2199,10 @@ self.kiri.license = exports.LICENSE;
             return;
         }
         ["catalog","devices","settings"].forEach(function(dialog) {
+          if (UI[dialog] !== "undefined") {
             var style = UI[dialog].style;
             style.display = (dialog === which && (force || style.display !== 'flex') ? 'flex' : 'none');
+          }
         });
     }
 
@@ -2065,16 +2340,19 @@ self.kiri.license = exports.LICENSE;
             case VIEWS.ARRANGE:
                 INK.arrange.className += " active";
                 UI.layerView.style.display = 'none';
+                INK.advancedSettings.style.height = "95%";
                 updateSliderMax();
                 break;
             case VIEWS.SLICE:
                 INK.slice.className += " active";
                 UI.layerView.style.display = 'block';
+                INK.advancedSettings.style.height = window.innerHeight * 0.95 - 30;
                 updateSliderMax();
                 break;
             case VIEWS.PREVIEW:
                 INK.preview.className += " active";
                 UI.layerView.style.display = 'block';
+                INK.advancedSettings.style.height = window.innerHeight * 0.95 - 30;
                 break;
             default:
                 DBUG.log("invalid view mode: "+mode);
@@ -2374,6 +2652,7 @@ self.kiri.license = exports.LICENSE;
             print: $('print-button'),
 
             singlePlus: $('single-plus'),
+            orbit: $('orbit'),
             
             helpButton: $('helpB'),
             duplicateButton: $('duplicateB'),
@@ -2472,6 +2751,14 @@ self.kiri.license = exports.LICENSE;
         // Inksmith UI functionality
         INK.singlePlus.onclick = function () {
             selectDevice("Cubicon.Single+");
+            settings.process = single_plus_process;
+            updateFieldsFromSettings(settings.process);
+        }
+
+        INK.orbit.onclick = function () {
+          selectDevice("Orbit");
+          settings.process = orbit_process;
+          updateFieldsFromSettings(settings.process);
         }
 
         INK.preview.onclick = function() {
@@ -2492,9 +2779,10 @@ self.kiri.license = exports.LICENSE;
         }
 
         INK.duplicateButton.onclick = function() {
+            var sel, m, i, bb;
             sel = selectedMeshes.slice();
             widgetDeselect();
-            for (i=0; i<sel.length; i++) {
+            for (i=0; i < sel.length; i++) {
                 m = sel[i].clone();
                 m.geometry = m.geometry.clone();
                 m.material = m.material.clone();
@@ -2509,7 +2797,6 @@ self.kiri.license = exports.LICENSE;
             if (selectedMeshes.length > 0) {
                 platformDelete(selectedMeshes);
             }
-            evt.preventDefault();
         }
 
         INK.addFile.onclick = function() {
@@ -3059,9 +3346,6 @@ self.kiri.license = exports.LICENSE;
                  ].forEach(function(e) {
                     e.disabled = !local;
                  });
-
-                UI.deviceSave.disabled =
-                UI.deviceDelete.disabled = !local;
 
                 updateFields();
                 updatePlatformSize();

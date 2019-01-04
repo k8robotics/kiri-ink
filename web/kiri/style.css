@@ -1,5 +1,5 @@
 :root{
-    --primary-color: #6ebe45;
+    --primary-color: #284360;
     --black: #414042;
     --shadow:#727272;
 }
@@ -203,7 +203,7 @@ button{
 }
 
 .green{
-    background-color: #6ebe45;
+    background-color: var(--primary-color);
     color:white;
     font-weight:500;
     border-width:0px;
@@ -285,7 +285,7 @@ button{
 }
 
 .active, .tool:hover{
-    background-color:#6ebe45;
+    background-color:var(--primary-color);
     color:white;
     transition: background-color .2s;
 }
@@ -317,6 +317,36 @@ button{
     color:white;
 }
 
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;   
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
 /* Scale Menu */
 
 .scale{
@@ -324,7 +354,7 @@ button{
     position:absolute;
     top:20%;
     left:7%;
-    width:10%;
+    width:20%;
     height:auto;
     display:flex;
     flex-direction: column;
@@ -345,7 +375,7 @@ button{
 
 .scaleContent{
     height:100%;
-    width: 90%;
+    width: 95%;
     padding:3% 5%;
     display:flex;
     flex-direction:row;
@@ -354,13 +384,13 @@ button{
 
 .scaleContent p{
     margin:10px 5px 10px 0px;
-    width:auto;
+    width:40%;
     height:20px;
 }
 
 .inputbox{
     margin: 10px 0px 10px 0px;
-    width:75%;
+    width:40%;
     height:20px;
 }
 
@@ -503,7 +533,7 @@ button{
 .advanced{
     overflow:auto;
     height:95vh;
-    width:13.8%;
+    width:14%;
     background-color:white;
     position:absolute;
     top:5%;
@@ -724,28 +754,41 @@ button{
 #layer-view {
     display: none;
     position: fixed;
-    left: 0;
     right: 0;
     bottom: 0;
-    height: 25px;
+    width: 14%;
+    height: 30px;
+    background-color:var(--black);
+    border-radius: 5px 0px 0px 0px;
     text-align: center;
     vertical-align: middle;
 }
+#layer-view p {
+  position: relative;
+}
 #layer-view span {
+    height: 30px;
     position: relative;
-    border-radius: 5px;
     padding: 3px 8px 8px 8px;
-    background-color: rgba(170,221,255,0.75);
-    color: rgba(0,0,0,0.5);
+    color: white;
 }
 #layer-view input {
     vertical-align: middle;
 }
 #layer-view button {
     position: relative;
-    margin-left: 1px;
-    border: 1px solid rgba(255,255,255,0.75);
+    border: 0px;
+    font-weight: 300;
+    font-size: 15px;
 }
+#layer-id {
+  background-color: var(--black);
+  border: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: white;
+}
+
 #layer-slider {
     border: 0;
     margin: 0;
@@ -756,8 +799,8 @@ button{
 #layers {
     display: none;
     position: fixed;
-    bottom: 25px;
-    background-color: rgba(0,0,0,0.2);
+    bottom: 30px;
+    background-color: white;
     border: 1px solid rgba(0,0,0,0.5);
     border-radius: 3px;
     padding: 6px;
@@ -887,6 +930,32 @@ button[import="1"] {
     margin: 0px 0px 2px 2px;
     overflow-x: hidden;
     text-overflow: ellipsis;
+}
+
+
+#loading {
+  position: fixed;
+  top: 30px;
+  left: 20%;
+  right: 20%;
+  border: 2px solid rgba(10,10,10,0.25);
+  border-radius: 5px;
+  margin: 2px;
+  background-color: rgba(200,200,200,0.75);
+  text-align: center;
+  display: none;
+}
+
+#progress {
+  position: relative;
+  width: 1%;
+  height: 100%;
+  background-color:var(--primary-color);
+  text-align: left;
+}
+#progress > span {
+  color: white;
+  padding-left: 10px;
 }
 
 /** PRINT DIALOG */

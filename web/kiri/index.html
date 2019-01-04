@@ -10,6 +10,7 @@
         <meta property="og:title" content="Kiri:Ink">
         <meta property="og:type" content="website">
         <title>Kiri:Ink</title>
+        <link rel="icon" href="/kiri/favicon.ico">
         <link rel="stylesheet" type="text/css" href="/kiri/style.css">
         <script src="/js/ext-three.js"></script>
     
@@ -34,7 +35,7 @@
         </script>
         <!--{kiri}-->
         <div class="topbar">
-            <img src="/kiri/logo2.png" class="logotop">
+            <img src="/kiri/launchpad-logo.png" class="logotop">
             <div class="buttonpanel">
                 
                 <button class="topbutton">Save</button>
@@ -106,7 +107,7 @@
                 <input class="inputbox" id="scaleY" value="1">
                 <p> Z: </p>
                 <input class="inputbox" id="scaleZ" value="1">
-                <input type="checkbox" class="radio" id="scaleUniform"> <p>Maintain Ratio</p>
+                <p>Maintain Ratio</p><input type="checkbox" class="radio" id="scaleUniform"> 
             </div>
         </div>
 
@@ -132,7 +133,7 @@
             </div>
             <div class="scaleContent device">
                 <img src="/kiri/printer1.bmp" id="single-plus"/>
-                <img src="/kiri/printer2.bmp"/>
+                <img src="/kiri/printer2.bmp" id="orbit"/>
                 <img src="/kiri/printer3.bmp"/>
             </div>
         </div>
@@ -145,10 +146,8 @@
             <div class="scaleContent">
                 <p> X: </p>
                 <input class="inputbox" id="rotateX" value="0">
-                <br>
                 <p> Y: </p>
                 <input class="inputbox" id="rotateY" value="0">
-                <br>
                 <p> Z: </p>
                 <input class="inputbox" id="rotateZ" value="0">
             </div>
@@ -180,10 +179,6 @@
             <div class="keyline startK">
                 <p class="inline big">Settings</p>
                 <img class="inline image" src="/kiri/delete.png" id="backB">
-            </div>
-            <div class="supports_rafts b">
-                <button>load</button>
-                <button>save</button>
             </div>
             <p class="keyline">Process</p>
             <div class="supports_rafts">
@@ -551,12 +546,12 @@
         <!-- layer slider -->
         <div id="layer-view" class="flow-row">
             <span>
-            <button id="layer-toggle">layers</button>
-            <div id="layers"></div>
-            <input id="layer-id" size="4">
+            <button class="invisible" id="layer-toggle">layers</button>
+            <div class="invisible" id="layers"></div>
+            <input id="layer-id" size="4" readonly="readonly">
             <input id="layer-slider" type="range">
-            <button id="layer-range"> section</button>
-            <input id="layer-span" size="4" value="1">
+            <button class="invisible" id="layer-range"> section</button>
+            <input class="invisible" id="layer-span" size="4" value="1">
             </span>
         </div>
     </body>
