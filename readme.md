@@ -47,3 +47,9 @@ Powered by Kiri:Moto on [Grid.Space](https://grid.space)
 * [Forums](https://forum.grid.space)
 * [Wiki](https://github.com/GridSpace/KiriMoto/wiki)
 * [YouTube Tutorials](https://www.youtube.com/c/gridspace)
+
+## Hosting info
+Hosting problems:
+gcloud app engine doesnt see symlinks except on windows
+Current Workaround
+Hardcode the symlinks and deploy
