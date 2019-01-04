@@ -146,7 +146,7 @@ button{
 .topbar{
     z-index:0;
     display:flex;
-    box-shadow: 0px 2px 3px 1px #727272;
+    box-shadow: 0px 2px 2px -2px rgba(0,0,0,.2);
     background-color:white;
     width:100%;
     height:5%;
@@ -202,7 +202,7 @@ button{
     border-width: 1px 0px 0px 1px;
 }
 
-.green{
+.blue{
     background-color: var(--primary-color);
     color:white;
     font-weight:500;
@@ -213,6 +213,7 @@ button{
 #container {
     width: 100%;
     height: 95%;
+    margin-top: 3px;
     overflow: hidden;
 }
 
@@ -318,34 +319,14 @@ button{
 }
 
 .slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 15px;
+  height: 80%;
   border-radius: 5px;   
-  background: #d3d3d3;
+  background: white;
   outline: none;
-  opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
 }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%; 
-  background: #4CAF50;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
 
 /* Scale Menu */
 
@@ -789,13 +770,6 @@ button{
   color: white;
 }
 
-#layer-slider {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 50%;
-}
 #layers {
     display: none;
     position: fixed;

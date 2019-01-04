@@ -2171,13 +2171,11 @@ self.kiri.license = exports.LICENSE;
     }
 
     function modalShowing() {
-        var showing = false;
-        ["modal","catalog","devices","tools"].forEach(function(dialog) {
-            if (UI[dialog] !== "undefined") {
-              var state = UI[dialog].style.display
-              showing = showing || state !== 'none';  
-            }
-        });
+        // var showing = false;
+        // ["modal","catalog","devices","tools"].forEach(function(dialog) {
+        //       var state = UI[dialog].style.display
+        //       showing = showing || state !== 'none';  
+        // });
         return showing || UC.isPopped();
     }
 
