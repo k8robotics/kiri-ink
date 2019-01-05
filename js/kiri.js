@@ -2331,7 +2331,7 @@ self.kiri.license = exports.LICENSE;
         viewMode = mode;
         widgetDeselect();
         meshUpdateInfo();
-        [ INK.arrange, INK.preview, INK.slice ].forEach(function(b) {
+        [ INK.arrange, INK.preview ].forEach(function(b) {
             b.className = b.className.replace(" active", "");
         });
         switch (mode) {
@@ -2339,12 +2339,6 @@ self.kiri.license = exports.LICENSE;
                 INK.arrange.className += " active";
                 UI.layerView.style.display = 'none';
                 INK.advancedSettings.style.height = "95%";
-                updateSliderMax();
-                break;
-            case VIEWS.SLICE:
-                INK.slice.className += " active";
-                UI.layerView.style.display = 'block';
-                INK.advancedSettings.style.height = window.innerHeight * 0.95 - 30;
                 updateSliderMax();
                 break;
             case VIEWS.PREVIEW:
@@ -2766,10 +2760,6 @@ self.kiri.license = exports.LICENSE;
         INK.arrange.onclick = function() {
             layoutPlatform();
             setViewMode(VIEWS.ARRANGE);
-        }
-        INK.slice.onclick = function() {
-            prepareSlices();
-            setViewMode(VIEWS.SLICE);
         }
 
         INK.helpButton.onclick = function() {
