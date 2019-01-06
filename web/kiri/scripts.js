@@ -149,8 +149,8 @@ function showDevices(){
     if(jQuery("#devices").css("opacity") === "0"){
         jQuery("#devices").css("opacity", "1");
         jQuery("#devices").css("pointer-events", "initial");
-        jQuery("#devices").css("left", "8%");
-        jQuery("#devices").css("top", (mouseY - (jQuery("#devices").height() / 2)) + "px");
+        jQuery("#devices").css("left", "65%");
+        jQuery("#devices").css("top", "8%");
     } 
     else{
         jQuery("#devices").css("opacity", "0");
@@ -162,12 +162,12 @@ function showDevices(){
 function showAdvanced(){
     jQuery("#advanced").css("right", "0px");
     jQuery("#advanced").css("opacity", "1");
-    jQuery("#sidebarR").css("right", "-14%");
+    jQuery("#sidebarR").css("right", "-300px");
 
 }
 
 function showBasic(){
-    jQuery("#advanced").css("right", "-14%");
+    jQuery("#advanced").css("right", "-300px");
     jQuery("#advanced").css("opacity", "1");
     jQuery("#sidebarR").css("right", "1%");
 

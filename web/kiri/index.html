@@ -37,8 +37,9 @@
         <div class="topbar">
             <img src="/kiri/launchpad-logo.png" class="logotop">
             <div class="buttonpanel">
-            
+
                 <button class="topbutton invisible">Save</button>
+                <button class="topbutton blue" id="devicesB">Devices</button>
                 <button class="topbutton callbutton blue" id="add-file">Add File</button>
                 <button class="topbutton callbutton blue" id="print-button">Print</button>
             </div>
@@ -48,7 +49,7 @@
 
         <div class="control-left" id="control-left">
             <div class="tooltop active" id="arrange">
-                <i class="fas fa-arrows-alt"></i>
+                <i class="fas fa-hand-pointer"></i>
                 <p class="tooltip">Arrange</p>
             </div>
             <div class="tool" id="preview">
@@ -58,32 +59,28 @@
             <div class="tooldiv">
                 <p>Tools</p>
             </div>
-            <div class="tool" id="devicesB"> 
-                <img class="toolimg" src = "/kiri/printer.png" > 
-                <p class="tooltip">Devices</p>
+            <div class="tool" id="viewB"> 
+                    <i class="fas fa-camera"></i>
+                    <p class="tooltip">View</p>
             </div>
             <div class="tool" id="duplicateB"> 
-                <img class="toolimg" src = "/kiri/duplicate.png"> 
+                <i class="fas fa-clone"></i>
                 <p class="tooltip">Duplicate</p>
             </div>
-            <div class="tool" id="deleteB"> 
-                <img class="toolimg" src = "/kiri/delete.png"> 
-                <p class="tooltip">Delete</p>
-            </div>
             <div class="tool" id = "scaleB"> 
-                <img class="toolimg" src = "/kiri/scale.png"> 
+                <i class="fas fa-expand-arrows-alt "></i> 
                 <p class="tooltip">Scale</p>
             </div>
             <div class="tool" id = "rotateB"> 
-                <img class="toolimg"  src = "/kiri/rotate.png"> 
+                <i class="fas fa-sync"></i> 
                 <p class="tooltip">Rotate</p>
             </div>
-            <div class="tool" id="viewB"> 
-                <img class="toolimg"  src = "/kiri/camera.png"> 
-                <p class="tooltip">View</p>
+                <div class="tool" id="deleteB"> 
+                <i class="fas fa-trash-alt"></i> 
+                <p class="tooltip">Delete</p>
             </div>
             <div class="end tool" id="helpB"> 
-                <img class="toolimg" src = "/kiri/help.png"> 
+                <i class="fas fa-question-circle"></i>
                 <p class="tooltip">Help</p>
             </div>
         </div>
@@ -148,19 +145,14 @@
         <div class="control-right" id="sidebarR">
             <div class="tooltitle"><h2>Settings</h2></div>
 
-            <p class="keyline startS">Supports</p>
-
-            <div class="supports_rafts">
-                <p class="sr_title">enable</p>
+            <p class="keyline startS">
+                Supports
                 <input type="checkbox" class="sr_check" id="basic-support"/>
-            </div>
-
-            <p class="keyline">Raft</p>
-
-            <div class="supports_rafts">
-                <p class="sr_title">enable</p>
+            </p>
+            <p class="keyline">
+                Raft
                 <input type="checkbox" class="sr_check" id="basic-raft"/>
-            </div>
+            </p>
 
             <div class="end tool setcat" id="advancedB">
                 <p class="tooltip setting" >Advanced</p>

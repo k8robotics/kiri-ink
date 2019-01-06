@@ -162,14 +162,14 @@ button{
 
 .buttonpanel{
     height:5vh;
-    width:20%;
+    width:300px;
     display:flex;
     align-self: flex-end;
 }
 
 .topbutton{
-    flex: 1 1 auto;
     height: 100%;
+    width: 100px;
     margin: 0px;
     background-color: white;
     border: solid;
@@ -228,8 +228,7 @@ button{
     top: calc(10%);
     left:1%;
     height:auto;
-    min-width: 5%;
-    max-width: 8%;
+    max-width: 80px;
     border-radius: 15px;
     display:flex;
     box-shadow: 0px 2px 3px 1px #727272;
@@ -333,16 +332,6 @@ button{
     color:white;
 }
 
-.slider {
-  height: 80%;
-  border-radius: 5px;   
-  background: white;
-  outline: none;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-
 /* Scale Menu */
 
 .scale{
@@ -351,6 +340,7 @@ button{
     top:20%;
     left:7%;
     width:20%;
+    max-width: 300px;
     height:auto;
     display:flex;
     flex-direction: column;
@@ -529,7 +519,7 @@ button{
 .advanced{
     overflow:auto;
     height:95vh;
-    width:14%;
+    width:300px;
     background-color:white;
     position:absolute;
     top:5%;
@@ -620,7 +610,7 @@ button{
     border-radius:0px 15px 0px 0px;
 }  
 
-.fa-arrows-alt, .fa-database, .fa-eye{
+.fa-hand-pointer, .fa-eye, .fa-trash-alt, .fa-clone, .fa-sync, .fa-camera, .fa-question-circle, .fa-expand-arrows-alt {
     color:#646562;
     font-size: 20px;
     margin:0 auto;
@@ -752,7 +742,7 @@ button{
     position: fixed;
     right: 0;
     bottom: 0;
-    width: 14%;
+    width: 300px;
     height: 30px;
     background-color:var(--black);
     border-radius: 5px 0px 0px 0px;
@@ -1034,3 +1024,87 @@ button[import="1"] {
     color: #fff;
     background-color: #888;
 }
+
+
+ /* Slider */
+  
+ input[type=range] {
+    -webkit-appearance: none;
+    margin: 8px 0;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #ffffff;
+    border-radius: 25px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 1px 1px 2px #000000, 0px 0px 1px #0d0d0d;
+    border: 0px solid #727272;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    background: #284360;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -9.5px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ffffff;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #ffffff;
+    border-radius: 25px;
+    border: 1.5px solid #010101;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 1px 1px 2px #000000, 0px 0px 1px #0d0d0d;
+    border: 0px solid #727272;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    background: #284360;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #ebebeb;
+    border: 1.5px solid #010101;
+    border-radius: 50px;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #ffffff;
+    border: 1.5px solid #010101;
+    border-radius: 50px;
+  }
+  input[type=range]::-ms-thumb {
+    box-shadow: 1px 1px 2px #000000, 0px 0px 1px #0d0d0d;
+    border: 0px solid #727272;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    background: #284360;
+    cursor: pointer;
+    height: 4px;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #ffffff;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #ffffff;
+  }
+  
