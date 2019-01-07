@@ -64,7 +64,6 @@ function showToolS(){
     jQuery("#view").css("left", "7%");
     jQuery("#view").css("opacity", "0");
     jQuery("#view").css("pointer-events", "none");
-    jQuery("#devices").css("left", "7%");
     jQuery("#devices").css("opacity", "0");
     jQuery("#devices").css("pointer-events", "none");
     
@@ -90,7 +89,6 @@ function showToolR(){
     jQuery("#view").css("left", "7%");
     jQuery("#view").css("opacity", "0");
     jQuery("#view").css("pointer-events", "none");
-    jQuery("#devices").css("left", "7%");
     jQuery("#devices").css("opacity", "0");
     jQuery("#devices").css("pointer-events", "none");
     
@@ -116,7 +114,6 @@ function showView(){
     jQuery("#rotate").css("left", "7%");
     jQuery("#rotate").css("opacity", "0");
     jQuery("#rotate").css("pointer-events", "none");
-    jQuery("#devices").css("left", "7%");
     jQuery("#devices").css("opacity", "0");
     jQuery("#devices").css("pointer-events", "none");
     
@@ -149,13 +146,10 @@ function showDevices(){
     if(jQuery("#devices").css("opacity") === "0"){
         jQuery("#devices").css("opacity", "1");
         jQuery("#devices").css("pointer-events", "initial");
-        jQuery("#devices").css("left", "65%");
-        jQuery("#devices").css("top", "8%");
     } 
     else{
         jQuery("#devices").css("opacity", "0");
         jQuery("#devices").css("pointer-events", "none");
-        jQuery("#devices").css("left", "7%");
     }   
 }
 
@@ -207,8 +201,6 @@ jQuery(document).ready(function(){
     jQuery("#devicesB").click(showDevices);
     jQuery("#devicesB2").click(showDevices);
     jQuery("#backB").click(showBasic);
-
-    jQuery("#sidebarR").css("top", ((jQuery(document).height() - jQuery("#sidebarR").height()) / 2).toString());
 
     jQuery( document ).on( "mousemove", function( event ) {
         mouseX = event.pageX 

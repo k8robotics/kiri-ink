@@ -2,6 +2,7 @@
     --primary-color: #284360;
     --black: #414042;
     --shadow:#727272;
+    color: var(--black);
 }
 
 ::-webkit-scrollbar-track
@@ -431,7 +432,7 @@ button{
     z-index:0;
     position:absolute;
     flex-direction:column;
-    top: calc(10%);
+    top: 8%;
     right:1%;
     height:auto;
     min-width: 12%;
@@ -610,7 +611,7 @@ button{
     border-radius:0px 15px 0px 0px;
 }  
 
-.fa-hand-pointer, .fa-eye, .fa-trash-alt, .fa-clone, .fa-sync, .fa-camera, .fa-question-circle, .fa-expand-arrows-alt {
+.fa-hand-pointer, .fa-eye, .fa-trash-alt, .fa-clone, .fa-sync, .fa-camera, .fa-question-circle, .fa-expand-arrows-alt, .fa-times {
     color:#646562;
     font-size: 20px;
     margin:0 auto;
@@ -795,6 +796,8 @@ button{
 
 #devices {
     text-align: center;
+    top: 8%;
+    left: calc(100% - 575px);
 }
 #devices button {
     margin-left: 1px;

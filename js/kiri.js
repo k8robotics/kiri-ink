@@ -1650,9 +1650,6 @@ self.kiri.license = exports.LICENSE;
             w.scale(x,y,z);
             meshUpdateInfo(w.mesh);
         });
-        INK.scaleX.value = 1;
-        INK.scaleY.value = 1;
-        INK.scaleZ.value = 1;
         platformComputeMaxZ();
         SPACE.update();
     }
@@ -1703,7 +1700,7 @@ self.kiri.license = exports.LICENSE;
         widgetSelect(widget, shift);
         platformComputeMaxZ();
         if (nolayout) return;
-        if (layoutOnAdd) layoutPlatform();
+        if (layoutOnAdd) layoutPlatform(5);
     }
 
     function platformDelete(widget) {
@@ -1770,13 +1767,14 @@ self.kiri.license = exports.LICENSE;
         meshUpdateInfo();
     }
 
-    function layoutPlatform(event, space) {
+    function layoutPlatform(space) {
         var layout = (viewMode === VIEWS.ARRANGE),
             proc = settings.process,
             modified = false,
             topZ = 0;
 
 
+        console.log("space:", space);
         space = space || (proc.sliceSupportExtra || 0) + 1;
 
         setViewMode(VIEWS.ARRANGE);
@@ -1791,6 +1789,7 @@ self.kiri.license = exports.LICENSE;
         });
 
         var gap = space;
+        console.log("gap:", gap);
 
         var i, m, sz = SPACE.platform.size(),
             mp = [sz.x, sz.y],
@@ -2171,7 +2170,7 @@ self.kiri.license = exports.LICENSE;
     }
 
     function modalShowing() {
-        // var showing = false;
+        var showing = false;
         // ["modal","catalog","devices","tools"].forEach(function(dialog) {
         //       var state = UI[dialog].style.display
         //       showing = showing || state !== 'none';  
@@ -2282,8 +2281,8 @@ self.kiri.license = exports.LICENSE;
     }
 
     function onControlResize() {
-        INK.toolbar.style.top = "10%";
-        INK.basicSettings.style.top = "10%";
+        INK.toolbar.style.top = "8%";
+        INK.basicSettings.style.top = "8%";
     }
 
     function hideModal() {
@@ -2341,6 +2340,7 @@ self.kiri.license = exports.LICENSE;
                 INK.advancedSettings.style.height = "95%";
                 updateSliderMax();
                 break;
+            case VIEWS.SLICE:
             case VIEWS.PREVIEW:
                 INK.preview.className += " active";
                 UI.layerView.style.display = 'block';
@@ -2758,7 +2758,8 @@ self.kiri.license = exports.LICENSE;
             setViewMode(VIEWS.PREVIEW);
         }
         INK.arrange.onclick = function() {
-            layoutPlatform();
+            console.log ("Hi");
+            layoutPlatform(5);
             setViewMode(VIEWS.ARRANGE);
         }
 
@@ -3062,7 +3063,7 @@ self.kiri.license = exports.LICENSE;
                     prepareSlices();
                     break;
                 case cca('a'): // auto arrange items on platform
-                    layoutPlatform();
+                    layoutPlatform(5);
                     break;
                 case cca('w'): // toggle wireframe on widgets
                     toggleWireframe(wireframe_color, wireframe_model_opacity);
@@ -3642,7 +3643,7 @@ self.kiri.license = exports.LICENSE;
         });
 
         SPACE.mouse.onDrag(function(delta) {
-            if (delta && MODE === MODES.FDM) {
+            if (delta) {
                 forSelectedWidgets(function(widget) {
                     widget.move(delta.x, delta.y, 0);
                 });
