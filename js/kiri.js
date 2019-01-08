@@ -724,7 +724,7 @@ self.kiri.license = exports.LICENSE;
         SELF = self,
         MOTO = moto,
         KIRI = SELF.kiri,
-        BASE = SELF.base,
+        // BASE = SELF.base,
         UTIL = BASE.util,
         DBUG = BASE.debug,
         // ---------------

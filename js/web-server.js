@@ -163,7 +163,8 @@ function concatCode(array) {
       cachepath,
       filepath;
 
-  array.forEach((file, index) => {
+    array.forEach((file, index) => {
+      console.log(file);
       if (file.charAt(0) === "/") {
           filepath = file;
           cachepath = "js_mod" + file.replace(/\//g,'_');
