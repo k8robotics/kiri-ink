@@ -168,6 +168,7 @@ if (self.window) {
         base.debug.disable();
     }
 
+    if (!self.base) self.base = {};
     var base = self.base,
         moto = self.moto,
         dbug = base.debug,
