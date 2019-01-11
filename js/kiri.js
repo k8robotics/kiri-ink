@@ -2660,9 +2660,9 @@ self.kiri.license = exports.LICENSE;
             rotateZ: $('rotateZ'),
 
             camHome: $('homeB'),
-            camReset: $('resetB'),
             camTop: $('topB'),
             camFront: $('frontB'),
+            camBack: $('backB'),
             camLeft: $('leftB'),
             camRight: $('rightB'),
 
@@ -2801,7 +2801,7 @@ self.kiri.license = exports.LICENSE;
         INK.camFront.onclick = function() { SPACE.view.front(); }
         INK.camLeft.onclick = function() { SPACE.view.left(); }
         INK.camRight.onclick = function() { SPACE.view.right(); }
-        INK.camReset.onclick = function() { SPACE.view.reset(); }
+        INK.camBack.onclick = function() { SPACE.view.back(); }
 
         INK.basicRaft.onchange = function(){
             INK.outputRaft.checked = this.value;

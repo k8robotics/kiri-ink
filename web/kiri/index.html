@@ -108,9 +108,9 @@
             </div>
             <div class="scaleContent view">
                 <button id="homeB">home</button>
-                <button id="resetB">reset</button>
                 <button id="topB">top</button>
                 <button id="frontB">front</button>
+                <button id="backB">back</button>
                 <button id="leftB">left</button>
                 <button id="rightB">right</button>
             </div>
@@ -530,14 +530,15 @@
         <div hidden id="device"></div>
         <!-- layer slider -->
         <div id="layer-view" class="flow-row">
-            <span>
+            <!-- <span> -->
             <button class="invisible" id="layer-toggle">layers</button>
             <div class="invisible" id="layers"></div>
+            <button> Layer: </button>
             <input id="layer-id" size="4" readonly="readonly">
             <input class="slider" id="layer-slider" type="range">
             <button class="invisible" id="layer-range"> section</button>
             <input class="invisible" id="layer-span" size="4" value="1">
-            </span>
+            <!-- </span> -->
         </div>
     </body>
 </html>

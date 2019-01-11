@@ -753,18 +753,17 @@ button{
 #layer-view p {
   position: relative;
 }
-#layer-view span {
-    height: 30px;
-    position: relative;
-    padding: 3px 8px 8px 8px;
-    color: white;
-}
 #layer-view input {
     vertical-align: middle;
 }
 #layer-view button {
     position: relative;
+    background-color:var(--black);
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
     border: 0px;
+    color: white;
     font-weight: 300;
     font-size: 15px;
 }
