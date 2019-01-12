@@ -1774,7 +1774,6 @@ self.kiri.license = exports.LICENSE;
             topZ = 0;
 
 
-        console.log("space:", space);
         space = space || (proc.sliceSupportExtra || 0) + 1;
 
         setViewMode(VIEWS.ARRANGE);
@@ -1789,7 +1788,6 @@ self.kiri.license = exports.LICENSE;
         });
 
         var gap = space;
-        console.log("gap:", gap);
 
         var i, m, sz = SPACE.platform.size(),
             mp = [sz.x, sz.y],
@@ -2038,6 +2036,7 @@ self.kiri.license = exports.LICENSE;
                 isgcode = lower.indexOf(".gcode") > 0 || lower.indexOf(".nc") > 0;
             reader.file = files[i];
             reader.onloadend = function (e) {
+                $('load-file').value="";
                 if (isstl)
                 platformAdd(
                     newWidget()
@@ -2294,7 +2293,7 @@ self.kiri.license = exports.LICENSE;
     }
 
     function showHelpLocal() {
-        showHelp("/kiri/help-kiri.html");
+      return;
     }
 
     function showHelp(local) {
@@ -2788,7 +2787,7 @@ self.kiri.license = exports.LICENSE;
             }
         }
 
-        INK.addFile.onclick = function() {
+        INK.addFile.onclick = function(event) {
             KIRI.api.import();
         }
 
