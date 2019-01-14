@@ -157,6 +157,7 @@ function showAdvanced(){
     jQuery("#advanced").css("right", "0px");
     jQuery("#advanced").css("opacity", "1");
     jQuery("#sidebarR").css("right", "-300px");
+    jQuery("#devices").css("left", "60%")
 
 }
 
@@ -164,6 +165,7 @@ function showBasic(){
     jQuery("#advanced").css("right", "-300px");
     jQuery("#advanced").css("opacity", "1");
     jQuery("#sidebarR").css("right", "1%");
+    jQuery("#devices").css("left", "70%")
 
 } 
 
@@ -186,7 +188,7 @@ jQuery(document).ready(function(){
     msieversion()
     
     console.log("begin");
-    jQuery("#advanced").css("right", "-14%");
+    jQuery("#advanced").css("right", "-300px");
     jQuery("#advanced").css("opacity", "0");
 
     jQuery("#addfile").click(fileTransition);
@@ -200,7 +202,7 @@ jQuery(document).ready(function(){
     jQuery("#viewB2").click(showView);
     jQuery("#devicesB").click(showDevices);
     jQuery("#devicesB2").click(showDevices);
-    jQuery("#backB").click(showBasic);
+    jQuery("#close-advanced").click(showBasic);
 
     jQuery( document ).on( "mousemove", function( event ) {
         mouseX = event.pageX 

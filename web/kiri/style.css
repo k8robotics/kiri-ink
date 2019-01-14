@@ -435,8 +435,7 @@ button{
     top: 8%;
     right:1%;
     height:auto;
-    min-width: 12%;
-    max-width: 15%;
+    min-width: 10%;
     border-radius: 15px;
     display:flex;
     box-shadow: 0px 2px 3px 1px #727272;
@@ -520,7 +519,7 @@ button{
 .advanced{
     overflow:auto;
     height:95vh;
-    width:300px;
+    width:20%;
     background-color:white;
     position:absolute;
     top:5%;
@@ -753,18 +752,17 @@ button{
 #layer-view p {
   position: relative;
 }
-#layer-view span {
-    height: 30px;
-    position: relative;
-    padding: 3px 8px 8px 8px;
-    color: white;
-}
 #layer-view input {
     vertical-align: middle;
 }
 #layer-view button {
     position: relative;
+    background-color:var(--black);
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
     border: 0px;
+    color: white;
     font-weight: 300;
     font-size: 15px;
 }
@@ -917,7 +915,7 @@ button[import="1"] {
 
 #loading {
   position: fixed;
-  top: 30px;
+  top: 10%;
   left: 20%;
   right: 20%;
   border: 2px solid rgba(10,10,10,0.25);
@@ -952,7 +950,7 @@ button[import="1"] {
     top: 10%;
     left: 50%;
     margin-left: -175px;
-    width: 350px;
+    width: 300px;
     height:auto;
     border-radius: 15px;
     display:flex;

@@ -5,7 +5,7 @@
 <div>
     <table id="print-info">
         <tr><th>File name</th><td><input id="print-filename" size="30" spellcheck="false" /></td></tr>
-        <tr><th>File size (bytes)</th><td><input id="print-filesize" size="10" disabled="true" /></td></tr>
+        <tr class="invisible"><th>File size (bytes)</th><td><input id="print-filesize" size="10" disabled="true" /></td></tr>
         <tr id="mill-info"><th>estimated mill time (h:m:s)</th><td><input id="mill-time" size="10" disabled="true" /></td></tr>
     </table>
 </div>
@@ -13,13 +13,13 @@
 <div id="print-filament-row">
     <table>
         <tr><th>Filament used (mm)</th><td><input id="print-filament" size="10" disabled="true" /></td></tr>
-        <tr><th>Filament density (g/cm^3)</th><td><input id="print-density" size="10" disabled="true" value="1.25" /></td></tr>
+        <tr class="invisible"><th>Filament density (g/cm^3)</th><td><input id="print-density" size="10" disabled="true" value="1.25" /></td></tr>
         <tr><th>Printed weight (g)</th><td><input id="print-weight" size="10" disabled="true" /></td></tr>
         <tr><th>Estimated print time (h:m:s)</th><td><input id="print-time" size="10" disabled="true" /></td></tr>
     </table>
 </div>
 
-<button class="topbutton blue" id="print-download">Download .gcode</button>
+<button class="topbutton blue" id="print-download">Download File</button>
 <button class="topbutton blue invisible" id="print-serial">Use gcode sender</button>
 
 <div class="print-sel invisible" id="send-to-octoprint">
