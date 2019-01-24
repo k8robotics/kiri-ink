@@ -1650,6 +1650,9 @@ self.kiri.license = exports.LICENSE;
             w.scale(x,y,z);
             meshUpdateInfo(w.mesh);
         });
+        INK.scaleX.value = 1;
+        INK.scaleY.value = 1;
+        INK.scaleZ.value = 1;
         platformComputeMaxZ();
         SPACE.update();
     }
@@ -2803,17 +2806,21 @@ self.kiri.license = exports.LICENSE;
         INK.camBack.onclick = function() { SPACE.view.back(); }
 
         INK.basicRaft.onchange = function(){
-            INK.outputRaft.checked = this.value;
+          INK.outputRaft.checked = this.value;
+          console.log(INK.outputRaft.checked);
         };
         INK.outputRaft.change = function(){
             INK.basicRaft.checked = this.value;
-        };
+            console.log(INK.basicRaft.checked);
+          };
         INK.sliceSupportEnable.change = function(){
             INK.basicSupport.checked  = this.value;
-        };
+            console.log(this.value, INK.basicSupport.checked);
+          };
         INK.basicSupport.onchange = function(){
             INK.sliceSupportEnable.checked = this.value;
-        };
+            console.log(INK.sliceSupportEnable.checked);
+          };
 
         function toolUpdate(a,b,c) {
             DBUG.log(['toolUpdate',a,b,c])

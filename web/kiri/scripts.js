@@ -157,15 +157,13 @@ function showAdvanced(){
     jQuery("#advanced").css("right", "0px");
     jQuery("#advanced").css("opacity", "1");
     jQuery("#sidebarR").css("right", "-300px");
-    jQuery("#devices").css("left", "60%")
 
 }
 
 function showBasic(){
-    jQuery("#advanced").css("right", "-300px");
+    jQuery("#advanced").css("right", "-200px");
     jQuery("#advanced").css("opacity", "1");
     jQuery("#sidebarR").css("right", "1%");
-    jQuery("#devices").css("left", "70%")
 
 } 
 
@@ -188,7 +186,6 @@ jQuery(document).ready(function(){
     msieversion()
     
     console.log("begin");
-    jQuery("#advanced").css("right", "-300px");
     jQuery("#advanced").css("opacity", "0");
 
     jQuery("#addfile").click(fileTransition);
