@@ -362,7 +362,7 @@ button{
 
 .scaleContent{
     height:100%;
-    width: 95%;
+    width: 90%;
     padding:3% 5%;
     display:flex;
     flex-direction:row;
@@ -419,10 +419,6 @@ button{
 
 .device{
     justify-content: space-around;
-}
-
-.dwind{
-    width:18%;
 }
 
 /* Side Bar R */
@@ -795,8 +791,29 @@ button{
 #devices {
     text-align: center;
     top: 8%;
-    left: 40%;
+    left: 35%;
+    width: 30%;
+    max-width: 40%;
 }
+
+.printer-button{
+  border-radius: 15;
+  box-shadow: 0px 2px 3px 1px #727272;
+  overflow: hidden;
+}
+
+.printer-button:hover{
+  box-shadow: 0px 0px 3px 1px #727272;
+  z-index: 1;
+  transition: box-shadow ease .2s;
+}
+
+.printer-button:active{
+  box-shadow: inset 0px 0px 3px 1px #727272;
+  z-index: 1;
+  transition: box-shadow ease .2s;
+}
+
 #devices button {
     margin-left: 1px;
     margin-right: 2px;
