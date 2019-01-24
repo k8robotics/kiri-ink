@@ -295,6 +295,7 @@ button{
     margin:auto;
     height:100%;
     width:100%;
+    color:var(--black);
     transition: background-color .2s;
     user-select: none;
     -moz-user-select: none;
@@ -413,8 +414,8 @@ button{
 /* Devices Menu */
 
 .scaleContent img{
-    width:30%;
-    height:150px;
+  width: 120px;
+  height:120px;
 }
 
 .device{
@@ -606,17 +607,22 @@ button{
     border-radius:0px 15px 0px 0px;
 }  
 
-.fa-hand-pointer, .fa-eye, .fa-trash-alt, .fa-clone, .fa-sync, .fa-camera, .fa-question-circle, .fa-expand-arrows-alt, .fa-times {
+.fa-times {
     color:#646562;
-    font-size: 20px;
-    margin:0 auto;
-    margin-top:8%;
-    min-width: 10px;
-    max-width:50px;
-    width:40%;
-    height:auto;
-    text-align: center;
 }
+
+.fas {
+  font-size: 20px;
+  margin:0 auto;
+  margin-top:8%;
+  min-width: 10px;
+  max-width:50px;
+  width:40%;
+  height:auto;
+  text-align: center;
+}
+
+
 
 #assets{
     display: none;
@@ -797,9 +803,10 @@ button{
 }
 
 .printer-button{
+  width: 30%;
   border-radius: 15;
   box-shadow: 0px 2px 3px 1px #727272;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 .printer-button:hover{
@@ -812,6 +819,14 @@ button{
   box-shadow: inset 0px 0px 3px 1px #727272;
   z-index: 1;
   transition: box-shadow ease .2s;
+}
+
+.label-container {
+  font-family: 'Roboto', sans-serif;
+  font-weight:300;
+  background-color: var(--black);
+  color: white;
+  padding: 2px 4px;
 }
 
 #devices button {

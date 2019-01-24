@@ -2302,7 +2302,7 @@ self.kiri.license = exports.LICENSE;
     function showHelp(local) {
         hideDialog();
         if (!local) {
-            WIN.open("//wiki.grid.space/wiki/Kiri:Moto", "_help");
+            WIN.open("https://docs.wixstatic.com/ugd/831a79_fa91c5f271ad4ea7b3e1e8d9f8f9b2f5.pdf", "_help");
             STATS.add('d-help');
             return;
         }
