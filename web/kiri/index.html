@@ -3,13 +3,13 @@
         <meta charset="UTF-8">
         <meta name="copyright" content="stewart allen [stewart@neuron.com]">
         <meta name="description" content="3d slice modeler and gcode generator">
-        <meta name="keywords" content="3d slicer,slicer,3d slicing,inksmith,kiri,kirimoto,kiri:moto,gcode" />
-        <meta name="author" content="Stewart Allen">
-        <meta name="robots" content="noindex, nofollow">
-        <meta property="og:description" content="Kiri:Ink is a reskin of the multi-modal 3D slicer Kiri:Moto designed to be used by educators and students for 3D printing.">
-        <meta property="og:title" content="Kiri:Ink">
+        <meta name="keywords" content="3d slicer,slicer,3d slicing,inksmith,launchpad,launchpad3d,gcode" />
+        <meta name="author" content="LABBsoft">
+        <meta name="robots" content="nofollow">
+        <meta property="og:description" content="Launchpad is an easy-to-use, cloud-based 3D slicing software designed for educators. Slice, modify, and download your 3D printing files with ease on any Chromebook or internet-enabled device.">
+        <meta property="og:title" content="Launchpad3D">
         <meta property="og:type" content="website">
-        <title>Kiri:Ink</title>
+        <title>Launchpad3D</title>
         <link rel="icon" href="/kiri/favicon.ico">
         <link rel="stylesheet" type="text/css" href="/kiri/style.css">
         <script src="/js/ext-three.js"></script>
@@ -39,9 +39,9 @@
             <div class="buttonpanel">
 
                 <button class="topbutton invisible">Save</button>
-                <button class="topbutton blue" id="devicesB">Devices</button>
-                <button class="topbutton callbutton blue" id="add-file">Add File</button>
-                <button class="topbutton callbutton blue" id="print-button">Print</button>
+                <button class="topbutton green" id="devicesB">Devices</button>
+                <button class="topbutton callbutton green" id="add-file">Add File</button>
+                <button class="topbutton callbutton green" id="print-button">Print</button>
             </div>
         </div>
 
@@ -169,6 +169,17 @@
                 <input type="checkbox" class="sr_check" id="basic-raft"/>
             </p>
 
+            <p class="keyline" style="border-bottom: 0px">
+              Print Quality              
+            </p>
+              
+            <div class="quality-bar">
+              <div class="quality-button" id="fast"> Fast </div>
+              <div class="quality-button grey" style="flex: 3" id="medium"> Medium </div>
+              <div class="quality-button" id="fine"> Fine </div>
+            </div>
+            </p>
+            <p class="keyline"></p>            
             <div class="end tool setcat" id="advancedB">
                 <p class="tooltip setting" >Advanced</p>
                 <p class="setting tooltip indicate"> ▶ </p>
@@ -522,7 +533,7 @@
             </div>
         </div>
 
-        <p class="credit">Powered by Kiri:Moto</p>
+        <p class="credit">Powered by Inksmith</p>
         <!-- selection info -->
         <div id="selection">
             <span>

@@ -203,11 +203,55 @@ button{
     border-width: 1px 0px 0px 1px;
 }
 
-.blue{
+.green{
     background-color: var(--primary-color);
     color:white;
     font-weight:500;
     border-width:0px;
+}
+
+.grey{
+  background-color: var(--primary-color);
+  color:white;
+  font-weight:500;
+  border-width:0px;
+  box-shadow: inset 0px 2px 3px 1px #727272;
+}
+
+.quality-bar{
+  margin: 0% 5%; 
+  border: solid; 
+  border-width: 1px; 
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.quality-button{
+  height: 100%;
+  text-align: center;
+  flex: 2;
+  padding: 3px 0px;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight:700;
+  border: solid;
+  border-width: 0px;
+  z-index:0;
+  /* transition: box-shadow ease .2s; */
+  cursor: pointer;
+}
+
+.quality-button:hover{
+  box-shadow: 0px 0px 3px 1px #727272;
+  z-index: 1;
+  transition: box-shadow ease .2s;
+}
+
+.quality-button:active{
+  box-shadow: inset 0px 0px 3px 1px #727272;
+  z-index: 1;
+  transition: box-shadow ease .2s;
 }
 
 /* canvas */
@@ -432,7 +476,7 @@ button{
     top: 8%;
     right:1%;
     height:auto;
-    min-width: 120px;
+    min-width: 200px;
     border-radius: 15px;
     display:flex;
     box-shadow: 0px 2px 3px 1px #727272;

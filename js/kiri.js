@@ -2676,6 +2676,10 @@ self.kiri.license = exports.LICENSE;
             // Basic Settings
             basicRaft: $('basic-raft'),
             basicSupport:$('basic-support'),
+            fastSettings: $('fast'),
+            mediumSettings: $('medium'),
+            fineSettings: $('fine'),
+            
 
             // Settings
             sliceHeight: $('layer-height'),
@@ -2821,6 +2825,27 @@ self.kiri.license = exports.LICENSE;
             INK.sliceSupportEnable.checked = this.value;
             console.log(INK.sliceSupportEnable.checked);
           };
+
+        INK.fastSettings.onclick = function(){
+          updateSettings(INK.fastSettings);
+        }
+
+        INK.fineSettings.onclick = function(){
+          updateSettings(INK.fineSettings);
+        }
+
+        INK.mediumSettings.onclick = function(){
+          updateSettings(INK.mediumSettings);
+        }
+
+
+        function updateSettings(setting){
+          if (setting == undefined) { return; }
+          INK.fastSettings.className = INK.fastSettings.className.replace(" grey", "");
+          INK.mediumSettings.className = INK.mediumSettings.className.replace(" grey", "");
+          INK.fineSettings.className = INK.fineSettings.className.replace(" grey", "");
+          setting.className += " grey";
+        }
 
         function toolUpdate(a,b,c) {
             DBUG.log(['toolUpdate',a,b,c])
