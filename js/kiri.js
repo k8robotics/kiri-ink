@@ -1883,6 +1883,7 @@ self.kiri.license = exports.LICENSE;
                     uie.value = val;
                 } else if (typ === 'checkbox') {
                     uie.checked = val;
+                    if (uie.onclick) uie.onclick();
                 } else if (typ === 'select-one') {
                     uie.innerHTML = '<option></option>';
                     var chosen = null;
@@ -2760,6 +2761,7 @@ self.kiri.license = exports.LICENSE;
         }
 
         INK.preview.onclick = function() {
+            updateSettingsFromFields();
             preparePrint();
             setViewMode(VIEWS.PREVIEW);
         }
@@ -2809,21 +2811,17 @@ self.kiri.license = exports.LICENSE;
         INK.camRight.onclick = function() { SPACE.view.right(); }
         INK.camBack.onclick = function() { SPACE.view.back(); }
 
-        INK.basicRaft.onchange = function(){
-          INK.outputRaft.checked = this.value;
-          console.log(INK.outputRaft.checked);
+        INK.basicRaft.onclick = function(){
+          INK.outputRaft.checked = this.checked;
         };
-        INK.outputRaft.change = function(){
-            INK.basicRaft.checked = this.value;
-            console.log(INK.basicRaft.checked);
+        INK.outputRaft.onclick = function(){
+            INK.basicRaft.checked = this.checked;
           };
-        INK.sliceSupportEnable.change = function(){
-            INK.basicSupport.checked  = this.value;
-            console.log(this.value, INK.basicSupport.checked);
+        INK.sliceSupportEnable.onclick = function(){
+            INK.basicSupport.checked  = this.checked;
           };
         INK.basicSupport.onchange = function(){
-            INK.sliceSupportEnable.checked = this.value;
-            console.log(INK.sliceSupportEnable.checked);
+            INK.sliceSupportEnable.checked = this.checked;
           };
 
         INK.fastSettings.onclick = function(){

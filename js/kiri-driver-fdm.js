@@ -263,7 +263,6 @@ var gs_kiri_fdm = exports;
 
                 // raise first layer off raft slightly to lessen adhesion
                 firstLayerHeight += process.outputRaftSpacing || 0;
-
                 // retract after last raft layer
                 output.last().last().retract = true;
             }
@@ -341,6 +340,8 @@ var gs_kiri_fdm = exports;
                     layerout.last().retract = true;
                 }
                 layerout.height = layerout.height || closest.slice.height;
+                if (layer === 0) layerout.height += process.outputRaftSpacing;
+
                 slices[minidx] = null;
                 closest.offset.z = zoff;
                 // output seek to start point between mesh slices if previous data
