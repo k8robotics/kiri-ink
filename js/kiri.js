@@ -877,7 +877,6 @@ self.kiri.license = exports.LICENSE;
             ver: 1
         },
 
-
         settingsDefault = settings,
         autoDecimate = true,
         // ---------------
@@ -2044,6 +2043,7 @@ self.kiri.license = exports.LICENSE;
                     uie.value = val;
                 } else if (typ === 'checkbox') {
                     uie.checked = val;
+                    if (uie.onclick) uie.onclick();
                 } else if (typ === 'select-one') {
                     uie.innerHTML = '<option></option>';
                     var chosen = null;
@@ -2939,11 +2939,11 @@ self.kiri.license = exports.LICENSE;
         }
 
         INK.preview.onclick = function() {
+            updateSettingsFromFields(settings.process);
             preparePrint();
             setViewMode(VIEWS.PREVIEW);
         }
         INK.arrange.onclick = function() {
-            console.log ("Hi");
             layoutPlatform(5);
             setViewMode(VIEWS.ARRANGE);
         }
@@ -2992,14 +2992,14 @@ self.kiri.license = exports.LICENSE;
           INK.outputRaft.checked = this.checked;
         };
         INK.outputRaft.onclick = function(){
-          INK.basicRaft.checked = this.checked;
-        };
+            INK.basicRaft.checked = this.checked;
+          };
         INK.sliceSupportEnable.onclick = function(){
-          INK.basicSupport.checked  = this.checked;
-        };
-        INK.basicSupport.onclick = function(){
-          INK.sliceSupportEnable.checked = this.checked;
-        };
+            INK.basicSupport.checked  = this.checked;
+          };
+        INK.basicSupport.onchange = function(){
+            INK.sliceSupportEnable.checked = this.checked;
+          };
 
         INK.qualitySettings[QUALITIES.FAST].onclick = function(){
           updateSettings(QUALITIES.FAST);
