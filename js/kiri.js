@@ -584,138 +584,64 @@ self.kiri.license = exports.LICENSE;
           outputInvertY: false
       },
         orbit_process = {
-          processName: "default",
-
-          // --- FDM ---
-          sliceHeight: 0.25,
-          sliceShells: 2,
-          sliceShellSpacing: 1.0,
-          sliceFillOverlap: 0.3,
-          sliceFillSpacing: 1.0,
-          sliceFillAngle: 45,
-          sliceFillSparse: 0.5,
-          sliceSolidMinArea: 5,
-          sliceSolidLayers: 3,
-          sliceBottomLayers: 2,
-          sliceTopLayers: 3,
-          sliceVase: false,
-
-          // Output
-          outputBedTemp: 0,
-          outputTemp: 200,
-          outputFeedrate: 80,
-          outputFinishrate: 60,
-          outputSeekrate: 100,
-          outputShellMult: 1.1,
-          outputFillMult: 1.2,
-          outputSparseMult: 1.3,
-          outputCooling: true,
-
-          // First Layer
-          firstSliceHeight: 0.3,
-          firstLayerRate: 30,
-          firstLayerFillRate: 40,
-          firstLayerPrintMult: 1.0,
-          outputBrimCount: 2,
-          outputBrimOffset: 2,
-
-          // Supports
-          sliceSupportDensity: 0.25,
-          sliceSupportSize: 10,
-          sliceSupportOffset: 1.0,
-          sliceSupportGap: 1,
-          sliceSupportSpan: 6,
-          sliceSupportArea: 1,
-          sliceSupportExtra: 0,
-          sliceSupportEnable: false,
-
-          // Raft
-          outputRaftSpacing: 0.2,
-          outputRaft: false,
-
-          // Advanced
-          outputRetractDist: 1.0,
-          outputRetractSpeed: 40,
-          outputRetractDwell: 0,
-          outputShortPoly: 15.0,
-          outputShortDistance: 0.0,
-          outputShortFactor: 0.2,
-          outputFinishFactor: 0,
-          sliceMinHeight: 0,
-          zHopDistance: 0,
-          antiBacklash: 2,
-
-          // GCode
-          gcodeKFactor: 0,
-          gcodePauseLayers: "",
-
-          outputFanMax: 255,
-
-          // --- LASER ---
-
-          laserOffset: 0.25,
-          laserSliceHeight: 1,
-
-          outputTileSpacing: 1,   // LASER
-          outputTileScaling: 1,   // LASER
-          outputLaserPower: 100,  // LASER
-          outputLaserSpeed: 1000, // LASER
-
-          // --- CAM ---
-
-          roughingTool: 1000,
-          roughingSpindle: 1000,
-          roughingDown: 2,
-          roughingOver: 0.5,
-          roughingSpeed: 1000,
-          roughingPlunge: 250,
-          roughingStock: 0,
-          roughingOn: true,
-
-          finishingTool: 1000,
-          finishingSpindle: 1000,
-          finishingDown: 3,
-          finishingOver: 0.5,
-          finishingAngle: 85,
-          finishingSpeed: 800,
-          finishingPlunge: 250,
-          finishingOn: true,
-          finishingXOn: true,
-          finishingYOn: true,
-          finishCurvesOnly: false,
-
-          drillTool: 1000,
-          drillSpindle: 1000,
-          drillDownSpeed: 250,
-          drillDown: 5,
-          drillDwell: 250,
-          drillLift: 2,
-          drillingOn: false,
-
-          camTabsWidth: 5,
-          camTabsHeight: 5,
-          camTabsOn: false,
-
-          camPocketOnly: false,
-          camDepthFirst: false,
-          camEaseDown: false,
-          camOriginTop: true,
-          camTolerance: 0.15,
-          camZTopOffset: 0,
-          camZBottom: 0,
-          camZClearance: 1,
-
-          camStockX: 0,
-          camStockY: 0,
-          camStockZ: 0,
-
-          outputClockwise: true,
-
-          // --- shared FDM/Laser/CAM ---
-
-          outputOriginCenter: false,
-          outputInvertX: false,
-          outputInvertY: false
+            processName: "Orbit Medium",
+            sliceHeight: 0.2,
+            sliceShells: 2,
+            sliceShellSpacing: 1,
+            sliceFillAngle: 45,
+            sliceFillOverlap: 0.3,
+            sliceFillSpacing: 1,
+            sliceFillSparse: 0.25,
+            sliceSupportEnable: false,
+            sliceSupportDensity: 0.25,
+            sliceSupportOffset: 1,
+            sliceSupportGap: 1,
+            sliceSupportSize: 10,
+            sliceSupportArea: 1,
+            sliceSupportExtra: 0,
+            sliceSupportSpan: 6,
+            sliceSolidMinArea: 7,
+            sliceSolidLayers: 7,
+            sliceBottomLayers: 2,
+            sliceTopLayers: 7,
+            sliceVase: false,
+            firstSliceHeight: 0.25,
+            firstLayerRate: 20,
+            firstLayerFillRate: 20,
+            firstLayerPrintMult: 1,
+            outputRaft: true,
+            outputRaftSpacing: 0.14,
+            outputTemp: 205,
+            outputFanMax: 255,
+            outputBedTemp: 0,
+            outputFeedrate: 40,
+            outputFinishrate: 30,
+            outputSeekrate: 60,
+            outputShellMult: 1.3,
+            outputFillMult: 1.2,
+            outputSparseMult: 1.3,
+            outputRetractDist: 1,
+            outputRetractSpeed: 30,
+            outputRetractDwell: 0,
+            outputBrimCount: 0,
+            outputBrimOffset: 0,
+            outputShortPoly: 10,
+            outputShortDistance: 1,
+            outputShortFactor: 0.9,
+            outputFinishFactor: 0,
+            sliceMinHeight: 0,
+            antiBacklash: 2,
+            zHopDistance: 1,
+            gcodeKFactor: 0,
+            gcodePauseLayers: null,
+            outputCooling: true,
+            outputClockwise: true,
+            outputOriginCenter: false,
+            outputInvertX: false,
+            outputInvertY: false,
+            sliceFillGyroid: false,
+            firstLayerNozzleTemp: 0,
+            gcodeNozzle: 0
         },
 
         settingsDefault = settings,
@@ -2761,12 +2687,11 @@ self.kiri.license = exports.LICENSE;
         }
 
         INK.preview.onclick = function() {
-            updateSettingsFromFields();
+            updateSettingsFromFields(settings.process);
             preparePrint();
             setViewMode(VIEWS.PREVIEW);
         }
         INK.arrange.onclick = function() {
-            console.log ("Hi");
             layoutPlatform(5);
             setViewMode(VIEWS.ARRANGE);
         }
