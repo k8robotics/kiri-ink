@@ -36,8 +36,10 @@
         <!--{kiri}-->
         <div class="topbar">
             <img src="/kiri/launchpad-logo.png" class="logotop">
-            <div class="buttonpanel">
 
+            <p class="printer-label" id="printer-label">Inksmith Orbit</p>
+
+            <div class="buttonpanel">
                 <button class="topbutton invisible">Save</button>
                 <button class="topbutton green" id="devicesB">Devices</button>
                 <button class="topbutton callbutton green" id="add-file">Add File</button>
@@ -122,19 +124,19 @@
                 <img class="menuExit" id="devicesB2" src="/kiri/delete.png">
             </div>
             <div class="scaleContent device">
-                <div class="printer-button">
-                  <img src="/kiri/single-plus.png" id="single-plus"/>
+                <div class="printer-button" id="single-plus">
+                  <img src="/kiri/single-plus.png"/>
                   <div class="label-container">
                     Single Plus
                   </div>
                 </div>
-                <div class="printer-button">
-                  <img src="/kiri/orbit.png" id="orbit"/>
+                <div class="printer-button" id="orbit">
+                  <img src="/kiri/orbit.png"/>
                   <div class="label-container">
                     Orbit
                   </div>
                 </div>
-                <div class="printer-button">
+                <div class="printer-button" id="style">
                   <img src="/kiri/cubicon.png"/>
                   <div class="label-container">
                     Style
@@ -166,7 +168,7 @@
             </p>
             <p class="keyline">
                 Raft
-                <input type="checkbox" class="sr_check" id="basic-raft"/>
+                <input checked type="checkbox" class="sr_check" id="basic-raft"/>
             </p>
 
             <p class="keyline" style="border-bottom: 0px">
@@ -350,7 +352,7 @@
 
             <div class="supports_rafts">
                 <p class="sr_title">enable</p>
-                <input type="checkbox" class="sr_check" id="raft-enable"/>
+                <input checked type="checkbox" class="sr_check" id="raft-enable"/>
             </div>
 
             <p class="keyline">Advanced</p>

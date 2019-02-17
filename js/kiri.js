@@ -27,6 +27,568 @@ self.kiri.license = exports.LICENSE;
             SLICE: 2,
             PREVIEW: 3
         },
+        QUALITIES = {
+          FAST: 0,
+          MEDIUM: 1,
+          FINE: 2
+        },
+        PRINTERS = {
+          SPLUS: 0,
+          ORBIT: 1,
+          STYLE: 2
+        },
+
+        printer_processes = [
+          [   // SINGLE+
+            { // FAST
+              processName: 'Single+ Fast',
+              outputOriginCenter: false,
+              outputInvertX: false,
+              outputInvertY: false,
+              outputClockwise: true,
+              sliceHeight: 0.3,
+              sliceShells: 2,
+              sliceShellSpacing: 1,
+              sliceFillAngle: 45,
+              sliceFillOverlap: 0.3,
+              sliceFillSpacing: 1,
+              sliceFillSparse: 0.1,
+              sliceFillGyroid: false,
+              sliceSupportEnable: false,
+              sliceSupportDensity: 0.25,
+              sliceSupportOffset: 1,
+              sliceSupportGap: 1,
+              sliceSupportSize: 10,
+              sliceSupportArea: 1,
+              sliceSupportExtra: 0,
+              sliceSupportSpan: 6,
+              sliceSolidMinArea: 7,
+              sliceSolidLayers: 7,
+              sliceBottomLayers: 3,
+              sliceTopLayers: 5,
+              sliceVase: false,
+              firstSliceHeight: 0.2,
+              firstLayerRate: 20,
+              firstLayerFillRate: 20,
+              firstLayerPrintMult: 1,
+              outputRaft: false,
+              outputRaftSpacing: 0.2,
+              firstLayerNozzleTemp: 0,
+              outputTemp: 210,
+              outputFanMax: 255,
+              outputBedTemp: 65,
+              outputFeedrate: 40,
+              outputFinishrate: 30,
+              outputSeekrate: 60,
+              outputShellMult: 1.3,
+              outputFillMult: 1.2,
+              outputSparseMult: 1.3,
+              outputRetractDist: 1,
+              outputRetractSpeed: 30,
+              outputRetractDwell: 0,
+              outputBrimCount: 0,
+              outputBrimOffset: 0,
+              outputShortPoly: 10,
+              outputShortDistance: 1,
+              outputShortFactor: 0.9,
+              outputFinishFactor: 0,
+              sliceMinHeight: 0,
+              antiBacklash: 2,
+              zHopDistance: 1,
+              gcodeKFactor: 0,
+              gcodeNozzle: 0,
+              gcodePauseLayers: null,
+              outputCooling: true,
+            },
+            { // MEDIUM
+              processName: 'Single+ Medium',
+              outputOriginCenter: false,
+              outputInvertX: false,
+              outputInvertY: false,
+              outputClockwise: true,
+              sliceHeight: 0.2,
+              sliceShells: 2,
+              sliceShellSpacing: 1,
+              sliceFillAngle: 45,
+              sliceFillOverlap: 0.3,
+              sliceFillSpacing: 1,
+              sliceFillSparse: 0.2,
+              sliceFillGyroid: false,
+              sliceSupportEnable: false,
+              sliceSupportDensity: 0.25,
+              sliceSupportOffset: 1,
+              sliceSupportGap: 1,
+              sliceSupportSize: 10,
+              sliceSupportArea: 1,
+              sliceSupportExtra: 0,
+              sliceSupportSpan: 6,
+              sliceSolidMinArea: 7,
+              sliceSolidLayers: 7,
+              sliceBottomLayers: 3,
+              sliceTopLayers: 7,
+              sliceVase: false,
+              firstSliceHeight: 0.2,
+              firstLayerRate: 20,
+              firstLayerFillRate: 20,
+              firstLayerPrintMult: 1,
+              outputRaft: false,
+              outputRaftSpacing: 0.2,
+              firstLayerNozzleTemp: 0,
+              outputTemp: 210,
+              outputFanMax: 255,
+              outputBedTemp: 65,
+              outputFeedrate: 40,
+              outputFinishrate: 30,
+              outputSeekrate: 60,
+              outputShellMult: 1.3,
+              outputFillMult: 1.2,
+              outputSparseMult: 1.3,
+              outputRetractDist: 1,
+              outputRetractSpeed: 30,
+              outputRetractDwell: 0,
+              outputBrimCount: 0,
+              outputBrimOffset: 0,
+              outputShortPoly: 10,
+              outputShortDistance: 1,
+              outputShortFactor: 0.9,
+              outputFinishFactor: 0,
+              sliceMinHeight: 0,
+              antiBacklash: 2,
+              zHopDistance: 1,
+              gcodeKFactor: 0,
+              gcodeNozzle: 0,
+              gcodePauseLayers: null,
+              outputCooling: true
+            },
+            { // FINE
+              processName: 'Single+ Fine',
+              outputOriginCenter: false,
+              outputInvertX: false,
+              outputInvertY: false,
+              sliceHeight: 0.15,
+              sliceShells: 3,
+              sliceShellSpacing: 1,
+              sliceFillAngle: 45,
+              sliceFillOverlap: 0.3,
+              sliceFillSpacing: 1,
+              sliceFillSparse: 0.25,
+              sliceFillGyroid: false,
+              sliceSupportEnable: false,
+              sliceSupportDensity: 0.25,
+              sliceSupportOffset: 1,
+              sliceSupportGap: 1,
+              sliceSupportSize: 10,
+              sliceSupportArea: 1,
+              sliceSupportExtra: 0,
+              sliceSupportSpan: 6,
+              sliceSolidMinArea: 7,
+              sliceSolidLayers: 7,
+              sliceBottomLayers: 3,
+              sliceTopLayers: 7,
+              sliceVase: false,
+              firstSliceHeight: 0.2,
+              firstLayerRate: 20,
+              firstLayerFillRate: 20,
+              firstLayerPrintMult: 1,
+              outputRaft: false,
+              outputRaftSpacing: 0.2,
+              firstLayerNozzleTemp: 0,
+              outputTemp: 210,
+              outputFanMax: 255,
+              outputBedTemp: 65,
+              outputFeedrate: 35,
+              outputFinishrate: 25,
+              outputSeekrate: 60,
+              outputShellMult: 1.3,
+              outputFillMult: 1.2,
+              outputSparseMult: 1.3,
+              outputRetractDist: 1.5,
+              outputRetractSpeed: 30,
+              outputRetractDwell: 0,
+              outputBrimCount: 0,
+              outputBrimOffset: 0,
+              outputShortPoly: 10,
+              outputShortDistance: 1,
+              outputShortFactor: 0.9,
+              outputFinishFactor: 0,
+              sliceMinHeight: 0,
+              antiBacklash: 2,
+              zHopDistance: 1,
+              gcodeKFactor: 0,
+              gcodeNozzle: 0,
+              gcodePauseLayers: null,
+              outputCooling: true,
+              outputClockwise: true
+            }
+          ],
+          [
+          //ORBIT
+          // FAST
+          {
+            processName: 'Orbit Fast',
+            sliceHeight: 0.25,
+            sliceShells: 2,
+            sliceShellSpacing: 1,
+            sliceFillAngle: 45,
+            sliceFillOverlap: 0.3,
+            sliceFillSpacing: 1,
+            sliceFillSparse: 0.1,
+            sliceSupportEnable: false,
+            sliceSupportDensity: 0.25,
+            sliceSupportOffset: 1,
+            sliceSupportGap: 1,
+            sliceSupportSize: 10,
+            sliceSupportArea: 1,
+            sliceSupportExtra: 0,
+            sliceSupportSpan: 6,
+            sliceSolidMinArea: 7,
+            sliceSolidLayers: 7,
+            sliceBottomLayers: 2,
+            sliceTopLayers: 5,
+            sliceVase: false,
+            firstSliceHeight: 0.25,
+            firstLayerRate: 20,
+            firstLayerFillRate: 20,
+            firstLayerPrintMult: 1,
+            outputRaft: false,
+            outputRaftSpacing: 0.2,
+            outputTemp: 205,
+            outputFanMax: 255,
+            outputBedTemp: 0,
+            outputFeedrate: 50,
+            outputFinishrate: 35,
+            outputSeekrate: 60,
+            outputShellMult: 1.3,
+            outputFillMult: 1.2,
+            outputSparseMult: 1.3,
+            outputRetractDist: 1,
+            outputRetractSpeed: 30,
+            outputRetractDwell: 0,
+            outputBrimCount: 0,
+            outputBrimOffset: 0,
+            outputShortPoly: 10,
+            outputShortDistance: 1,
+            outputShortFactor: 0.9,
+            outputFinishFactor: 0,
+            sliceMinHeight: 0,
+            antiBacklash: 2,
+            zHopDistance: 1,
+            gcodeKFactor: 0,
+            gcodePauseLayers: null,
+            outputCooling: true,
+            outputClockwise: true,
+            outputOriginCenter: false,
+            outputInvertX: false,
+            outputInvertY: false,
+            sliceFillGyroid: false,
+            firstLayerNozzleTemp: 0,
+            gcodeNozzle: 0
+          },
+          { // MEDIUM
+            processName: 'Orbit Medium',
+            outputOriginCenter: false,
+            outputInvertX: false,
+            outputInvertY: false,
+            sliceHeight: 0.2,
+            sliceShells: 2,
+            sliceShellSpacing: 1,
+            sliceFillAngle: 45,
+            sliceFillOverlap: 0.3,
+            sliceFillSpacing: 1,
+            sliceFillSparse: 0.25,
+            sliceFillGyroid: false,
+            sliceSupportEnable: false,
+            sliceSupportDensity: 0.25,
+            sliceSupportOffset: 1,
+            sliceSupportGap: 1,
+            sliceSupportSize: 10,
+            sliceSupportArea: 1,
+            sliceSupportExtra: 0,
+            sliceSupportSpan: 6,
+            sliceSolidMinArea: 7,
+            sliceSolidLayers: 7,
+            sliceBottomLayers: 2,
+            sliceTopLayers: 7,
+            sliceVase: false,
+            firstSliceHeight: 0.25,
+            firstLayerRate: 20,
+            firstLayerFillRate: 20,
+            firstLayerPrintMult: 1,
+            outputRaft: true,
+            outputRaftSpacing: 0.2,
+            firstLayerNozzleTemp: 0,
+            outputTemp: 205,
+            outputFanMax: 255,
+            outputBedTemp: 0,
+            outputFeedrate: 40,
+            outputFinishrate: 30,
+            outputSeekrate: 60,
+            outputShellMult: 1.3,
+            outputFillMult: 1.2,
+            outputSparseMult: 1.3,
+            outputRetractDist: 1,
+            outputRetractSpeed: 30,
+            outputRetractDwell: 0,
+            outputBrimCount: 0,
+            outputBrimOffset: 0,
+            outputShortPoly: 10,
+            outputShortDistance: 1,
+            outputShortFactor: 0.9,
+            outputFinishFactor: 0,
+            sliceMinHeight: 0,
+            antiBacklash: 2,
+            zHopDistance: 1,
+            gcodeKFactor: 0,
+            gcodeNozzle: 0,
+            gcodePauseLayers: null,
+            outputCooling: true,
+            outputClockwise: true
+          },
+            // FINE
+          {
+            processName: 'Orbit Fine',
+            outputOriginCenter: false,
+            outputInvertX: false,
+            outputInvertY: false,
+            sliceHeight: 0.15,
+            sliceShells: 3,
+            sliceShellSpacing: 1,
+            sliceFillAngle: 45,
+            sliceFillOverlap: 0.3,
+            sliceFillSpacing: 1,
+            sliceFillSparse: 0.15,
+            sliceFillGyroid: false,
+            sliceSupportEnable: false,
+            sliceSupportDensity: 0.25,
+            sliceSupportOffset: 1,
+            sliceSupportGap: 1,
+            sliceSupportSize: 10,
+            sliceSupportArea: 1,
+            sliceSupportExtra: 0,
+            sliceSupportSpan: 6,
+            sliceSolidMinArea: 7,
+            sliceSolidLayers: 7,
+            sliceBottomLayers: 2,
+            sliceTopLayers: 7,
+            sliceVase: false,
+            firstSliceHeight: 0.25,
+            firstLayerRate: 20,
+            firstLayerFillRate: 20,
+            firstLayerPrintMult: 1,
+            outputRaft: true,
+            outputRaftSpacing: 0.2,
+            firstLayerNozzleTemp: 0,
+            outputTemp: 205,
+            outputFanMax: 255,
+            outputBedTemp: 0,
+            outputFeedrate: 40,
+            outputFinishrate: 30,
+            outputSeekrate: 60,
+            outputShellMult: 1.3,
+            outputFillMult: 1.2,
+            outputSparseMult: 1.3,
+            outputRetractDist: 1,
+            outputRetractSpeed: 30,
+            outputRetractDwell: 0,
+            outputBrimCount: 0,
+            outputBrimOffset: 0,
+            outputShortPoly: 10,
+            outputShortDistance: 1,
+            outputShortFactor: 0.9,
+            outputFinishFactor: 0,
+            sliceMinHeight: 0,
+            antiBacklash: 2,
+            zHopDistance: 1,
+            gcodeKFactor: 0,
+            gcodeNozzle: 0,
+            gcodePauseLayers: null,
+            outputCooling: true,
+            outputClockwise: true
+          }],
+          [   // STYLE
+            { // FAST
+              processName: 'Style Fast',
+              outputOriginCenter: false,
+              outputInvertX: false,
+              outputInvertY: false,
+              sliceHeight: 0.3,
+              sliceShells: 2,
+              sliceShellSpacing: 1,
+              sliceFillAngle: 45,
+              sliceFillOverlap: 0.3,
+              sliceFillSpacing: 1,
+              sliceFillSparse: 0.1,
+              sliceFillGyroid: false,
+              sliceSupportEnable: false,
+              sliceSupportDensity: 0.25,
+              sliceSupportOffset: 1,
+              sliceSupportGap: 1,
+              sliceSupportSize: 10,
+              sliceSupportArea: 1,
+              sliceSupportExtra: 0,
+              sliceSupportSpan: 6,
+              sliceSolidMinArea: 7,
+              sliceSolidLayers: 7,
+              sliceBottomLayers: 3,
+              sliceTopLayers: 5,
+              sliceVase: false,
+              firstSliceHeight: 0.2,
+              firstLayerRate: 20,
+              firstLayerFillRate: 20,
+              firstLayerPrintMult: 1,
+              outputRaft: false,
+              outputRaftSpacing: 0.2,
+              firstLayerNozzleTemp: 0,
+              outputTemp: 210,
+              outputFanMax: 255,
+              outputBedTemp: 65,
+              outputFeedrate: 40,
+              outputFinishrate: 30,
+              outputSeekrate: 60,
+              outputShellMult: 1.3,
+              outputFillMult: 1.2,
+              outputSparseMult: 1.3,
+              outputRetractDist: 1,
+              outputRetractSpeed: 30,
+              outputRetractDwell: 0,
+              outputBrimCount: 0,
+              outputBrimOffset: 0,
+              outputShortPoly: 10,
+              outputShortDistance: 1,
+              outputShortFactor: 0.9,
+              outputFinishFactor: 0,
+              sliceMinHeight: 0,
+              antiBacklash: 2,
+              zHopDistance: 1,
+              gcodeKFactor: 0,
+              gcodeNozzle: 0,
+              gcodePauseLayers: null,
+              outputCooling: true,
+              outputClockwise: true,
+            },
+            { // MEDIUM
+              processName: 'Style Medium',
+              outputOriginCenter: false,
+              outputInvertX: false,
+              outputInvertY: false,
+              outputClockwise: true,
+              sliceHeight: 0.2,
+              sliceShells: 2,
+              sliceShellSpacing: 1,
+              sliceFillAngle: 45,
+              sliceFillOverlap: 0.3,
+              sliceFillSpacing: 1,
+              sliceFillSparse: 0.2,
+              sliceFillGyroid: false,
+              sliceSupportEnable: false,
+              sliceSupportDensity: 0.25,
+              sliceSupportOffset: 1,
+              sliceSupportGap: 1,
+              sliceSupportSize: 10,
+              sliceSupportArea: 1,
+              sliceSupportExtra: 0,
+              sliceSupportSpan: 6,
+              sliceSolidMinArea: 7,
+              sliceSolidLayers: 7,
+              sliceBottomLayers: 3,
+              sliceTopLayers: 7,
+              sliceVase: false,
+              firstSliceHeight: 0.2,
+              firstLayerRate: 20,
+              firstLayerFillRate: 20,
+              firstLayerPrintMult: 1,
+              outputRaft: false,
+              outputRaftSpacing: 0.2,
+              firstLayerNozzleTemp: 0,
+              outputTemp: 210,
+              outputFanMax: 255,
+              outputBedTemp: 65,
+              outputFeedrate: 40,
+              outputFinishrate: 30,
+              outputSeekrate: 60,
+              outputShellMult: 1.3,
+              outputFillMult: 1.2,
+              outputSparseMult: 1.3,
+              outputRetractDist: 1,
+              outputRetractSpeed: 30,
+              outputRetractDwell: 0,
+              outputBrimCount: 0,
+              outputBrimOffset: 0,
+              outputShortPoly: 10,
+              outputShortDistance: 1,
+              outputShortFactor: 0.9,
+              outputFinishFactor: 0,
+              sliceMinHeight: 0,
+              antiBacklash: 2,
+              zHopDistance: 1,
+              gcodeKFactor: 0,
+              gcodeNozzle: 0,
+              gcodePauseLayers: null,
+              outputCooling: true,
+            },
+            { // FINE
+              processName: 'Style Fine',
+              outputOriginCenter: false,
+              outputInvertX: false,
+              outputInvertY: false,
+              sliceHeight: 0.15,
+              sliceShells: 3,
+              sliceShellSpacing: 1,
+              sliceFillAngle: 45,
+              sliceFillOverlap: 0.3,
+              sliceFillSpacing: 1,
+              sliceFillSparse: 0.25,
+              sliceFillGyroid: false,
+              sliceSupportEnable: false,
+              sliceSupportDensity: 0.25,
+              sliceSupportOffset: 1,
+              sliceSupportGap: 1,
+              sliceSupportSize: 10,
+              sliceSupportArea: 1,
+              sliceSupportExtra: 0,
+              sliceSupportSpan: 6,
+              sliceSolidMinArea: 7,
+              sliceSolidLayers: 7,
+              sliceBottomLayers: 3,
+              sliceTopLayers: 7,
+              sliceVase: false,
+              firstSliceHeight: 0.2,
+              firstLayerRate: 20,
+              firstLayerFillRate: 20,
+              firstLayerPrintMult: 1,
+              outputRaft: false,
+              outputRaftSpacing: 0.2,
+              firstLayerNozzleTemp: 0,
+              outputTemp: 210,
+              outputFanMax: 255,
+              outputBedTemp: 65,
+              outputFeedrate: 35,
+              outputFinishrate: 25,
+              outputSeekrate: 60,
+              outputShellMult: 1.3,
+              outputFillMult: 1.2,
+              outputSparseMult: 1.3,
+              outputRetractDist: 1.5,
+              outputRetractSpeed: 30,
+              outputRetractDwell: 0,
+              outputBrimCount: 0,
+              outputBrimOffset: 0,
+              outputShortPoly: 10,
+              outputShortDistance: 1,
+              outputShortFactor: 0.9,
+              outputFinishFactor: 0,
+              sliceMinHeight: 0,
+              antiBacklash: 2,
+              zHopDistance: 1,
+              gcodeKFactor: 0,
+              gcodeNozzle: 0,
+              gcodePauseLayers: null,
+              outputCooling: true,
+              outputClockwise: true
+            }
+          ]
+        ],
+
         // --------------- settings filters (for loading/saving)
         sf = {
             fdm:{
@@ -256,141 +818,7 @@ self.kiri.license = exports.LICENSE;
                 gcodeStrip: true    // CAM strip comments
             },
             // FDM/CAM/Laser
-            process:{
-                processName: "default",
-
-                // --- FDM ---
-                // DEFAULT - Single+ Medium
-                sliceHeight: 0.2,
-                sliceShells: 2,
-                sliceShellSpacing: 1.0,
-                sliceFillOverlap: 0.3,
-                sliceFillSpacing: 1.0,
-                sliceFillAngle: 45,
-                sliceFillSparse: 0.5,
-                sliceSolidMinArea: 5,
-                sliceSolidLayers: 3,
-                sliceBottomLayers: 2,
-                sliceTopLayers: 6,
-                sliceVase: false,
-
-                // Output
-                outputBedTemp: 50,
-                outputTemp: 210,
-                outputFeedrate: 80,
-                outputFinishrate: 50,
-                outputSeekrate: 100,
-                outputShellMult: 1.1,
-                outputFillMult: 1.2,
-                outputSparseMult: 1.3,
-                outputCooling: true,
-
-                // First Layer
-                firstSliceHeight: 0.2,
-                firstLayerRate: 30,
-                firstLayerFillRate: 40,
-                firstLayerPrintMult: 1.0,
-                outputBrimCount: 1,
-                outputBrimOffset: 20,
-
-                // Supports
-                sliceSupportDensity: 0.15,
-                sliceSupportSize: 10,
-                sliceSupportOffset: 1.0,
-                sliceSupportGap: 1,
-                sliceSupportSpan: 6,
-                sliceSupportArea: 1,
-                sliceSupportExtra: 0,
-                sliceSupportEnable: false,
-
-                // Raft
-                outputRaftSpacing: 0.2,
-                outputRaft: false,
-
-                // Advanced
-                outputRetractDist: 1.0,
-                outputRetractSpeed: 40,
-                outputRetractDwell: 30,
-                outputShortPoly: 15.0,
-                outputShortDistance: 0.0,
-                outputShortFactor: 0.2,
-                outputFinishFactor: 0,
-                sliceMinHeight: 0,
-                zHopDistance: 0,
-                antiBacklash: 2,
-
-                // GCode
-                gcodeKFactor: 0,
-                gcodePauseLayers: "",
-
-                outputFanMax: 255,
-
-                // --- LASER ---
-
-                laserOffset: 0.25,
-                laserSliceHeight: 1,
-
-                outputTileSpacing: 1,   // LASER
-                outputTileScaling: 1,   // LASER
-                outputLaserPower: 100,  // LASER
-                outputLaserSpeed: 1000, // LASER
-
-                // --- CAM ---
-
-                roughingTool: 1000,
-                roughingSpindle: 1000,
-                roughingDown: 2,
-                roughingOver: 0.5,
-                roughingSpeed: 1000,
-                roughingPlunge: 250,
-                roughingStock: 0,
-                roughingOn: true,
-
-                finishingTool: 1000,
-                finishingSpindle: 1000,
-                finishingDown: 3,
-                finishingOver: 0.5,
-                finishingAngle: 85,
-                finishingSpeed: 800,
-                finishingPlunge: 250,
-                finishingOn: true,
-                finishingXOn: true,
-                finishingYOn: true,
-                finishCurvesOnly: false,
-
-                drillTool: 1000,
-                drillSpindle: 1000,
-                drillDownSpeed: 250,
-                drillDown: 5,
-                drillDwell: 250,
-                drillLift: 2,
-                drillingOn: false,
-
-                camTabsWidth: 5,
-                camTabsHeight: 5,
-                camTabsOn: false,
-
-                camPocketOnly: false,
-                camDepthFirst: false,
-                camEaseDown: false,
-                camOriginTop: true,
-                camTolerance: 0.15,
-                camZTopOffset: 0,
-                camZBottom: 0,
-                camZClearance: 1,
-
-                camStockX: 0,
-                camStockY: 0,
-                camStockZ: 0,
-
-                outputClockwise: true,
-
-                // --- shared FDM/Laser/CAM ---
-
-                outputOriginCenter: false,
-                outputInvertX: false,
-                outputInvertY: false
-            },
+            process: printer_processes[PRINTERS.ORBIT][QUALITIES.MEDIUM],
             // saved processes by name
             sproc:{
                 FDM: {},
@@ -448,275 +876,7 @@ self.kiri.license = exports.LICENSE;
             id: genID(),
             ver: 1
         },
-        single_plus_process = {
-          processName: "default",
 
-          // --- FDM ---
-          // DEFAULT - Single+ Medium
-          sliceHeight: 0.2,
-          sliceShells: 2,
-          sliceShellSpacing: 1.0,
-          sliceFillOverlap: 0.3,
-          sliceFillSpacing: 1.0,
-          sliceFillAngle: 45,
-          sliceFillSparse: 0.5,
-          sliceSolidMinArea: 5,
-          sliceSolidLayers: 3,
-          sliceBottomLayers: 2,
-          sliceTopLayers: 6,
-          sliceVase: false,
-
-          // Output
-          outputBedTemp: 50,
-          outputTemp: 210,
-          outputFeedrate: 80,
-          outputFinishrate: 50,
-          outputSeekrate: 100,
-          outputShellMult: 1.1,
-          outputFillMult: 1.2,
-          outputSparseMult: 1.3,
-          outputCooling: true,
-
-          // First Layer
-          firstSliceHeight: 0.2,
-          firstLayerRate: 30,
-          firstLayerFillRate: 40,
-          firstLayerPrintMult: 1.0,
-          outputBrimCount: 1,
-          outputBrimOffset: 20,
-
-          // Supports
-          sliceSupportDensity: 0.15,
-          sliceSupportSize: 10,
-          sliceSupportOffset: 1.0,
-          sliceSupportGap: 1,
-          sliceSupportSpan: 6,
-          sliceSupportArea: 1,
-          sliceSupportExtra: 0,
-          sliceSupportEnable: false,
-
-          // Raft
-          outputRaftSpacing: 0.2,
-          outputRaft: false,
-
-          // Advanced
-          outputRetractDist: 1.0,
-          outputRetractSpeed: 40,
-          outputRetractDwell: 30,
-          outputShortPoly: 15.0,
-          outputShortDistance: 0.0,
-          outputShortFactor: 0.2,
-          outputFinishFactor: 0,
-          sliceMinHeight: 0,
-          zHopDistance: 0,
-          antiBacklash: 2,
-
-          // GCode
-          gcodeKFactor: 0,
-          gcodePauseLayers: "",
-
-          outputFanMax: 255,
-
-          // --- LASER ---
-
-          laserOffset: 0.25,
-          laserSliceHeight: 1,
-
-          outputTileSpacing: 1,   // LASER
-          outputTileScaling: 1,   // LASER
-          outputLaserPower: 100,  // LASER
-          outputLaserSpeed: 1000, // LASER
-
-          // --- CAM ---
-
-          roughingTool: 1000,
-          roughingSpindle: 1000,
-          roughingDown: 2,
-          roughingOver: 0.5,
-          roughingSpeed: 1000,
-          roughingPlunge: 250,
-          roughingStock: 0,
-          roughingOn: true,
-
-          finishingTool: 1000,
-          finishingSpindle: 1000,
-          finishingDown: 3,
-          finishingOver: 0.5,
-          finishingAngle: 85,
-          finishingSpeed: 800,
-          finishingPlunge: 250,
-          finishingOn: true,
-          finishingXOn: true,
-          finishingYOn: true,
-          finishCurvesOnly: false,
-
-          drillTool: 1000,
-          drillSpindle: 1000,
-          drillDownSpeed: 250,
-          drillDown: 5,
-          drillDwell: 250,
-          drillLift: 2,
-          drillingOn: false,
-
-          camTabsWidth: 5,
-          camTabsHeight: 5,
-          camTabsOn: false,
-
-          camPocketOnly: false,
-          camDepthFirst: false,
-          camEaseDown: false,
-          camOriginTop: true,
-          camTolerance: 0.15,
-          camZTopOffset: 0,
-          camZBottom: 0,
-          camZClearance: 1,
-
-          camStockX: 0,
-          camStockY: 0,
-          camStockZ: 0,
-
-          outputClockwise: true,
-
-          // --- shared FDM/Laser/CAM ---
-
-          outputOriginCenter: false,
-          outputInvertX: false,
-          outputInvertY: false
-      },
-        orbit_process = {
-          processName: "default",
-
-          // --- FDM ---
-          sliceHeight: 0.25,
-          sliceShells: 2,
-          sliceShellSpacing: 1.0,
-          sliceFillOverlap: 0.3,
-          sliceFillSpacing: 1.0,
-          sliceFillAngle: 45,
-          sliceFillSparse: 0.5,
-          sliceSolidMinArea: 5,
-          sliceSolidLayers: 3,
-          sliceBottomLayers: 2,
-          sliceTopLayers: 3,
-          sliceVase: false,
-
-          // Output
-          outputBedTemp: 0,
-          outputTemp: 200,
-          outputFeedrate: 80,
-          outputFinishrate: 60,
-          outputSeekrate: 100,
-          outputShellMult: 1.1,
-          outputFillMult: 1.2,
-          outputSparseMult: 1.3,
-          outputCooling: true,
-
-          // First Layer
-          firstSliceHeight: 0.3,
-          firstLayerRate: 30,
-          firstLayerFillRate: 40,
-          firstLayerPrintMult: 1.0,
-          outputBrimCount: 2,
-          outputBrimOffset: 2,
-
-          // Supports
-          sliceSupportDensity: 0.25,
-          sliceSupportSize: 10,
-          sliceSupportOffset: 1.0,
-          sliceSupportGap: 1,
-          sliceSupportSpan: 6,
-          sliceSupportArea: 1,
-          sliceSupportExtra: 0,
-          sliceSupportEnable: false,
-
-          // Raft
-          outputRaftSpacing: 0.2,
-          outputRaft: false,
-
-          // Advanced
-          outputRetractDist: 1.0,
-          outputRetractSpeed: 40,
-          outputRetractDwell: 0,
-          outputShortPoly: 15.0,
-          outputShortDistance: 0.0,
-          outputShortFactor: 0.2,
-          outputFinishFactor: 0,
-          sliceMinHeight: 0,
-          zHopDistance: 0,
-          antiBacklash: 2,
-
-          // GCode
-          gcodeKFactor: 0,
-          gcodePauseLayers: "",
-
-          outputFanMax: 255,
-
-          // --- LASER ---
-
-          laserOffset: 0.25,
-          laserSliceHeight: 1,
-
-          outputTileSpacing: 1,   // LASER
-          outputTileScaling: 1,   // LASER
-          outputLaserPower: 100,  // LASER
-          outputLaserSpeed: 1000, // LASER
-
-          // --- CAM ---
-
-          roughingTool: 1000,
-          roughingSpindle: 1000,
-          roughingDown: 2,
-          roughingOver: 0.5,
-          roughingSpeed: 1000,
-          roughingPlunge: 250,
-          roughingStock: 0,
-          roughingOn: true,
-
-          finishingTool: 1000,
-          finishingSpindle: 1000,
-          finishingDown: 3,
-          finishingOver: 0.5,
-          finishingAngle: 85,
-          finishingSpeed: 800,
-          finishingPlunge: 250,
-          finishingOn: true,
-          finishingXOn: true,
-          finishingYOn: true,
-          finishCurvesOnly: false,
-
-          drillTool: 1000,
-          drillSpindle: 1000,
-          drillDownSpeed: 250,
-          drillDown: 5,
-          drillDwell: 250,
-          drillLift: 2,
-          drillingOn: false,
-
-          camTabsWidth: 5,
-          camTabsHeight: 5,
-          camTabsOn: false,
-
-          camPocketOnly: false,
-          camDepthFirst: false,
-          camEaseDown: false,
-          camOriginTop: true,
-          camTolerance: 0.15,
-          camZTopOffset: 0,
-          camZBottom: 0,
-          camZClearance: 1,
-
-          camStockX: 0,
-          camStockY: 0,
-          camStockZ: 0,
-
-          outputClockwise: true,
-
-          // --- shared FDM/Laser/CAM ---
-
-          outputOriginCenter: false,
-          outputInvertX: false,
-          outputInvertY: false
-        },
 
         settingsDefault = settings,
         autoDecimate = true,
@@ -781,6 +941,8 @@ self.kiri.license = exports.LICENSE;
         showLayerMax = 0,
         renderMode = 4,
         viewMode = VIEWS.ARRANGE,
+        qualityMode = QUALITIES.MEDIUM,
+        printerMode = PRINTERS.ORBIT,
         layoutOnAdd = true,
         deviceLock = false,
         local = SETUP.local,
@@ -1870,7 +2032,6 @@ self.kiri.license = exports.LICENSE;
         if (!scope) return console.trace("missing scope");
 
         var key, val;
-
         fillMissingSettings(settingsDefault, settings);
 
         for (key in scope) {
@@ -2102,7 +2263,7 @@ self.kiri.license = exports.LICENSE;
                 SDB.removeItem('ws-camera');
             }
             // update/integrate old settings
-            ["FDM","CAM","LASER"].forEach(function(mode) {
+            ["FDM"].forEach(function(mode) {
                 var key = 'ws-settings-'+mode,
                     oset = ls2o(key, settings);
                 SDB.removeItem(key);
@@ -2645,9 +2806,12 @@ self.kiri.license = exports.LICENSE;
             addFile: $('add-file'),
             print: $('print-button'),
 
+            printerLabel: $('printer-label'),
+
             singlePlus: $('single-plus'),
             orbit: $('orbit'),
-            
+            style: $('style'),
+
             helpButton: $('helpB'),
             duplicateButton: $('duplicateB'),
             deleteButton: $('deleteB'),
@@ -2676,9 +2840,12 @@ self.kiri.license = exports.LICENSE;
             // Basic Settings
             basicRaft: $('basic-raft'),
             basicSupport:$('basic-support'),
-            fastSettings: $('fast'),
-            mediumSettings: $('medium'),
-            fineSettings: $('fine'),
+            qualitySettings: [
+              $('fast'),
+              $('medium'),
+              $('fine')
+            ],
+            
             
 
             // Settings
@@ -2749,13 +2916,25 @@ self.kiri.license = exports.LICENSE;
         // Inksmith UI functionality
         INK.singlePlus.onclick = function () {
             selectDevice("Cubicon.Single+");
-            settings.process = single_plus_process;
+            INK.printerLabel.innerHTML = "Cubicon Single+";
+            printerMode = PRINTERS.SPLUS;
+            settings.process = printer_processes[printerMode][qualityMode];
             updateFieldsFromSettings(settings.process);
         }
 
         INK.orbit.onclick = function () {
           selectDevice("Orbit");
-          settings.process = orbit_process;
+          INK.printerLabel.innerHTML = "Inksmith Orbit";
+          printerMode = PRINTERS.ORBIT;
+          settings.process = printer_processes[printerMode][qualityMode];
+          updateFieldsFromSettings(settings.process);
+        }
+
+        INK.style.onclick = function () {
+          selectDevice("Style");
+          INK.printerLabel.innerHTML = "Cubicon Style";
+          printerMode = PRINTERS.STYLE;
+          settings.process = printer_processes[printerMode][qualityMode];
           updateFieldsFromSettings(settings.process);
         }
 
@@ -2809,42 +2988,41 @@ self.kiri.license = exports.LICENSE;
         INK.camRight.onclick = function() { SPACE.view.right(); }
         INK.camBack.onclick = function() { SPACE.view.back(); }
 
-        INK.basicRaft.onchange = function(){
-          INK.outputRaft.checked = this.value;
-          console.log(INK.outputRaft.checked);
+        INK.basicRaft.onclick = function(){
+          INK.outputRaft.checked = this.checked;
         };
-        INK.outputRaft.change = function(){
-            INK.basicRaft.checked = this.value;
-            console.log(INK.basicRaft.checked);
-          };
-        INK.sliceSupportEnable.change = function(){
-            INK.basicSupport.checked  = this.value;
-            console.log(this.value, INK.basicSupport.checked);
-          };
-        INK.basicSupport.onchange = function(){
-            INK.sliceSupportEnable.checked = this.value;
-            console.log(INK.sliceSupportEnable.checked);
-          };
+        INK.outputRaft.onclick = function(){
+          INK.basicRaft.checked = this.checked;
+        };
+        INK.sliceSupportEnable.onclick = function(){
+          INK.basicSupport.checked  = this.checked;
+        };
+        INK.basicSupport.onclick = function(){
+          INK.sliceSupportEnable.checked = this.checked;
+        };
 
-        INK.fastSettings.onclick = function(){
-          updateSettings(INK.fastSettings);
+        INK.qualitySettings[QUALITIES.FAST].onclick = function(){
+          updateSettings(QUALITIES.FAST);
         }
 
-        INK.fineSettings.onclick = function(){
-          updateSettings(INK.fineSettings);
+        INK.qualitySettings[QUALITIES.FINE].onclick = function(){
+          updateSettings(QUALITIES.FINE);
         }
 
-        INK.mediumSettings.onclick = function(){
-          updateSettings(INK.mediumSettings);
+        INK.qualitySettings[QUALITIES.MEDIUM].onclick = function(){
+          updateSettings(QUALITIES.MEDIUM);
         }
 
 
         function updateSettings(setting){
           if (setting == undefined) { return; }
-          INK.fastSettings.className = INK.fastSettings.className.replace(" grey", "");
-          INK.mediumSettings.className = INK.mediumSettings.className.replace(" grey", "");
-          INK.fineSettings.className = INK.fineSettings.className.replace(" grey", "");
-          setting.className += " grey";
+          INK.qualitySettings[QUALITIES.FAST].className = INK.qualitySettings[QUALITIES.FAST].className.replace(" grey", "");
+          INK.qualitySettings[QUALITIES.FINE].className = INK.qualitySettings[QUALITIES.FINE].className.replace(" grey", "");
+          INK.qualitySettings[QUALITIES.MEDIUM].className = INK.qualitySettings[QUALITIES.MEDIUM].className.replace(" grey", "");
+          INK.qualitySettings[setting].className += " grey";
+          qualityMode = setting;
+          settings.process = printer_processes[printerMode][qualityMode];
+          updateFieldsFromSettings(settings.process);
         }
 
         function toolUpdate(a,b,c) {
