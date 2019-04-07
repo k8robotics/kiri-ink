@@ -2915,6 +2915,12 @@ self.kiri.license = exports.LICENSE;
             
         })
 
+        INK.toolbar.addEventListener('mousewheel', function(event) {event.preventDefault(); event.stopPropagation();}, false);
+        INK.basicSettings.addEventListener('mousewheel', function(event) {event.preventDefault(); event.stopPropagation();}, false);
+        INK.advancedSettings.addEventListener('mousewheel', function(event) {event.preventDefault(); event.stopPropagation(); INK.advancedSettings.scrollTop += event.wheelDeltaY}, false);
+        $('topbar').addEventListener('mousewheel', function(event) {event.preventDefault(); event.stopPropagation();}, false);
+        $('layer-view').addEventListener('mousewheel', function(event) {event.preventDefault(); event.stopPropagation();}, false);
+        
         // Inksmith UI functionality
         INK.singlePlus.onclick = function () {
             selectDevice("Cubicon.Single+");
