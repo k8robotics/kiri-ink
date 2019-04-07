@@ -391,7 +391,7 @@ var gs_kiri_slice = exports;
             opt = options || {};
 
         slice.tops.forEach(function(top) {
-            if (opt.vase) top.poly = top.poly.clone(false);
+            // if (opt.vase) top.poly = top.poly.clone(false);
             // top.thinner = [];
             top.traces = [];
             top.inner = [];

@@ -72,7 +72,7 @@ self.kiri.license = exports.LICENSE;
               firstLayerFillRate: 20,
               firstLayerPrintMult: 1,
               outputRaft: false,
-              outputRaftSpacing: 0.2,
+              outputRaftSpacing: 0.14,
               firstLayerNozzleTemp: 0,
               outputTemp: 210,
               outputFanMax: 255,
@@ -250,8 +250,8 @@ self.kiri.license = exports.LICENSE;
             firstLayerRate: 20,
             firstLayerFillRate: 20,
             firstLayerPrintMult: 1,
-            outputRaft: false,
-            outputRaftSpacing: 0.2,
+            outputRaft: true,
+            outputRaftSpacing: 0.14,
             outputTemp: 205,
             outputFanMax: 255,
             outputBedTemp: 0,
@@ -315,7 +315,7 @@ self.kiri.license = exports.LICENSE;
             firstLayerFillRate: 20,
             firstLayerPrintMult: 1,
             outputRaft: true,
-            outputRaftSpacing: 0.2,
+            outputRaftSpacing: 0.14,
             firstLayerNozzleTemp: 0,
             outputTemp: 205,
             outputFanMax: 255,
@@ -376,7 +376,7 @@ self.kiri.license = exports.LICENSE;
             firstLayerFillRate: 20,
             firstLayerPrintMult: 1,
             outputRaft: true,
-            outputRaftSpacing: 0.2,
+            outputRaftSpacing: 0.14,
             firstLayerNozzleTemp: 0,
             outputTemp: 205,
             outputFanMax: 255,
@@ -2043,6 +2043,7 @@ self.kiri.license = exports.LICENSE;
                     uie.value = val;
                 } else if (typ === 'checkbox') {
                     uie.checked = val;
+                    console.log(key, ": ", uie.checked);
                     if (uie.onclick) uie.onclick();
                 } else if (typ === 'select-one') {
                     uie.innerHTML = '<option></option>';
@@ -2083,6 +2084,7 @@ self.kiri.license = exports.LICENSE;
                     nval = parseFloat(INK[key].value);
                 } else if (uie.type === 'checkbox') {
                     nval = INK[key].checked;
+                    console.log(key, ": ", uie.checked);
                 } else if (uie.type === 'select-one') {
                     if (uie.selectedIndex > 0) {
                         nval = parseInt(uie.options[uie.selectedIndex].value);
@@ -2978,7 +2980,10 @@ self.kiri.license = exports.LICENSE;
         }
 
         INK.print.onclick = function() {
-            exportPrint();
+          updateSettingsFromFields(settings.process);
+          preparePrint();
+          setViewMode(VIEWS.PREVIEW);
+          exportPrint();
         } 
 
         INK.camHome.onclick = function() { SPACE.view.home(); }
@@ -3938,7 +3943,7 @@ self.kiri.license = exports.LICENSE;
             // DOC.addEventListener('visibilitychange', function() { document.title = document.hidden });
 
             // ensure settings has gcode
-            selectDevice(DEVNAME || currentDeviceName(), DEVNAME);
+            selectDevice("Orbit");
 
             // ensure field data propagation
             updateSettings();
@@ -3954,7 +3959,6 @@ self.kiri.license = exports.LICENSE;
         }
 
         restoreWorkspace(ondone) || checkSeed(ondone) || ondone();
-
     } // end init()
 
     SPACE.addEventListener(DOC, 'DOMContentLoaded', function () { init() }, false);

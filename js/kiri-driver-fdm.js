@@ -45,7 +45,7 @@ var gs_kiri_fdm = exports;
             update_start = time(),
             minSolid = spro.sliceSolidMinArea,
             solidLayers = spro.sliceSolidLayers,
-            doSolidLayers = solidLayers && !spro.sliceVase,
+            doSolidLayers = solidLayers, //&& !spro.sliceVase,
             firstOffset = sdev.nozzleSize / 2,
             shellOffset = sdev.nozzleSize * spro.sliceShellSpacing,
             fillOffset = shellOffset * settings.synth.fillOffsetMult,
@@ -111,7 +111,7 @@ var gs_kiri_fdm = exports;
                         slice.index < spro.sliceBottomLayers ||
                         slice.index > slices.length - spro.sliceTopLayers-1 ||
                         spro.sliceFillSparse > 0.95
-                    ) && !spro.sliceVase;
+                    ) // && !spro.sliceVase;
                 slice.doShells(spro.sliceShells, firstOffset, shellOffset, fillOffset, {
                     vase: spro.sliceVase,
                     thin: false && spro.detectThinWalls
@@ -147,7 +147,7 @@ var gs_kiri_fdm = exports;
             }
 
             // sparse layers only present when non-vase mose and sparse % > 0
-            if (!spro.sliceVase && spro.sliceFillSparse > 0.0) {
+            if (spro.sliceFillSparse > 0.0) { // && !spro.sliceVase
                 forSlices(0.8, 1.0, function(slice) {
                     slice.doSparseLayerFill(fillSpacing, spro.sliceFillSparse, widget.getBoundingBox());
                 }, "infill");
