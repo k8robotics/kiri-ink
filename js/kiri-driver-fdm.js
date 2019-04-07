@@ -1,4 +1,4 @@
-/** Copyright 2014-2017 Stewart Allen -- All Rights Reserved */
+/** Copyright 2014-2019 Stewart Allen -- All Rights Reserved */
 
 "use strict";
 
@@ -65,7 +65,7 @@ var gs_kiri_fdm = exports;
 
         SLICER.sliceWidget(widget, {
             height: spro.sliceHeight,
-            minHeight: spro.sliceMinHeight,
+            minHeight: spro.sliceHeight > spro.sliceMinHeight ? spro.sliceMinHeight : 0,
             firstHeight: spro.firstSliceHeight,
             view: view
         }, onSliceDone, onSliceUpdate);
@@ -149,7 +149,13 @@ var gs_kiri_fdm = exports;
             // sparse layers only present when non-vase mose and sparse % > 0
             if (spro.sliceFillSparse > 0.0) { // && !spro.sliceVase
                 forSlices(0.8, 1.0, function(slice) {
-                    slice.doSparseLayerFill(fillSpacing, spro.sliceFillSparse, widget.getBoundingBox());
+                    slice.doSparseLayerFill({
+                        spacing: fillSpacing,
+                        density: spro.sliceFillSparse,
+                        bounds: widget.getBoundingBox(),
+                        height: spro.sliceHeight,
+                        type: spro.sliceFillGyroid ? 'gyroid' : 'hex'
+                    });
                 }, "infill");
             }
 
@@ -402,16 +408,17 @@ var gs_kiri_fdm = exports;
                 y: device.bedDepth/2
             },
             consts = {
-                temp: process.outputTemp,
-                temp_bed: process.outputBedTemp,
-                bed_temp: process.outputBedTemp,
+                temp: process.firstLayerNozzleTemp || process.outputTemp,
+                temp_bed: process.firstLayerBedTemp || process.outputBedTemp,
+                bed_temp: process.firstLayerBedTemp || process.outputBedTemp,
                 fan_speed: process.outputFanMax,
                 speed: process.outputFanMax,
                 top: offset ? device.bedDepth : device.bedDepth/2,
                 left: offset ? 0 : -device.bedWidth/2,
                 right: offset ? device.bedWidth : device.bedWidth/2,
                 bottom: offset ? 0 : -device.bedDepth/2,
-                kfactor: process.gcodeKFactor || 0,
+                nozzle: process.gcodeNozzle || 0,
+                tool: process.gcodeNozzle || 0,
                 z_max: device.maxHeight,
                 layers: layers.length
             },
@@ -463,8 +470,12 @@ var gs_kiri_fdm = exports;
             append("; " + pk + " = " + process[pk]);
         }
         append("; --- startup ---");
+        var t0 = false;
+        var t1 = false;
         for (var i=0; i<device.gcodePre.length; i++) {
             var line = device.gcodePre[i];
+            if (line.indexOf('T0') >= 0) t0 = true;
+            if (line.indexOf('T1') >= 0) t1 = true;
             if (device.extrudeAbs && line.indexOf('E') > 0) {
                 line.split(";")[0].split(' ').forEach(function (tok) {
                     // use max E position from gcode-preamble
@@ -562,11 +573,34 @@ var gs_kiri_fdm = exports;
                 });
             } else {
                 append("; --- layer " + layer + " (" + consts.height + " @ " + consts.z + ") ---");
+                append("M725 S" + Math.round(layer/layers.length));
             }
 
-            // second layer fan on
-            if (layer === 1 && fan_power && process.outputCooling) {
-                append(constReplace(fan_power, consts));
+            if (layer > 0 && process.layerRetract) {
+                retract();
+            }
+
+            // second layer transitions
+            if (layer === 1) {
+                // second layer fan on
+                if (fan_power && process.outputCooling) {
+                    append(constReplace(fan_power, consts));
+                }
+                // update temps when first layer overrides are present
+                if (process.firstLayerNozzleTemp) {
+                    consts.temp = process.outputTemp;
+                    if (t0) {
+                        append(constReplace("M104 S{temp} T0", consts));
+                    } else if (t1) {
+                        append(constReplace("M104 S{temp} T1", consts));
+                    } else {
+                        append(constReplace("M104 S{temp} T{tool}", consts));
+                    }
+                }
+                if (process.firstLayerBedTemp) {
+                    consts.bed_temp = consts.temp_bed = process.outputBedTemp;
+                    append(constReplace("M140 S{temp_bed} T0", consts));
+                }
             }
 
             // move Z to layer height

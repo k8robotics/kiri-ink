@@ -1,5 +1,5 @@
 /**
- * Copyright 2014-2017 Stewart Allen -- All Rights Reserved
+ * Copyright 2014-2019 Stewart Allen -- All Rights Reserved
  */
 
 Array.prototype.contains = function(v) {
@@ -274,91 +274,94 @@ function limit(array, length, timespan) {
 * @param {Function} next
 */
 function setup(req, res, next) {
-  var parsed = url.parse(req.url, true),
-      ipaddr = remoteIP(req),
-      dbikey = db.key(["ip",ipaddr]),
-      path = parsed.pathname,
-      time = new Date().getTime(),
-      rec = ipCache[ipaddr] || {
-          saved : 0,
-          first: time,
-          last: [],
-          hits: 0,
-          api: [],
-          ip: ipaddr,
-      },
-      ua = 'unknown';
+    var parsed = url.parse(req.url, true),
+        ipaddr = remoteIP(req),
+        dbikey = db.key(["ip",ipaddr]),
+        path = parsed.pathname,
+        time = new Date().getTime(),
+        rec = ipCache[ipaddr] || {
+            saved : 0,
+            first: time,
+            last: [],
+            hits: 0,
+            api: [],
+            ip: ipaddr,
+        },
+        ua = 'unknown';
 
-  try {
-      ua = agent.parse(req.headers['user-agent'] || '');
-  } catch (e) {
-      console.log("ua parse error on : "+req.headers['user-agent']);
-  }
+    try {
+        ua = agent.parse(req.headers['user-agent'] || '');
+    } catch (e) {
+        console.log("ua parse error on : "+req.headers['user-agent']);
+    }
 
-  // cache it
-  if (rec.saved === 0) {
-      ipCache[ipaddr] = rec;
-      if (!rec.host) {
-          // prevent overlapping lookups
-          // for the same address
-          rec.host = 'unknown';
-          dns.reverse(ipaddr,(err,addr) => {
-              rec.host = addr;
-              // if (addr) log({ip:ipaddr, addr:addr});
-          });
-      }
-  }
+    // cache it
+    if (rec.saved === 0) {
+        ipCache[ipaddr] = rec;
+        if (!rec.host) {
+            // prevent overlapping lookups
+            // for the same address
+            rec.host = 'unknown';
+            dns.reverse(ipaddr,(err,addr) => {
+                rec.host = addr;
+                // if (addr) log({ip:ipaddr, addr:addr});
+            });
+        }
+    }
 
-  // grid.space request state
-  req.gs = {
-      ua: ua,
-      ip: ipaddr,
-      iprec: rec,
-      local: ipLocal.contains(ipaddr),
-      port: req.socket.address().port,
-      url: parsed,
-      path: parsed.pathname,
-      query: parsed.query,
-  };
+    // grid.space request state
+    req.gs = {
+        ua: ua,
+        ip: ipaddr,
+        iprec: rec,
+        local: ipLocal.contains(ipaddr),
+        port: req.socket.address().port,
+        url: parsed,
+        path: parsed.pathname,
+        query: parsed.query,
+    };
 
-  // track clients & show first instance of IP
-  rec.last.push(time);
-  rec.hits++;
+    // track clients & show first instance of IP
+    rec.last.push(time);
+    rec.hits++;
 
-  // update db ip record
-  if (time - rec.saved > ipSaveDelay) db.get(dbikey)
-      .then(dbrec => {
-          // only on the first pull from disk
-          if (dbrec && rec.saved === 0) {
-              rec.first = dbrec.first;
-              rec.hits += dbrec.hits;
-              rec.last = dbrec.last.appendAll(rec.last);
-              rec.api = dbrec.api.appendAll(rec.api);
-          }
-          rec.saved = time;
-          return rec;
-      })
-      .then(dbrec => {
-          if (rec.putTO) clearTimeout(rec.putTO);
-          rec.putTO = setTimeout(() => {
-              rec.putTO = null;
-              db.put(dbikey, dbrec);
-          }, ipSaveDelay);
-      });
+    // update db ip record
+    if (time - rec.saved > ipSaveDelay) db.get(dbikey)
+        .then(dbrec => {
+            // only on the first pull from disk
+            if (dbrec && rec.saved === 0) {
+                rec.first = dbrec.first;
+                rec.hits += dbrec.hits;
+                rec.last = dbrec.last.appendAll(rec.last);
+                rec.api = dbrec.api.appendAll(rec.api);
+            }
+            rec.saved = time;
+            return rec;
+        })
+        .then(dbrec => {
+            if (rec.putTO) clearTimeout(rec.putTO);
+            rec.putTO = setTimeout(() => {
+                rec.putTO = null;
+                db.put(dbikey, dbrec);
+            }, ipSaveDelay);
+        })
+        .catch(error => {
+            console.log({dbikey, error});
+        });
 
-  // absolute limit on client requests per minute
-  if (limit(rec.last, 300, 60000) && !req.gs.local) {
-      res.writeHead(503);
-      res.end("rate limited");
-      return log({rate_limit:ipaddr, len:rec.last.length});
-  }
+    // absolute limit on client requests per minute
+    if (limit(rec.last, 300, 60000) && !req.gs.local) {
+        res.writeHead(503);
+        res.end("rate limited");
+        return log({rate_limit:ipaddr, len:rec.last.length});
+    }
 
-  if (req.method === 'OPTIONS') {
-      addCorsHeaders(req, res);
-      res.end();
-  } else {
-      next();
-  }
+    if (req.method === 'OPTIONS') {
+        addCorsHeaders(req, res);
+        res.end();
+    } else {
+        next();
+    }
 }
 
 function addCorsHeaders(req, res) {
@@ -698,122 +701,132 @@ args.forEach((arg, index) => {
 });
 
 var ver = require('../js/license.js'),
-  fs = require('fs'),
-  url = require('url'),
-  dns = require('dns'),
-  util = require('util'),
-  valid = require('validator'),
-  agent = require('express-useragent'),
-  spawn = require('child_process').spawn,
-  level = require('levelup')('./persist/', {valueEncoding:"json"}),
-  https = require('https'),
-  uglify = require('uglify-es'),
-  connect = require('connect'),
-  request = require('request'),
-  serveStatic = require('serve-static'),
-  compression = require('compression')(),
-  querystring = require('querystring'),
-  ipLocal = noLocal ? [] : ["127.0.0.1", "::1", "::ffff:127.0.0.1"],
-  currentDir = process.cwd(),
-  ipSaveDelay = 2000,
-  startTime = time(),
-  codePrefix = "js/",
-  fileCache = {},
-  fileMap = {},
-  filters_fdm = [],
-  filters_cam = [],
-  modPaths = [],
-  ipCache = {},
-  clearOK = [
-      '/js/ext-three.js'
-  ],
-  script = {
-      kiri : [
-          "license",
-          "ext-clip",
-          "ext-tween",
-          "ext-fsave",
-          "add-array",
-          "add-three",
-          "geo",
-          "geo-debug",
-          "geo-render",
-          "geo-point",
-          "geo-slope",
-          "geo-line",
-          "geo-bounds",
-          "geo-polygon",
-          "geo-polygons",
-          "moto-kv",
-          "moto-ajax",
-          "moto-ctrl",
-          "moto-space",
-          "moto-load-stl",
-          "moto-db",
-          "moto-ui",
-          "kiri-db",
-          "kiri-slice",
-          "kiri-slicer",
-          "kiri-driver-fdm",
-          "kiri-driver-cam",
-          "kiri-driver-laser",
-          "kiri-pack",
-          "kiri-layer",
-          "kiri-widget",
-          "kiri-print",
-          "kiri-codec",
-          "kiri-work",
-          "kiri",
-          "kiri-serial"
-      ],
-      meta : [
-          "license",
-          "ext-tween",
-          "ext-fsave",
-          "add-array",
-          "add-three",
-          "moto-kv",
-          "moto-ajax",
-          "moto-ctrl",
-          "moto-space",
-          "moto-load-stl",
-          "moto-db",
-          "moto-ui",
-          "kiri-db",
-          "meta"
-      ],
-      work : [
-          "license",
-          "ext-n3d",
-          "ext-clip",
-          "add-array",
-          "add-three",
-          "geo",
-          "geo-debug",
-          "geo-point",
-          "geo-slope",
-          "geo-line",
-          "geo-bounds",
-          "geo-polygon",
-          "geo-polygons",
-          "kiri-slice",
-          "kiri-slicer",
-          "kiri-driver-fdm",
-          "kiri-driver-cam",
-          "kiri-driver-laser",
-          "kiri-pack",
-          "kiri-widget",
-          "kiri-print",
-          "kiri-codec"
-      ],
-      worker : [
-          "license",
-          "kiri-work"
-      ]
-  },
-  code = {},
-  inject = {},
-  injectKeys = ["kiri", "meta"];
+    fs = require('fs'),
+    url = require('url'),
+    dns = require('dns'),
+    util = require('util'),
+    valid = require('validator'),
+    agent = require('express-useragent'),
+    spawn = require('child_process').spawn,
+    level = require('level')('./persist', {valueEncoding:"json"}),
+    https = require('https'),
+    uglify = require('uglify-es'),
+    connect = require('connect'),
+    request = require('request'),
+    serveStatic = require('serve-static'),
+    compression = require('compression')(),
+    querystring = require('querystring'),
+    ipLocal = noLocal ? [] : ["127.0.0.1", "::1", "::ffff:127.0.0.1"],
+    currentDir = process.cwd(),
+    ipSaveDelay = 2000,
+    startTime = time(),
+    codePrefix = "js/",
+    fileCache = {},
+    fileMap = {},
+    filters_fdm = [],
+    filters_cam = [],
+    modPaths = [],
+    ipCache = {},
+    clearOK = [
+        '/js/ext-three.js'
+    ],
+    script = {
+        kiri : [
+            "license",
+            "ext-clip",
+            "ext-tween",
+            "ext-fsave",
+            "add-array",
+            "add-three",
+            "geo",
+            "geo-debug",
+            "geo-render",
+            "geo-point",
+            "geo-slope",
+            "geo-line",
+            "geo-bounds",
+            "geo-polygon",
+            "geo-polygons",
+            "geo-gyroid",
+            "moto-kv",
+            "moto-ajax",
+            "moto-ctrl",
+            "moto-space",
+            "moto-load-stl",
+            "moto-db",
+            "moto-ui",
+            "kiri-db",
+            "kiri-slice",
+            "kiri-slicer",
+            "kiri-driver-fdm",
+            "kiri-driver-cam",
+            "kiri-driver-laser",
+            "kiri-pack",
+            "kiri-layer",
+            "kiri-widget",
+            "kiri-print",
+            "kiri-codec",
+            "kiri-work",
+            "kiri"
+        ],
+        meta : [
+            "license",
+            "ext-tween",
+            "ext-fsave",
+            "add-array",
+            "add-three",
+            "moto-kv",
+            "moto-ajax",
+            "moto-ctrl",
+            "moto-space",
+            "moto-load-stl",
+            "moto-db",
+            "moto-ui",
+            "kiri-db",
+            "meta"
+        ],
+        work : [
+            "license",
+            "ext-n3d",
+            "ext-clip",
+            "add-array",
+            "add-three",
+            "geo",
+            "geo-debug",
+            "geo-point",
+            "geo-slope",
+            "geo-line",
+            "geo-bounds",
+            "geo-polygon",
+            "geo-polygons",
+            "geo-gyroid",
+            "kiri-slice",
+            "kiri-slicer",
+            "kiri-driver-fdm",
+            "kiri-driver-cam",
+            "kiri-driver-laser",
+            "kiri-pack",
+            "kiri-widget",
+            "kiri-print",
+            "kiri-codec"
+        ],
+        worker : [
+            "license",
+            "kiri-work"
+        ]
+    },
+    code = {},
+    inject = {},
+    injectKeys = ["kiri", "meta"];
+
+// level.createReadStream().on('data', o => {
+//     let k = o.key.toString();
+//     let v = o.value.toString();
+//     if (v.length > 80) {
+//         v = `[${v.length}] ${v.substring(0,70)}...`;
+//     }
+//     console.log(`${k} = ${v}`);
+// });
 
 /* *********************************************
 * Promises-based leveldb interface

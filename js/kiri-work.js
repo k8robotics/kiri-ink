@@ -1,4 +1,4 @@
-/** Copyright 2014-2017 Stewart Allen -- All Rights Reserved */
+/** Copyright 2014-2019 Stewart Allen -- All Rights Reserved */
 
 if (self.window) {
 
@@ -154,7 +154,7 @@ if (self.window) {
     //         [
     //             "license","ext-n3d","ext-clip","add-array",
     //             "add-three","geo","geo-point","geo-debug","geo-bounds",
-    //             "geo-line","geo-slope","geo-polygon","geo-polygons",
+    //             "geo-line","geo-slope","geo-polygon","geo-polygons", "geo-gyroid.js",
     //             "kiri-slice","kiri-slicer","kiri-driver-fdm","kiri-driver-cam",
     //             "kiri-driver-laser","kiri-widget","kiri-pack","kiri-print","kiri-codec"
     //         ].forEach(function(scr) {

@@ -673,57 +673,6 @@ button{
     display: none;
 }
 
-/** sender dialog */
-
-#sender {
-    position: absolute;
-    text-align: center;
-    top: 5px;
-    right: 0px;
-    color: white;
-    border: 1px solid white;
-    background-color: rgba(20,20,20,0.75);
-    padding: 10px;
-    display: none;
-}
-#sender-bar {
-    border: 0 !important;
-    margin: 2px 2px 0 0 !important;
-    padding: 0 !important;
-    position: absolute;
-    z-index: 200;
-    right: 3px;
-    top: 3px;
-}
-#sender-bar button {
-    margin: 0;
-}
-#sender > div {
-    border: 1px solid #888;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding: 2px;
-    margin: 6px 0 6px 0;
-}
-#sender .sender-sel:hover {
-    border: 1px solid yellow;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-#sender table {
-    width: 100%;
-}
-#sender th {
-    text-align: left;
-}
-#sender td {
-    text-align: right;
-}
-#sender input[disabled] {
-    background-color: #bbb;
-    border-color: #ccc;
-    color: black;
-}
 #v a {
     color: #8ae;
 }
@@ -896,10 +845,9 @@ button{
     width: 200px;
     padding: 2px 5px 2px 5px;
     margin: 0 5px 5px 5px;
-    background-color: #333;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border: 1px solid #555;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #aaa;
     text-align: center;
 }
 #device-cols > div {
@@ -907,8 +855,7 @@ button{
     padding: 5px;
     margin: 5px;
     border: 1px solid #aaa;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 5px;
 }
 #device-info > div {
     margin-top: 2px;
@@ -917,12 +864,23 @@ button{
     flex-shrink: 0;
     position: relative;
 }
+#device-action {
+    padding: 3px 3px 0 3px;
+}
 #device-action > button {
     text-align: center;
 }
 #device-action > span {
     flex-grow: 1;
     width: 100%;
+}
+#device-labels label {
+    display: block;
+    text-align: center !important;
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 5px;
+    border: 0;
 }
 #devices label {
     text-align: left;
@@ -952,7 +910,7 @@ button{
     display: none;
 }
 #device-list option[local="1"] {
-    color: #ff5;
+    color: #55f;
 }
 #device label {
     white-space: nowrap;
@@ -987,6 +945,12 @@ button[import="1"] {
 #catalogBody div::-webkit-scrollbar {
     display: none;
 }
+#catalogBody label {
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 10px;
+    border: 0;
+}
 #catalogList {
     overflow-y: scroll;
     overflow-x: hidden;
@@ -1009,6 +973,12 @@ button[import="1"] {
   background-color: rgba(200,200,200,0.75);
   text-align: center;
   display: none;
+}
+#settingsBody label {
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 10px;
+    border: 0;
 }
 
 #progress {

@@ -1,4 +1,4 @@
-/** Copyright 2014-2017 Stewart Allen -- All Rights Reserved */
+/** Copyright 2014-2019 Stewart Allen -- All Rights Reserved */
 
 "use strict";
 
@@ -620,6 +620,7 @@ self.kiri.license = exports.LICENSE;
                     sliceFillOverlap: 1,
                     sliceFillSpacing: 1,
                     sliceFillSparse: 1,
+                    sliceFillGyroid: 1,
                     sliceSupportEnable: 1,
                     sliceSupportDensity: 1,
                     sliceSupportOffset: 1,
@@ -637,6 +638,8 @@ self.kiri.license = exports.LICENSE;
                     firstLayerRate: 1,
                     firstLayerFillRate: 1,
                     firstLayerPrintMult: 1,
+                    firstLayerNozzleTemp: 1,
+                    firstLayerBedTemp: 1,
                     outputRaft: 1,
                     outputRaftSpacing: 1,
                     outputTemp: 1,
@@ -654,15 +657,16 @@ self.kiri.license = exports.LICENSE;
                     outputBrimCount: 1,
                     outputBrimOffset: 1,
                     outputShortPoly: 1,
-                    outputShortDistance: 1,
                     outputShortFactor: 1,
-                    outputFinishFactor: 1,
+                    outputCoastDist: 1,
+                    outputWipeDistance: 1,
                     sliceMinHeight: 1,
                     outputCooling: 1,
                     // detectThinWalls: 1,
                     antiBacklash: 1,
                     zHopDistance: 1,
-                    gcodeKFactor: 1,
+                    layerRetract: 1,
+                    gcodeNozzle: 1,
                     gcodePauseLayers: 1,
                     outputClockwise: 1,
                     outputOriginCenter: 1,
@@ -947,7 +951,8 @@ self.kiri.license = exports.LICENSE;
         local = SETUP.local,
         mouseMoved = false,
         camStock = null,
-        camTopZ = 0;
+        camTopZ = 0,
+        alerts = [ [ "version " + kiri.version, Date.now() ] ];
 
     DBUG.enable();
 
@@ -990,6 +995,32 @@ self.kiri.license = exports.LICENSE;
     /** ******************************************************************
      * Stats accumulator
      ******************************************************************* */
+
+    function alert2(message, time) {
+        alerts.push([message, Date.now(), time]);
+        updateAlerts();
+    }
+
+    function updateAlerts(clear) {
+        if (clear) {
+            alerts = [];
+        }
+        let now = Date.now();
+        // filter out by age
+        alerts = alerts.filter(alert => {
+            return (now - alert[1]) < ((alert[2] || 5) * 1000);
+        });
+        // limit to 5 showing
+        while (alerts.length > 5) {
+            alerts.shift();
+        }
+        if (alerts.length > 0) {
+            UI.alert.text.innerHTML = alerts.map(v => ['<p>',v[0],'</p>'].join('')).join('');
+            UI.alert.dialog.style.display = 'flex';
+        } else {
+            UI.alert.dialog.style.display = 'none';
+        }
+    }
 
     function sendOnEvent(name, data) {
         if (name && onEvent[name]) onEvent[name].forEach(function(fn) {
@@ -1287,7 +1318,13 @@ self.kiri.license = exports.LICENSE;
         // kick off slicing it hasn't been done already
         for (var i=0; i < WIDGETS.length; i++) {
             if (!WIDGETS[i].slices || WIDGETS[i].isModified()) {
-                prepareSlices(function() { preparePrint(callback) });
+                prepareSlices(function() {
+                    if (!WIDGETS[i].slices || WIDGETS[i].isModified()) {
+                        alert2("nothing to print");
+                    } else {
+                        preparePrint(callback);
+                    }
+                });
                 return;
             }
         }
@@ -1417,11 +1454,11 @@ self.kiri.license = exports.LICENSE;
                 apik = octo_apik.value;
 
             if (host.indexOf("http") !== 0) {
-                alert("host missing protocol (http:// or https://)");
+                alert2("host missing protocol (http:// or https://)");
                 return;
             }
             if (SECURE && !isSecure(host)) {
-                alert("host must begin with 'https' on a secure site");
+                alert2("host must begin with 'https' on a secure site");
                 return;
             }
 
@@ -1437,7 +1474,7 @@ self.kiri.license = exports.LICENSE;
                     if (status >= 200 && status < 300) {
                         hideModal();
                     } else {
-                        alert("octoprint error\nstatus: "+status+"\nmessage: "+ajax.responseText);
+                        alert2("octoprint error\nstatus: "+status+"\nmessage: "+ajax.responseText);
                     }
                 }
             };
@@ -1453,7 +1490,9 @@ self.kiri.license = exports.LICENSE;
             ajax(host+"/api/check?key="+key, function(data) {
                 data = js2o(data);
                 DBUG.log(data);
-                if (!data.done && !data.error) setTimeout(function() { gridhost_tracker(host,key) }, 1000);
+                if (!(data.done || data.error)) {
+                    setTimeout(function() { gridhost_tracker(host,key) }, 1000);
+                }
             });
         }
 
@@ -1472,6 +1511,8 @@ self.kiri.license = exports.LICENSE;
 
             if (!host && KIRI.api.ghostDetect(gridhost_probe)) return;
 
+            if (!host) return;
+
             xhtr.onreadystatechange = function() {
                 if (xhtr.readyState === 4) {
                     if (xhtr.status >= 200 && xhtr.status < 300) {
@@ -1479,15 +1520,19 @@ self.kiri.license = exports.LICENSE;
                         SDB['grid-apik'] = apik;
                         var res = JSON.parse(xhtr.responseText);
                         var sel = false;
+                        var match = false;
+                        var first = null;
                         var html = [];
                         grid_targets = {};
                         for (var key in res) {
+                            first = first || key;
                             if (!SDB['grid-target']) {
                                 SDB['grid-target'] = key;
                                 sel = true;
                             } else {
                                 sel = SDB['grid-target'] === key;
                             }
+                            match = match || sel;
                             grid_targets[html.length] = key;
                             html.push(
                                 "<option id='gpo-'" + key + " value='" +key + "'" +
@@ -1496,6 +1541,9 @@ self.kiri.license = exports.LICENSE;
                                 (res[key].comment || key) +
                                 "</option>"
                             );
+                        }
+                        if (!match) {
+                            SDB['grid-target'] = first;
                         }
                         grid_target.innerHTML = html.join('\n');
                     } else if (xhtr.status === 401) {
@@ -1521,19 +1569,19 @@ self.kiri.license = exports.LICENSE;
                 target = SDB['grid-target'] || '';
 
             if (target === '') {
-                alert('invalid or missing target');
+                alert2('invalid or missing target');
                 return;
             }
             if (host.indexOf("http") !== 0) {
-                alert("host missing protocol (http:// or https://)");
+                alert2("host missing protocol (http:// or https://)");
                 return;
             }
             if (host.indexOf("://") < 0) {
-                alert("host:port malformed");
+                alert2("host:port malformed");
                 return;
             }
             if (SECURE && !isSecure(host)) {
-                alert("host must begin with 'https' on a secure site");
+                alert2("host must begin with 'https' on a secure site");
                 return;
             }
 
@@ -1550,10 +1598,10 @@ self.kiri.license = exports.LICENSE;
                         ajax(host+"/api/wait?key="+json.key, function(data) {
                             data = js2o(data);
                             DBUG.log(data);
-                            alert("print to "+target+": "+data.status);
+                            alert2("print to "+target+": "+data.status, 600);
                         });
                     } else {
-                        alert("grid:host error\nstatus: "+status+"\nmessage: "+xhtr.responseText);
+                        alert2("grid:host error\nstatus: "+status+"\nmessage: "+xhtr.responseText, 10000);
                     }
                     setProgress(0);
                 }
@@ -1623,6 +1671,11 @@ self.kiri.license = exports.LICENSE;
             calcWeight();
             octo_host = $('octo-host');
             octo_apik = $('octo-apik');
+            if (MODE === MODES.CAM) {
+                $('send-to-octoprint').style.display = 'none';
+            } else {
+                $('send-to-octoprint').style.display = '';
+            }
             if (OCTOPRINT) {
                 $('ophost').style.display = 'none';
                 $('opapik').style.display = 'none';
@@ -1739,7 +1792,7 @@ self.kiri.license = exports.LICENSE;
                     setViewMode(VIEWS.ARRANGE);
                     setOpacity(model_opacity);
                     widgetDeselect();
-                    alert(error);
+                    alert2(error);
                 }
             }, function(update, msg) {
                 if (msg !== lastMsg) {
@@ -2175,7 +2228,6 @@ self.kiri.license = exports.LICENSE;
         // store camera view
         var view = SPACE.view.save();
         if (view.left || view.up) settings.controller.view = view;
-
         SDB.setItem('ws-settings', JSON.stringify(settings));
     }
 
@@ -2221,7 +2273,7 @@ self.kiri.license = exports.LICENSE;
             loadFiles(event.target.files);
         };
         $('load-file').click();
-        // alert("drag/drop STL files onto platform to import\nreload page to return to last saved state");
+        // alert2("drag/drop STL files onto platform to import\nreload page to return to last saved state");
     }
 
     // kiri api
@@ -2385,8 +2437,12 @@ self.kiri.license = exports.LICENSE;
         }
         settings.process.processName = name;
         settings.cproc[mode] = name;
+
         // associate named process with the current device
         settings.devproc[currentDeviceName()] = name;
+
+        // update selection display
+        $('selected-process').innerHTML = name;
 
         updateFields();
         if (!named) {
@@ -2515,6 +2571,7 @@ self.kiri.license = exports.LICENSE;
                 DBUG.log("invalid view mode: "+mode);
                 return;
         }
+        DOC.activeElement.blur();
     }
 
     function inMode(mode) {
@@ -2582,6 +2639,11 @@ self.kiri.license = exports.LICENSE;
             modal: $('modal'),
             print: $('print'),
             help: $('help'),
+
+            alert: {
+                dialog: $('alert-area'),
+                text: $('alert-text')
+            },
 
             devices: $('devices'),
             deviceAdd: $('device-add'),
@@ -3214,9 +3276,6 @@ self.kiri.license = exports.LICENSE;
                 case cca('C'): // refresh catalog
                     CATALOG.refresh();
                     break;
-                case cca('c'): // open control window
-                    showSerial(true);
-                    break;
                 case cca('i'): // single settings edit
                     var v = prompt('edit "'+settings.process.processName+'"', JSON.stringify(settings.process));
                     if (v) {
@@ -3312,7 +3371,7 @@ self.kiri.license = exports.LICENSE;
 
         function rotateInputSelection() {
             if (selectedMeshes.length === 0) {
-                alert("select object to rotate");
+                alert2("select object to rotate");
                 return;
             }
             var coord = prompt("Enter X,Y,Z degrees of rotation").split(','),
@@ -3326,7 +3385,7 @@ self.kiri.license = exports.LICENSE;
 
         function positionSelection() {
             if (selectedMeshes.length === 0) {
-                alert("select object to position");
+                alert2("select object to position");
                 return;
             }
             var center = settings.process.outputOriginCenter,
@@ -3434,6 +3493,7 @@ self.kiri.license = exports.LICENSE;
                     setDeviceCode(code, devicename);
                 });
             }
+            $('selected-device').innerHTML = devicename;
         }
 
         function valueOf(val, dv) {
@@ -3963,6 +4023,13 @@ self.kiri.license = exports.LICENSE;
 
             // load settings provided in url hash
             loadSettingsFromServer();
+
+            // clear alerts as they build up
+            setInterval(updateAlerts, 1000);
+
+            UI.alert.dialog.onclick = function() {
+                updateAlerts(true);
+            };
         }
 
         restoreWorkspace(ondone) || checkSeed(ondone) || ondone();
