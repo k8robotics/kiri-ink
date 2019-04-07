@@ -255,12 +255,12 @@ var gs_kiri_fdm = exports;
                     zoff += height;
                 };
 
-                raft(nozzle/1, process.sliceFillAngle + 0 , nozzle * 6.0, process.firstLayerRate / 3, 4);
-                raft(nozzle/1, process.sliceFillAngle + 0 , nozzle * 6.0, process.firstLayerRate / 2, 4);
-                raft(nozzle/2, process.sliceFillAngle + 90, nozzle * 3.0, process.outputFeedrate, 2.5);
-                raft(nozzle/2, process.sliceFillAngle + 0 , nozzle * 1.0, process.outputFeedrate, 1.5);
-                raft(nozzle/2, process.sliceFillAngle + 0 , nozzle * 1.0, process.outputFeedrate, 1.0);
-
+                raft(nozzle/.6666, process.sliceFillAngle + 0 , nozzle * 17.5, process.firstLayerRate / 3, 4);
+                raft(nozzle/1.06, process.sliceFillAngle + 90 , nozzle * 3.3, process.firstLayerRate / 2, 1);
+                raft(nozzle/1.06, process.sliceFillAngle + 90, nozzle * 3.3, process.outputFeedrate, 1);
+                raft(nozzle/1.23, process.sliceFillAngle - 45, nozzle * 2.2, process.outputFeedrate, 2);
+                raft(nozzle/1.23, process.sliceFillAngle - 45, nozzle * 2.2, process.outputFeedrate, 2);
+                
                 // raise first layer off raft slightly to lessen adhesion
                 firstLayerHeight += process.outputRaftSpacing || 0;
                 // retract after last raft layer
@@ -340,7 +340,7 @@ var gs_kiri_fdm = exports;
                     layerout.last().retract = true;
                 }
                 layerout.height = layerout.height || closest.slice.height;
-                if (layer === 0) layerout.height += process.outputRaftSpacing;
+                if (layer === 0 && process.outputRaft) layerout.height += process.outputRaftSpacing;
 
                 slices[minidx] = null;
                 closest.offset.z = zoff;

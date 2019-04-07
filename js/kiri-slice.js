@@ -1039,7 +1039,7 @@ var gs_kiri_slice = exports;
 
         if (supports) supports.forEach(function (poly) {
             // angle based on width/height ratio
-            var angle = (poly.bounds.width() / poly.bounds.height() > 1) ? 90 : 0,
+            var angle = (poly.bounds.width() / poly.bounds.height() > 1) ? 45 : -45,
                 // calculate fill density
                 spacing = linewidth * (1 / density),
                 offsets = [];
