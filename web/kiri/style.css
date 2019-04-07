@@ -1194,3 +1194,10 @@ button[import="1"] {
     background: #ffffff;
   }
   
+
+button#print-close {
+border-width: 0px;
+background-color: transparent;
+color: white;
+padding: 0 10;
+}

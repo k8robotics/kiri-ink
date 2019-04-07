@@ -2980,6 +2980,7 @@ self.kiri.license = exports.LICENSE;
         }
 
         INK.print.onclick = function() {
+          hideModal();  
           updateSettingsFromFields(settings.process);
           preparePrint();
           setViewMode(VIEWS.PREVIEW);
