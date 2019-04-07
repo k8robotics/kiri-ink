@@ -573,7 +573,7 @@ var gs_kiri_fdm = exports;
                 });
             } else {
                 append("; --- layer " + layer + " (" + consts.height + " @ " + consts.z + ") ---");
-                append("M725 S" + Math.round(layer/layers.length));
+                append("M725 S" + Math.round(layer * 100 / layers.length));
             }
 
             if (layer > 0 && process.layerRetract) {

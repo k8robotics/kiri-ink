@@ -1015,10 +1015,10 @@ self.kiri.license = exports.LICENSE;
             alerts.shift();
         }
         if (alerts.length > 0) {
-            UI.alert.text.innerHTML = alerts.map(v => ['<p>',v[0],'</p>'].join('')).join('');
-            UI.alert.dialog.style.display = 'flex';
+            // UI.alert.text.innerHTML = alerts.map(v => ['<p>',v[0],'</p>'].join('')).join('');
+            // UI.alert.dialog.style.display = 'flex';
         } else {
-            UI.alert.dialog.style.display = 'none';
+            // UI.alert.dialog.style.display = 'none';
         }
     }
 
@@ -1671,11 +1671,7 @@ self.kiri.license = exports.LICENSE;
             calcWeight();
             octo_host = $('octo-host');
             octo_apik = $('octo-apik');
-            if (MODE === MODES.CAM) {
-                $('send-to-octoprint').style.display = 'none';
-            } else {
-                $('send-to-octoprint').style.display = '';
-            }
+            $('send-to-octoprint').style.display = '';
             if (OCTOPRINT) {
                 $('ophost').style.display = 'none';
                 $('opapik').style.display = 'none';
@@ -3493,7 +3489,7 @@ self.kiri.license = exports.LICENSE;
                     setDeviceCode(code, devicename);
                 });
             }
-            $('selected-device').innerHTML = devicename;
+            // $('selected-device').innerHTML = devicename;
         }
 
         function valueOf(val, dv) {
@@ -4003,8 +3999,8 @@ self.kiri.license = exports.LICENSE;
             STATS.add('init');
             // updateActive(true);
 
-            // init gcode sender
-            KIRI.serial.init();
+            // // init gcode sender
+            // KIRI.serial.init();
 
             // setup tab visibility watcher
             // DOC.addEventListener('visibilitychange', function() { document.title = document.hidden });
@@ -4027,9 +4023,9 @@ self.kiri.license = exports.LICENSE;
             // clear alerts as they build up
             setInterval(updateAlerts, 1000);
 
-            UI.alert.dialog.onclick = function() {
-                updateAlerts(true);
-            };
+            // UI.alert.dialog.onclick = function() {
+            //     updateAlerts(true);
+            // };
         }
 
         restoreWorkspace(ondone) || checkSeed(ondone) || ondone();
